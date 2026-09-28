@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Convite 1 Aninho da Isadora | Conto de Fadas</title>
+  
+  <!-- Meta tags para compartilhamento no WhatsApp -->
+  <meta property="og:title" content="🍎 Convite 1 Aninho da Isadora | Branca de Neve">
+  <meta property="og:description" content="A magia vai começar! Venha comemorar comigo o meu primeiro aninho em um conto de fadas!">
+  <meta property="og:image" content="assets/video-poster.jpg">
+  <meta property="og:type" content="website">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Raios de sol mágicos no fundo -->
+  <div class="sunbeams-bg"></div>
+
+  <!-- =====================================================================
+       1. TELA DE INTRODUÇÃO ("ANTES DO CONVITE")
+       ===================================================================== -->
+  <div id="introGate" class="intro-gate-overlay">
+    <div class="intro-content-box">
+      <div class="wishing-star-icon">⭐</div>
+      <div class="intro-disney-tag">Conto de Fadas Real • Era Uma Vez</div>
+      <div class="intro-badge-icon">🍎</div>
+      <h1 class="intro-title">Reino Encantado</h1>
+      <h2 class="intro-subtitle">Princesa Isadora</h2>
+      <p class="intro-desc">
+        A magia está prestes a começar! Abra as portas deste conto de fadas para celebrar o 1º aninho da nossa princesinha!
+      </p>
+      <button id="btnStartIntro" class="btn-open-real">
+        <span>✨</span> Assistir ao Convite Real <span>▶</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       2. CINEMA DO VÍDEO DO CONVITE
+       ===================================================================== -->
+  <div id="videoTheater" class="intro-video-theater">
+    <div class="video-frame-royal">
+      <video id="introVideo" playsinline preload="auto" poster="assets/video-poster.jpg">
+        <source src="convite-video.mp4" type="video/mp4">
+        Seu navegador não suporta a reprodução de vídeo.
+      </video>
+    </div>
+    <div class="video-controls-overlay">
+      <span id="videoTimerTag" class="video-timer-tag">Preparando magia...</span>
+      <button id="btnSkipVideo" class="btn-skip-video">Pular Vídeo / Ver Convite →</button>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       3. BARRA SUPERIOR DE NAVEGAÇÃO
+       ===================================================================== -->
+  <header class="top-nav-bar">
+    <a href="index.html" class="brand-crest">
+      <span class="brand-crest-apple">🍎</span>
+      <span class="brand-crest-text">Isadora 1 Ano</span>
+    </a>
+    <div class="nav-actions-group">
+      <button id="btnRewatch" class="floating-action-btn" title="Rever vídeo de abertura">
+        <span>🎬</span> Rever Vídeo
+      </button>
+      <button id="musicToggleBtn" class="floating-action-btn music-toggle-btn" title="Ligar música">
+        <span class="music-icon">🎵</span> Música
+      </button>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       4. CONVITE INTERATIVO PRINCIPAL (DESIGN CONFORME O PRINT)
+       ===================================================================== -->
+  <main class="invitation-main-container">
+
+    <div style="text-align: center; margin-bottom: 14px;">
+      <p style="font-size: 13px; color: #ffd700; font-weight: 500; letter-spacing: 0.5px;">
+        ✨ Toque nos botões ou nos animais e personagens para interagir! ✨
+      </p>
+    </div>
+
+    <!-- O Cartão do Convite com Moldura Real -->
+    <div class="invitation-card-wrapper">
+      <img src="assets/convite-original.png" alt="Convite de Aniversário Isadora 1 Ano - Branca de Neve" class="invitation-base-img">
+
+      <!-- Camada dos 3 Botões Principais Conforme o Print -->
+      <div class="card-buttons-overlay">
+        <!-- Botão 1: Confirmar Presença -->
+        <a href="confirmar-presenca.html" class="btn-hotspot btn-hotspot-whatsapp" title="Confirmar Presença no WhatsApp">
+          <span class="btn-hotspot-tooltip">Confirmar Presença 💬</span>
+        </a>
+
+        <!-- Botão 2: Localização da Festa -->
+        <a href="localizacao.html" class="btn-hotspot btn-hotspot-location" title="Ver Localização da Festa no Mapa">
+          <span class="btn-hotspot-tooltip">Localização da Festa 📍</span>
+        </a>
+
+        <!-- Botão 3: Sugestão de Presentes -->
+        <a href="sugestao-presentes.html" class="btn-hotspot btn-hotspot-gifts" title="Ver Sugestões de Presentes & Pix">
+          <span class="btn-hotspot-tooltip">Sugestão de Presentes 🎁</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Cards de Acesso Rápido para Facilitar em Qualquer Aparelho -->
+    <div class="quick-nav-cards">
+      <a href="confirmar-presenca.html" class="quick-card-btn">
+        <span class="quick-card-icon">💬</span>
+        <span class="quick-card-title">Confirmar<br>Presença</span>
+      </a>
+
+      <a href="localizacao.html" class="quick-card-btn">
+        <span class="quick-card-icon">📍</span>
+        <span class="quick-card-title">Localização<br>da Festa</span>
+      </a>
+
+      <a href="sugestao-presentes.html" class="quick-card-btn">
+        <span class="quick-card-icon">🎁</span>
+        <span class="quick-card-title">Sugestão<br>de Presentes</span>
+      </a>
+    </div>
+
+    <!-- ===================================================================
+         5. CONTAGEM REGRESSIVA INTERATIVA
+         =================================================================== -->
+    <section class="countdown-section">
+      <h3 class="countdown-title">
+        <span>🍎</span> Contagem Regressiva para a Magia <span>🍎</span>
+      </h3>
+      <div class="countdown-grid">
+        <div class="countdown-unit">
+          <div id="countdownDays" class="countdown-num">00</div>
+          <div class="countdown-label">Dias</div>
+        </div>
+        <div class="countdown-unit">
+          <div id="countdownHours" class="countdown-num">00</div>
+          <div class="countdown-label">Horas</div>
+        </div>
+        <div class="countdown-unit">
+          <div id="countdownMinutes" class="countdown-num">00</div>
+          <div class="countdown-label">Minutos</div>
+        </div>
+        <div class="countdown-unit">
+          <div id="countdownSeconds" class="countdown-num">00</div>
+          <div class="countdown-label">Segundos</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6. BARRA DE FERRAMENTAS MÁGICAS E INTERATIVAS
+         =================================================================== -->
+    <div class="magic-actions-bar">
+      <button id="btnLaunchBalloons" class="btn-magic-tool">
+        <span>🎈</span> Lançar Balões
+      </button>
+
+      <button id="btnThrowConfetti" class="btn-magic-tool">
+        <span>🎉</span> Chuva de Confetes
+      </button>
+
+      <button id="btnAddToCalendar" class="btn-magic-tool">
+        <span>📅</span> Salvar na Agenda
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Rodapé Real -->
+  <footer class="royal-footer">
+    <p>Com todo o amor do mundo, família da <strong>Isadora Louise</strong> 🍎</p>
+    <p style="margin-top: 6px; font-size: 11px; opacity: 0.75;">
+      Tema: Branca de Neve e os Sete Anões • 1º Aninho Encantado
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/sparkles.js"></script>
+  <script src="js/balloons.js"></script>
+  <script src="js/animals.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

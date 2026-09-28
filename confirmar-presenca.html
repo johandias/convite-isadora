@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Confirmar Presença | 1º Aninho da Isadora</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="sunbeams-bg"></div>
+
+  <!-- Barra de Navegação -->
+  <header class="top-nav-bar">
+    <a href="index.html" class="brand-crest">
+      <span style="font-size: 20px;">←</span>
+      <span class="brand-crest-text">Voltar ao Convite</span>
+    </a>
+    <div class="nav-actions-group">
+      <a href="localizacao.html" class="floating-action-btn">
+        <span>📍</span> Local
+      </a>
+      <a href="sugestao-presentes.html" class="floating-action-btn">
+        <span>🎁</span> Presentes
+      </a>
+      <button id="musicToggleBtn" class="floating-action-btn music-toggle-btn" title="Ligar música">
+        <span class="music-icon">🎵</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="subpage-container">
+    <div class="subpage-card">
+
+      <div class="subpage-header">
+        <div class="wishing-star-icon">⭐</div>
+        <div class="subpage-badge-apple">🍎</div>
+        <h1 class="subpage-title">Confirmação de Presença</h1>
+        <h2 class="subpage-subtitle">O Reino te Espera!</h2>
+        <p class="subpage-intro-text">
+          Sua presença é muito importante para nós e tornará o primeiro aninho da <strong>Isadora</strong> ainda mais encantador! Por favor, confirme até o dia <strong id="rsvpDeadline">28/12</strong>.
+        </p>
+      </div>
+
+      <!-- Formulário de RSVP -->
+      <form id="rsvpForm">
+
+        <!-- Nome Completo -->
+        <div class="form-group">
+          <label class="form-label" for="guestName">👑 Seu Nome Completo *</label>
+          <input type="text" id="guestName" class="form-input" placeholder="Ex: Maria Clara dos Santos" required>
+        </div>
+
+        <!-- Telefone / WhatsApp -->
+        <div class="form-group">
+          <label class="form-label" for="guestPhone">📱 Seu WhatsApp / Celular *</label>
+          <input type="tel" id="guestPhone" class="form-input" placeholder="Ex: (11) 98765-4321" required>
+        </div>
+
+        <!-- Confirmação: Sim ou Não -->
+        <div class="form-group">
+          <label class="form-label">✨ Você irá comparecer? *</label>
+          <div class="attendance-options">
+            <label class="radio-card active" id="cardAttendanceYes">
+              <input type="radio" name="attendance" value="sim" checked>
+              <span class="radio-card-emoji">🎉</span>
+              <span class="radio-card-title">Sim, com certeza!</span>
+            </label>
+            <label class="radio-card" id="cardAttendanceNo">
+              <input type="radio" name="attendance" value="nao">
+              <span class="radio-card-emoji">💔</span>
+              <span class="radio-card-title">Infelizmente não</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Quantidade de Pessoas -->
+        <div id="additionalGuestsSection">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+            <div class="form-group">
+              <label class="form-label">👥 Adultos</label>
+              <div class="counter-box">
+                <button type="button" class="counter-btn" id="btnMinusAdults">-</button>
+                <span class="counter-value" id="valAdults">1</span>
+                <button type="button" class="counter-btn" id="btnPlusAdults">+</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">👶 Crianças</label>
+              <div class="counter-box">
+                <button type="button" class="counter-btn" id="btnMinusKids">-</button>
+                <span class="counter-value" id="valKids">0</span>
+                <button type="button" class="counter-btn" id="btnPlusKids">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nomes dos Acompanhantes -->
+          <div class="form-group">
+            <label class="form-label" for="guestCompanions">👨‍👩‍👧 Nomes dos Acompanhantes (opcional)</label>
+            <input type="text" id="guestCompanions" class="form-input" placeholder="Ex: João (esposo), Alice (filha de 3 anos)">
+          </div>
+        </div>
+
+        <!-- Recado Carinhoso -->
+        <div class="form-group">
+          <label class="form-label" for="guestMessage">💌 Deixe um Recadinho Mágico para a Isa</label>
+          <textarea id="guestMessage" class="form-textarea" placeholder="Escreva uma mensagem de carinho para a nossa princesinha..."></textarea>
+        </div>
+
+        <!-- Botões de Ação -->
+        <button type="button" id="btnSendWhatsapp" class="btn-submit-action btn-whatsapp-submit">
+          <span>💬</span> Confirmar pelo WhatsApp
+        </button>
+
+        <button type="submit" id="btnSaveLocal" class="btn-submit-action btn-secondary-submit">
+          <span>👑</span> Salvar Confirmação no Site
+        </button>
+
+      </form>
+
+      <!-- Cartão de Confirmação Concluída -->
+      <div id="confirmationTicket" style="display: none; margin-top: 24px; padding: 20px; background: rgba(82, 183, 136, 0.2); border: 2px solid #52b788; border-radius: 18px; text-align: center;">
+        <div style="font-size: 36px; margin-bottom: 8px;">🎉</div>
+        <h3 style="color: #ffd700; font-family: 'Cinzel', serif; font-size: 18px; margin-bottom: 6px;">
+          Presença Registrada com Sucesso!
+        </h3>
+        <p id="ticketDetails" style="font-size: 14px; color: #e2e8f0; line-height: 1.5;"></p>
+        <p style="margin-top: 10px; font-size: 12px; color: #ffd700;">
+          Aguardamos você para viver esse conto de fadas! ✨🍎
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="royal-footer">
+    <p><a href="index.html">← Voltar para a Página Principal do Convite</a></p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/sparkles.js"></script>
+  <script src="js/balloons.js"></script>
+  
+  <script>
+    // Lógica da página de RSVP
+    document.addEventListener("DOMContentLoaded", () => {
+      let adults = 1;
+      let kids = 0;
+      let attendance = "sim";
+
+      // Atualiza data limite do config
+      if (window.CONVITE_CONFIG && window.CONVITE_CONFIG.rsvp) {
+        document.getElementById("rsvpDeadline").textContent = window.CONVITE_CONFIG.rsvp.dataLimite;
+      }
+
+      // Alternador de presença Sim / Não
+      const cardYes = document.getElementById("cardAttendanceYes");
+      const cardNo = document.getElementById("cardAttendanceNo");
+      const sectionGuests = document.getElementById("additionalGuestsSection");
+
+      cardYes.addEventListener("click", () => {
+        attendance = "sim";
+        cardYes.classList.add("active");
+        cardNo.classList.remove("active");
+        sectionGuests.style.display = "block";
+      });
+
+      cardNo.addEventListener("click", () => {
+        attendance = "nao";
+        cardNo.classList.add("active");
+        cardYes.classList.remove("active");
+        sectionGuests.style.display = "none";
+      });
+
+      // Contadores
+      const valAdultsEl = document.getElementById("valAdults");
+      const valKidsEl = document.getElementById("valKids");
+
+      document.getElementById("btnPlusAdults").addEventListener("click", () => {
+        adults++;
+        valAdultsEl.textContent = adults;
+      });
+      document.getElementById("btnMinusAdults").addEventListener("click", () => {
+        if (adults > 1) { adults--; valAdultsEl.textContent = adults; }
+      });
+
+      document.getElementById("btnPlusKids").addEventListener("click", () => {
+        kids++;
+        valKidsEl.textContent = kids;
+      });
+      document.getElementById("btnMinusKids").addEventListener("click", () => {
+        if (kids > 0) { kids--; valKidsEl.textContent = kids; }
+      });
+
+      // Ação 1: Enviar pelo WhatsApp
+      document.getElementById("btnSendWhatsapp").addEventListener("click", () => {
+        const name = document.getElementById("guestName").value.trim();
+        const phone = document.getElementById("guestPhone").value.trim();
+        const companions = document.getElementById("guestCompanions").value.trim();
+        const message = document.getElementById("guestMessage").value.trim();
+
+        if (!name) {
+          alert("Por favor, preencha o seu nome completo!");
+          document.getElementById("guestName").focus();
+          return;
+        }
+
+        const targetWhatsapp = (window.CONVITE_CONFIG && window.CONVITE_CONFIG.rsvp)
+          ? window.CONVITE_CONFIG.rsvp.whatsapp
+          : "5511999999999";
+
+        let text = `👑 *CONFIRMAÇÃO DE PRESENÇA* 👑%0A`;
+        text += `✨ *1º Aninho da Isadora - Conto de Fadas* ✨%0A%0A`;
+        text += `👤 *Nome:* ${encodeURIComponent(name)}%0A`;
+        if (phone) text += `📱 *Telefone:* ${encodeURIComponent(phone)}%0A`;
+        
+        if (attendance === "sim") {
+          text += `🎉 *Presença:* Sim, estarei lá com certeza!%0A`;
+          text += `👥 *Total:* ${adults} Adulto(s) e ${kids} Criança(s)%0A`;
+          if (companions) text += `👨‍👩‍👧 *Acompanhantes:* ${encodeURIComponent(companions)}%0A`;
+        } else {
+          text += `💔 *Presença:* Infelizmente não poderei comparecer%0A`;
+        }
+
+        if (message) {
+          text += `%0A💌 *Recado:* "${encodeURIComponent(message)}"%0A`;
+        }
+
+        text += `%0A_Enviado pelo convite digital!_ 🍎✨`;
+
+        const waUrl = `https://api.whatsapp.com/send?phone=${targetWhatsapp}&text=${text}`;
+        
+        // Efeito comemorativo
+        if (window.fairytaleConfetti) {
+          window.fairytaleConfetti.burst({ count: 90 });
+        }
+        if (window.fairytaleAudio) {
+          window.fairytaleAudio.playRoyalFanfare();
+        }
+
+        // Abre WhatsApp
+        window.open(waUrl, "_blank");
+      });
+
+      // Ação 2: Salvar no site
+      document.getElementById("rsvpForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("guestName").value.trim();
+        const phone = document.getElementById("guestPhone").value.trim();
+        const companions = document.getElementById("guestCompanions").value.trim();
+        const message = document.getElementById("guestMessage").value.trim();
+
+        const data = {
+          nome: name,
+          telefone: phone,
+          presenca: attendance,
+          adultos: adults,
+          criancas: kids,
+          acompanhantes: companions,
+          recado: message,
+          dataRegistro: new Date().toLocaleString("pt-BR")
+        };
+
+        const list = JSON.parse(localStorage.getItem("isadora_rsvp_list") || "[]");
+        list.push(data);
+        localStorage.setItem("isadora_rsvp_list", JSON.stringify(list));
+
+        // Exibe cartão
+        const ticket = document.getElementById("confirmationTicket");
+        const details = document.getElementById("ticketDetails");
+        
+        if (attendance === "sim") {
+          details.innerHTML = `Obrigado, <strong>${name}</strong>!<br>Registramos <strong>${adults} adulto(s)</strong> e <strong>${kids} criança(s)</strong>.`;
+        } else {
+          details.innerHTML = `Obrigado por nos avisar, <strong>${name}</strong>! Sentiremos sua falta! ❤️`;
+        }
+
+        ticket.style.display = "block";
+        ticket.scrollIntoView({ behavior: "smooth" });
+
+        if (window.fairytaleConfetti) {
+          window.fairytaleConfetti.burst({ count: 100 });
+        }
+        if (window.fairytaleAudio) {
+          window.fairytaleAudio.playRoyalFanfare();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

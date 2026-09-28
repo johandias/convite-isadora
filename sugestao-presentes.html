@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sugestão de Presentes | 1º Aninho da Isadora</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="sunbeams-bg"></div>
+
+  <!-- Barra de Navegação -->
+  <header class="top-nav-bar">
+    <a href="index.html" class="brand-crest">
+      <span style="font-size: 20px;">←</span>
+      <span class="brand-crest-text">Voltar ao Convite</span>
+    </a>
+    <div class="nav-actions-group">
+      <a href="confirmar-presenca.html" class="floating-action-btn">
+        <span>💬</span> Confirmar
+      </a>
+      <a href="localizacao.html" class="floating-action-btn">
+        <span>📍</span> Local
+      </a>
+      <button id="musicToggleBtn" class="floating-action-btn music-toggle-btn" title="Ligar música">
+        <span class="music-icon">🎵</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="subpage-container">
+    <div class="subpage-card">
+
+      <div class="subpage-header">
+        <div class="wishing-star-icon">⭐</div>
+        <div class="subpage-badge-apple">🎁</div>
+        <h1 class="subpage-title">Sugestão de Presentes</h1>
+        <h2 class="subpage-subtitle">Mimos para a Princesa</h2>
+        <p class="subpage-intro-text">
+          O melhor presente é ter você comemorando conosco este primeiro aninho abençoado! Mas se você quiser mimar a <strong>Isadora</strong> com uma lembrancinha, aqui estão as sugestões com muito amor:
+        </p>
+      </div>
+
+      <!-- Tamanhos em Destaque -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px;">
+        <div style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 215, 0, 0.4); border-radius: 16px; padding: 14px 6px; text-align: center;">
+          <div style="font-size: 24px; margin-bottom: 4px;">👗</div>
+          <div style="font-size: 11px; text-transform: uppercase; color: #ffd700; font-weight: 600;">Roupinha</div>
+          <div id="sizeClothes" style="font-size: 13px; font-weight: 700; color: #fff; margin-top: 2px;">1 ano (12-18m)</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 215, 0, 0.4); border-radius: 16px; padding: 14px 6px; text-align: center;">
+          <div style="font-size: 24px; margin-bottom: 4px;">👟</div>
+          <div style="font-size: 11px; text-transform: uppercase; color: #ffd700; font-weight: 600;">Sapatinho</div>
+          <div id="sizeShoes" style="font-size: 13px; font-weight: 700; color: #fff; margin-top: 2px;">Nº 19 ou 20</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 215, 0, 0.4); border-radius: 16px; padding: 14px 6px; text-align: center;">
+          <div style="font-size: 24px; margin-bottom: 4px;">🍼</div>
+          <div style="font-size: 11px; text-transform: uppercase; color: #ffd700; font-weight: 600;">Fraldinha</div>
+          <div id="sizeDiapers" style="font-size: 13px; font-weight: 700; color: #fff; margin-top: 2px;">Tamanho G</div>
+        </div>
+      </div>
+
+      <!-- Cofrinho Real / Pix Mágico -->
+      <section class="pix-card-royal">
+        <div style="font-size: 32px; margin-bottom: 6px;">🪙</div>
+        <h3 style="font-family: 'Cinzel', serif; font-size: 17px; color: #ffd700; margin-bottom: 6px;">
+          Pix Mágico da Isadora (Cofrinho Real)
+        </h3>
+        <p style="font-size: 13px; color: #e2e8f0; line-height: 1.5;">
+          Prefere presentear com qualquer valor para a poupancinha ou quartinho da Isadora? Fique à vontade para usar a chave Pix abaixo:
+        </p>
+
+        <div id="pixKeyBox" class="pix-key-display">
+          carregando-chave-pix...
+        </div>
+
+        <button id="btnCopyPix" class="btn-copy-pix">
+          <span>📋</span> Copiar Chave Pix
+        </button>
+
+        <div id="pixBeneficiaryInfo" style="margin-top: 12px; font-size: 12px; color: #ffd700; opacity: 0.9;">
+          Titular: Isadora Louise • Poupança Real
+        </div>
+      </section>
+
+      <!-- Categorias de Sugestões -->
+      <h3 style="font-family: 'Cinzel', serif; font-size: 16px; color: #ffd700; margin-top: 28px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span>🍎</span> Ideias Carinhosas de Presentes
+      </h3>
+
+      <div class="gift-categories-list" id="giftCategoriesContainer">
+        <!-- Renderizado dinamicamente via JS com base no config -->
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="royal-footer">
+    <p><a href="index.html">← Voltar para a Página Principal do Convite</a></p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/sparkles.js"></script>
+  <script src="js/balloons.js"></script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Popula dados dinâmicos do config
+      if (window.CONVITE_CONFIG && window.CONVITE_CONFIG.presentes) {
+        const p = window.CONVITE_CONFIG.presentes;
+        if (p.tamanhos) {
+          document.getElementById("sizeClothes").textContent = p.tamanhos.roupa;
+          document.getElementById("sizeShoes").textContent = p.tamanhos.calcado;
+          document.getElementById("sizeDiapers").textContent = p.tamanhos.fralda;
+        }
+
+        if (p.pix) {
+          document.getElementById("pixKeyBox").textContent = p.pix.chave;
+          document.getElementById("pixBeneficiaryInfo").textContent = `Titular: ${p.pix.titular} (${p.pix.tipoChave}) • ${p.pix.banco}`;
+        }
+
+        // Renderiza categorias
+        const container = document.getElementById("giftCategoriesContainer");
+        if (container && p.categorias) {
+          p.categorias.forEach((cat, index) => {
+            const card = document.createElement("div");
+            card.className = "gift-category-card";
+            card.innerHTML = `
+              <h4 class="gift-category-title">${cat.titulo}</h4>
+              <p class="gift-category-desc">${cat.descricao}</p>
+              <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+                <button type="button" class="btn-magic-tool btn-choose-gift" data-gift-index="${index}" style="font-size: 11px; padding: 6px 14px;">
+                  <span>🎁</span> Quero escolher esta opção!
+                </button>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        }
+      }
+
+      // Copiar Pix
+      const btnCopyPix = document.getElementById("btnCopyPix");
+      btnCopyPix.addEventListener("click", () => {
+        const pixKey = document.getElementById("pixKeyBox").textContent.trim();
+        navigator.clipboard.writeText(pixKey).then(() => {
+          btnCopyPix.innerHTML = "<span>✅</span> Chave Pix Copiada!";
+          btnCopyPix.style.background = "#52b788";
+          btnCopyPix.style.color = "#fff";
+
+          if (window.fairytaleConfetti) {
+            window.fairytaleConfetti.burst({ count: 45 });
+          }
+          if (window.fairytaleAudio) {
+            window.fairytaleAudio.playSparkle();
+          }
+
+          setTimeout(() => {
+            btnCopyPix.innerHTML = "<span>📋</span> Copiar Chave Pix";
+            btnCopyPix.style.background = "#ffd700";
+            btnCopyPix.style.color = "#1a1a1a";
+          }, 3000);
+        }).catch(() => {
+          prompt("Copie a chave Pix:", pixKey);
+        });
+      });
+
+      // Interação nos botões de escolher presentes
+      document.addEventListener("click", (e) => {
+        const btn = e.target.closest(".btn-choose-gift");
+        if (btn) {
+          btn.innerHTML = "<span>💖</span> Opção Selecionada!";
+          btn.style.background = "rgba(82, 183, 136, 0.4)";
+          btn.style.borderColor = "#52b788";
+
+          if (window.fairytaleConfetti) {
+            window.fairytaleConfetti.burst({ count: 30 });
+          }
+          if (window.fairytaleAudio) {
+            window.fairytaleAudio.playSparkle();
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

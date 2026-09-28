@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Localização da Festa | 1º Aninho da Isadora</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="sunbeams-bg"></div>
+
+  <!-- Barra de Navegação -->
+  <header class="top-nav-bar">
+    <a href="index.html" class="brand-crest">
+      <span style="font-size: 20px;">←</span>
+      <span class="brand-crest-text">Voltar ao Convite</span>
+    </a>
+    <div class="nav-actions-group">
+      <a href="confirmar-presenca.html" class="floating-action-btn">
+        <span>💬</span> Confirmar
+      </a>
+      <a href="sugestao-presentes.html" class="floating-action-btn">
+        <span>🎁</span> Presentes
+      </a>
+      <button id="musicToggleBtn" class="floating-action-btn music-toggle-btn" title="Ligar música">
+        <span class="music-icon">🎵</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="subpage-container">
+    <div class="subpage-card">
+
+      <div class="subpage-header">
+        <div class="wishing-star-icon">⭐</div>
+        <div class="subpage-badge-apple">📍</div>
+        <h1 class="subpage-title">Localização da Festa</h1>
+        <h2 class="subpage-subtitle">Castelo Encantado</h2>
+        <p class="subpage-intro-text">
+          Prepare sua melhor energia e venha celebrar conosco! Abaixo estão todas as coordenadas para você chegar com tranquilidade ao nosso conto de fadas.
+        </p>
+      </div>
+
+      <!-- Detalhes do Local -->
+      <div class="location-details-box">
+        <div class="location-item">
+          <div class="location-item-icon">🏰</div>
+          <div class="location-item-content">
+            <h4 id="venueName">Espaço Real Encantado Buffet</h4>
+            <p id="venueAddress">Av. das Flores Mágicas, 777 - Jardim dos Contos</p>
+            <p id="venueCity">São Paulo - SP</p>
+          </div>
+        </div>
+
+        <div class="location-item">
+          <div class="location-item-icon">📅</div>
+          <div class="location-item-content">
+            <h4>Data & Horário</h4>
+            <p><strong>05 de Janeiro (Domingo) às 19:00 horas</strong></p>
+          </div>
+        </div>
+
+        <div class="location-item">
+          <div class="location-item-icon">🚗</div>
+          <div class="location-item-content">
+            <h4>Estacionamento & Recepção</h4>
+            <p id="venueReference">Fácil estacionamento no local. Recepção com carinho a partir das 19h!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botões de Rotas (Waze, Google Maps, Uber) -->
+      <div class="routes-buttons-grid">
+        <a id="linkGoogleMaps" href="#" target="_blank" class="btn-route">
+          <span style="font-size: 20px;">🗺️</span>
+          <span>Google Maps</span>
+        </a>
+        <a id="linkWaze" href="#" target="_blank" class="btn-route">
+          <span style="font-size: 20px;">🚗</span>
+          <span>Abrir no Waze</span>
+        </a>
+        <a id="linkUber" href="#" target="_blank" class="btn-route">
+          <span style="font-size: 20px;">🚕</span>
+          <span>Chamar Uber</span>
+        </a>
+      </div>
+
+      <!-- Botão Copiar Endereço -->
+      <button id="btnCopyAddress" class="btn-submit-action btn-secondary-submit" style="margin-bottom: 24px;">
+        <span>📋</span> Copiar Endereço Completo
+      </button>
+
+      <!-- Mapa Interativo Embutido -->
+      <div class="map-frame-wrapper">
+        <iframe id="mapIframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1066941873133!2d-46.65390548447595!3d-23.564611184681283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1680000000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <!-- Calendário e Lembrete -->
+      <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 18px; padding: 18px; text-align: center;">
+        <h4 style="color: #ffd700; font-family: 'Cinzel', serif; font-size: 15px; margin-bottom: 8px;">
+          📅 Não se Esqueça da Nossa Festa!
+        </h4>
+        <p style="font-size: 13px; color: #e2e8f0; margin-bottom: 14px;">
+          Adicione um lembrete ao calendário do seu celular com 1 clique:
+        </p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <button id="btnGoogleCalendar" class="btn-magic-tool" style="font-size: 12px; padding: 8px 16px;">
+            <span>🗓️</span> Google Agenda
+          </button>
+          <button id="btnDownloadIcal" class="btn-magic-tool" style="font-size: 12px; padding: 8px 16px;">
+            <span>🍏</span> Baixar Calendário (.ics)
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="royal-footer">
+    <p><a href="index.html">← Voltar para a Página Principal do Convite</a></p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/sparkles.js"></script>
+  <script src="js/balloons.js"></script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Popula dados dinâmicos do config
+      if (window.CONVITE_CONFIG && window.CONVITE_CONFIG.local) {
+        const loc = window.CONVITE_CONFIG.local;
+        document.getElementById("venueName").textContent = loc.nome;
+        document.getElementById("venueAddress").textContent = `${loc.endereco} - ${loc.bairro}`;
+        document.getElementById("venueCity").textContent = `${loc.cidade} - ${loc.estado}`;
+        document.getElementById("venueReference").textContent = loc.referencia;
+        
+        document.getElementById("linkGoogleMaps").href = loc.googleMapsUrl;
+        document.getElementById("linkWaze").href = loc.wazeUrl;
+        document.getElementById("linkUber").href = loc.uberUrl;
+        if (loc.mapEmbedUrl) {
+          document.getElementById("mapIframe").src = loc.mapEmbedUrl;
+        }
+      }
+
+      // Botão Copiar Endereço
+      document.getElementById("btnCopyAddress").addEventListener("click", () => {
+        const fullAddress = `${document.getElementById("venueName").textContent}, ${document.getElementById("venueAddress").textContent}, ${document.getElementById("venueCity").textContent}`;
+        navigator.clipboard.writeText(fullAddress).then(() => {
+          if (window.fairytaleConfetti) {
+            window.fairytaleConfetti.burst({ count: 35 });
+          }
+          if (window.fairytaleAudio) {
+            window.fairytaleAudio.playSparkle();
+          }
+          alert("Endereço copiado com sucesso! 📍\nVocê já pode colar no seu GPS preferido.");
+        }).catch(() => {
+          prompt("Copie o endereço:", fullAddress);
+        });
+      });
+
+      // Google Agenda
+      document.getElementById("btnGoogleCalendar").addEventListener("click", () => {
+        const title = encodeURIComponent("1º Aninho da Isadora - Branca de Neve");
+        const details = encodeURIComponent("Venha comemorar o primeiro aninho da Isadora! Festa mágica com a Branca de Neve!");
+        const location = encodeURIComponent(`${document.getElementById("venueName").textContent}, ${document.getElementById("venueAddress").textContent}`);
+        const dates = "20270105T220000Z/20270106T020000Z";
+        window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`, "_blank");
+      });
+
+      // Download iCal (.ics)
+      document.getElementById("btnDownloadIcal").addEventListener("click", () => {
+        const icsData = [
+          "BEGIN:VCALENDAR",
+          "VERSION:2.0",
+          "PRODID:-//Isadora 1 Aninho//Convite Real//PT",
+          "CALSCALE:GREGORIAN",
+          "BEGIN:VEVENT",
+          "SUMMARY:1º Aninho da Isadora - Conto de Fadas",
+          "DESCRIPTION:Venha comemorar o primeiro aninho da Isadora em um conto de fadas com a Branca de Neve!",
+          "LOCATION:" + document.getElementById("venueName").textContent + ", " + document.getElementById("venueAddress").textContent,
+          "DTSTART:20270105T190000",
+          "DTEND:20270105T235900",
+          "STATUS:CONFIRMED",
+          "END:VEVENT",
+          "END:VCALENDAR"
+        ].join("\r\n");
+
+        const blob = new Blob([icsData], { type: "text/calendar;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "aniversario-isadora.ics";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    });
+  </script>
+</body>
+</html>

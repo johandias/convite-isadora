@@ -1,0 +1,9 @@
+# Vídeos temporários / duplicados gerados durante criação
+Firefly*
+assets/convite-video-*.mp4
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Confirmações | 1º Aninho da Isadora</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid var(--disney-yellow);
+      border-radius: 16px;
+      padding: 16px 10px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--disney-yellow);
+      font-family: 'Cinzel', serif;
+    }
+    .stat-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #e2e8f0;
+      margin-top: 4px;
+    }
+    .table-container {
+      overflow-x: auto;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 209, 96, 0.3);
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    th {
+      background: rgba(30, 66, 153, 0.6);
+      color: var(--disney-yellow);
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    tr:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .badge-status {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-sim { background: rgba(82, 183, 136, 0.3); color: #52b788; border: 1px solid #52b788; }
+    .badge-nao { background: rgba(217, 22, 38, 0.3); color: #ff758f; border: 1px solid #ff758f; }
+    .admin-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sunbeams-bg"></div>
+
+  <header class="top-nav-bar">
+    <a href="index.html" class="brand-crest">
+      <span style="font-size: 20px;">←</span>
+      <span class="brand-crest-text">Voltar ao Convite</span>
+    </a>
+    <div class="nav-actions-group">
+      <button id="btnExportCSV" class="floating-action-btn">
+        <span>📥</span> Baixar CSV
+      </button>
+    </div>
+  </header>
+
+  <main class="subpage-container" style="max-width: 900px;">
+    <div class="subpage-card">
+
+      <div class="subpage-header">
+        <div class="wishing-star-icon">👑</div>
+        <h1 class="subpage-title">Painel da Princesa</h1>
+        <h2 class="subpage-subtitle">Confirmações de Presença</h2>
+        <p class="subpage-intro-text">
+          Acompanhe aqui a lista de pessoas que confirmaram presença no site.
+        </p>
+      </div>
+
+      <!-- Métricas -->
+      <div class="admin-stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="statConfirmed">0</div>
+          <div class="stat-label">Confirmados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statAdults">0</div>
+          <div class="stat-label">Total Adultos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statKids">0</div>
+          <div class="stat-label">Total Crianças</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statDeclined">0</div>
+          <div class="stat-label">Não Vão</div>
+        </div>
+      </div>
+
+      <!-- Tabela de Convidados -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Data/Hora</th>
+              <th>Nome</th>
+              <th>WhatsApp</th>
+              <th>Presença</th>
+              <th>Adultos</th>
+              <th>Crianças</th>
+              <th>Acompanhantes</th>
+              <th>Recado</th>
+            </tr>
+          </thead>
+          <tbody id="guestsTableBody">
+            <tr>
+              <td colspan="8" style="text-align: center; color: #a0aec0; padding: 30px;">
+                Nenhuma confirmação salva no navegador ainda.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="admin-actions">
+        <button id="btnClearData" class="btn-magic-tool" style="font-size: 12px; background: rgba(217, 22, 38, 0.4); border-color: var(--disney-red);">
+          <span>🗑️</span> Limpar Lista
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const list = JSON.parse(localStorage.getItem("isadora_rsvp_list") || "[]");
+
+      let confirmedCount = 0;
+      let declinedCount = 0;
+      let adultsCount = 0;
+      let kidsCount = 0;
+
+      const tbody = document.getElementById("guestsTableBody");
+
+      if (list.length > 0) {
+        tbody.innerHTML = "";
+        list.forEach((item) => {
+          const isSim = item.presenca === "sim";
+          if (isSim) {
+            confirmedCount++;
+            adultsCount += Number(item.adultos) || 0;
+            kidsCount += Number(item.criancas) || 0;
+          } else {
+            declinedCount++;
+          }
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${item.dataRegistro || "-"}</td>
+            <td><strong>${item.nome || "-"}</strong></td>
+            <td>${item.telefone ? `<a href="https://wa.me/${item.telefone.replace(/\\D/g, '')}" target="_blank" style="color: #ffd700;">${item.telefone}</a>` : "-"}</td>
+            <td><span class="badge-status ${isSim ? 'badge-sim' : 'badge-nao'}">${isSim ? 'Confirmou' : 'Não vai'}</span></td>
+            <td>${isSim ? item.adultos : '-'}</td>
+            <td>${isSim ? item.criancas : '-'}</td>
+            <td>${item.acompanhantes || "-"}</td>
+            <td><em>${item.recado || "-"}</em></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.getElementById("statConfirmed").textContent = confirmedCount;
+      document.getElementById("statAdults").textContent = adultsCount;
+      document.getElementById("statKids").textContent = kidsCount;
+      document.getElementById("statDeclined").textContent = declinedCount;
+
+      // Exportar CSV
+      document.getElementById("btnExportCSV").addEventListener("click", () => {
+        if (list.length === 0) {
+          alert("Não há dados para exportar ainda.");
+          return;
+        }
+
+        let csv = "Data;Nome;Telefone;Presenca;Adultos;Criancas;Acompanhantes;Recado\r\n";
+        list.forEach((row) => {
+          csv += `"${row.dataRegistro || ''}";"${row.nome || ''}";"${row.telefone || ''}";"${row.presenca || ''}";"${row.adultos || 0}";"${row.criancas || 0}";"${row.acompanhantes || ''}";"${row.recado || ''}"\r\n`;
+        });
+
+        const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "confirmacoes-isadora-1ano.csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+
+      // Limpar lista
+      document.getElementById("btnClearData").addEventListener("click", () => {
+        if (confirm("Tem certeza que deseja apagar a lista de confirmações salvas neste computador?")) {
+          localStorage.removeItem("isadora_rsvp_list");
+          location.reload();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

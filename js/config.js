@@ -85,6 +85,124 @@ const CONVITE_CONFIG = {
         titulo: "🍼 Fraldinhas & Cuidados",
         descricao: "Fraldas descartáveis tamanho G, toalhinhas umedecidas suaves e produtinhos cheirosos para bebê."
       }
+    ],
+    // Catálogo de Presentes (Rachar Cotas ou Escolher/Reservar Pessoalmente)
+    itens: [
+      // Presentes Coletivos / Rachar Valor (Cotas / Vaquinha)
+      {
+        id: "gift-carrinho-01",
+        titulo: "Carrinho de Passeio Real Travel System",
+        descricao: "Carrinho moderno, leve e seguro para os passeios no parque e viagens da princesinha.",
+        categoria: "Passeio",
+        tipo: "rachar",
+        imagem: "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=500&auto=format&fit=crop&q=80",
+        linkLoja: "https://www.amazon.com.br/s?k=carrinho+bebe+travel+system",
+        valorTotal: 800,
+        valorCota: 50,
+        arrecadado: 250,
+        contribuicoes: [
+          { nome: "Padrinho Lucas", valor: 150, data: "27/09/2026", mensagem: "Para passear muito com a dinda e o dindo!" },
+          { nome: "Tia Cláudia", valor: 100, data: "28/09/2026", mensagem: "Um beijo enorme na princesa!" }
+        ]
+      },
+      {
+        id: "gift-piscina-02",
+        titulo: "Piscina de Bolinhas Mágica & Cantinho de Brincar",
+        descricao: "Espaço lúdico de estimulação sensorial com bolinhas coloridas para o quartinho.",
+        categoria: "Brinquedos",
+        tipo: "rachar",
+        imagem: "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=500&auto=format&fit=crop&q=80",
+        linkLoja: "https://www.amazon.com.br/s?k=piscina+de+bolinhas+espuma+bebe",
+        valorTotal: 300,
+        valorCota: 30,
+        arrecadado: 90,
+        contribuicoes: [
+          { nome: "Tio Renato", valor: 90, data: "28/09/2026", mensagem: "Muitas brincadeiras divertidas pra você!" }
+        ]
+      },
+      {
+        id: "gift-cadeirinha-03",
+        titulo: "Cadeirinha de Automóvel Super Conforto",
+        descricao: "Cadeirinha de segurança para o carro acompanhar o crescimento dos próximos anos.",
+        categoria: "Passeio",
+        tipo: "rachar",
+        imagem: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500&auto=format&fit=crop&q=80",
+        linkLoja: "https://www.amazon.com.br/s?k=cadeira+auto+bebe+isofix",
+        valorTotal: 650,
+        valorCota: 50,
+        arrecadado: 100,
+        contribuicoes: [
+          { nome: "Vovó Helena", valor: 100, data: "28/09/2026", mensagem: "Segurança e amor sempre com a vovó!" }
+        ]
+      },
+
+      // Presentes Pessoais (Escolher, Comprar e Levar Presencialmente)
+      {
+        id: "gift-vestido-04",
+        titulo: "Vestidinho Temático Branca de Neve (1 ano)",
+        descricao: "Vestidinho de festa com corpete azul real e saia amarela, bem levinho para comemorar.",
+        categoria: "Roupinhas",
+        tipo: "pessoal",
+        imagem: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=500&auto=format&fit=crop&q=80",
+        linkLoja: "https://www.amazon.com.br/s?k=vestido+infantil+branca+de+neve+1+ano",
+        status: "disponivel",
+        reservadoPor: null
+      },
+      {
+        id: "gift-sapatinho-05",
+        titulo: "Sapatilha de Verniz Vermelha Real (Nº 19 ou 20)",
+        descricao: "Sapatilha macia com fecho fácil, perfeita para combinar com o vestido de princesa.",
+        categoria: "Sapatinhos",
+        tipo: "pessoal",
+        imagem: "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=500&auto=format&fit=crop&q=80",
+        linkLoja: "https://www.amazon.com.br/s?k=sapatilha+infantil+vermelha+bebe",
+        status: "disponivel",
+        reservadoPor: null
+      },
+      {
+        id: "gift-brinquedo-06",
+        titulo: "Xilofone & Kit Musical Sensorial de Madeira",
+        descricao: "Instrumentos musicais coloridos educativos para despertar a alegria e ritmo da Isa.",
+        categoria: "Brinquedos",
+        tipo: "pessoal",
+        imagem: "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80",
+        linkLoja: "https://www.amazon.com.br/s?k=xilofone+infantil+madeira+bebe",
+        status: "disponivel",
+        reservadoPor: null
+      },
+      {
+        id: "gift-torre-07",
+        titulo: "Torre de Encaixe & Cubos Didáticos Montessori",
+        descricao: "Brinquedo de coordenação motora com formas geométricas e cores vivas.",
+        categoria: "Brinquedos",
+        tipo: "pessoal",
+        imagem: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500&auto=format&fit=crop&q=80",
+        linkLoja: "https://www.amazon.com.br/s?k=brinquedo+encaixe+madeira+1+ano",
+        status: "disponivel",
+        reservadoPor: null
+      },
+      {
+        id: "gift-livro-08",
+        titulo: "Livrinhos Interativos de Toque e Sons Disney",
+        descricao: "Coleção de livrinhos cartonados e laváveis com texturas dos bichinhos da floresta.",
+        categoria: "Brinquedos",
+        tipo: "pessoal",
+        imagem: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&auto=format&fit=crop&q=80",
+        linkLoja: "https://www.amazon.com.br/s?k=livro+interativo+bebe+toque+som",
+        status: "disponivel",
+        reservadoPor: null
+      },
+      {
+        id: "gift-fraldas-09",
+        titulo: "Kit Fraldas Pampers Premium Care G + Toalhinhas",
+        descricao: "Pacotão de fraldas tamanho G e lencinhos hipoalergênicos para o dia a dia.",
+        categoria: "Cuidados",
+        tipo: "pessoal",
+        imagem: "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=500&auto=format&fit=crop&q=80",
+        linkLoja: "https://www.amazon.com.br/s?k=fralda+pampers+premium+care+g",
+        status: "disponivel",
+        reservadoPor: null
+      }
     ]
   },
 

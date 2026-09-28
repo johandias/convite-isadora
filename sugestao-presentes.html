@@ -90,20 +90,190 @@
         </div>
       </section>
 
-      <!-- Categorias de Sugestões -->
-      <h3 style="font-family: 'Cinzel', serif; font-size: 16px; color: #ffd700; margin-top: 28px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-        <span>🍎</span> Ideias Carinhosas de Presentes
-      </h3>
+      <!-- ================================================================
+           LISTA INTERATIVA DE PRESENTES (COTAS / RACHAR & INDICAÇÃO PESSOAL)
+           ================================================================ -->
+      <section style="margin-top: 32px;">
+        <div style="text-align: center; margin-bottom: 16px;">
+          <h3 style="font-family: 'Waltograph', cursive; font-size: clamp(24px, 6vw, 30px); color: var(--disney-yellow); text-shadow: 0 2px 6px rgba(0,0,0,0.8); margin-bottom: 4px;">
+            Lista Encantada de Presentes
+          </h3>
+          <p style="font-size: 13px; color: var(--disney-cream-light); line-height: 1.5; max-width: 480px; margin: 0 auto;">
+            Escolha um presentinho individual para levar pessoalmente ou participe de uma vaquinha com qualquer cota via Pix!
+          </p>
+        </div>
 
-      <div class="gift-categories-list" id="giftCategoriesContainer">
-        <!-- Renderizado dinamicamente via JS com base no config -->
-      </div>
+        <!-- Filtros Rápidos -->
+        <div class="gift-filter-tabs" id="giftFilterTabs">
+          <button type="button" class="gift-filter-btn active" data-filter="todos">
+            <span>✨</span> Todos (<span id="countFilterTodos">0</span>)
+          </button>
+          <button type="button" class="gift-filter-btn" data-filter="rachar">
+            <span>💰</span> Vaquinha / Cotas (<span id="countFilterRachar">0</span>)
+          </button>
+          <button type="button" class="gift-filter-btn" data-filter="pessoal">
+            <span>🎁</span> Presentes Pessoais (<span id="countFilterPessoal">0</span>)
+          </button>
+          <button type="button" class="gift-filter-btn" data-filter="disponiveis">
+            <span>🌟</span> Disponíveis (<span id="countFilterDisponiveis">0</span>)
+          </button>
+        </div>
+
+        <!-- Grid de Cards de Presentes -->
+        <div class="gift-catalog-grid" id="giftsCatalogContainer">
+          <!-- Preenchido dinamicamente via JS -->
+        </div>
+      </section>
+
+      <!-- Categorias de Sugestões Tradicionais -->
+      <details style="margin-top: 24px; background: rgba(0, 0, 0, 0.25); border-radius: 16px; border: 1px solid rgba(255, 209, 96, 0.3); padding: 14px;">
+        <summary style="cursor: pointer; font-family: 'Cinzel', serif; font-size: 14px; color: var(--disney-yellow); font-weight: 700; display: flex; align-items: center; gap: 8px;">
+          <span>🍎</span> Ver Guia Geral de Categorias & Inspirações
+        </summary>
+        <div class="gift-categories-list" id="giftCategoriesContainer" style="margin-top: 14px;">
+          <!-- Renderizado dinamicamente via JS com base no config -->
+        </div>
+      </details>
 
     </div>
   </main>
 
+  <!-- ====================================================================
+       MODAL 1: RESERVAR PRESENTE PESSOAL
+       ==================================================================== -->
+  <div class="fairytale-modal-overlay" id="modalClaimGift">
+    <div class="fairytale-modal-card">
+      <button type="button" class="modal-close-btn" id="btnCloseClaimModal" title="Fechar">✕</button>
+
+      <div style="text-align: center; margin-bottom: 16px;">
+        <div style="font-size: 36px; margin-bottom: 4px;">🎁</div>
+        <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--disney-yellow); margin-bottom: 6px;">
+          Escolher Este Presente
+        </h3>
+        <p style="font-size: 13px; color: var(--disney-cream-light);">
+          Você decidiu presentear a <strong>Isadora</strong> com este mimo especial!
+        </p>
+      </div>
+
+      <div id="claimGiftPreview" style="background: rgba(255, 255, 255, 0.07); border-radius: 14px; padding: 12px; margin-bottom: 18px; border: 1px solid rgba(255, 209, 96, 0.3); display: flex; gap: 12px; align-items: center;">
+        <img id="claimGiftThumb" src="" alt="Presente" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px; border: 1px solid var(--disney-yellow);">
+        <div style="flex-grow: 1;">
+          <h4 id="claimGiftTitle" style="font-size: 14px; color: #fff; font-family: 'Cinzel', serif; font-weight: 700;">Título</h4>
+          <span id="claimGiftCat" style="font-size: 11px; color: var(--disney-yellow); text-transform: uppercase;">Categoria</span>
+          <div id="claimGiftStoreLinkWrap" style="margin-top: 4px;"></div>
+        </div>
+      </div>
+
+      <form id="formClaimGift">
+        <input type="hidden" id="claimGiftId" value="">
+
+        <div class="form-group">
+          <label class="form-label" for="claimGuestName">Seu Nome Completo *</label>
+          <input type="text" id="claimGuestName" class="form-input" placeholder="Ex: Titio Carlos ou Vovó Lúcia" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="claimGuestPhone">Seu WhatsApp (Opcional)</label>
+          <input type="tel" id="claimGuestPhone" class="form-input" placeholder="(11) 99999-9999">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="claimGuestMsg">Mensagem Carinhosa (Opcional)</label>
+          <textarea id="claimGuestMsg" class="form-textarea" placeholder="Deixe um recadinho fofo para a Isadora ler quando crescer..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit-action btn-secondary-submit" style="font-size: 17px; margin-top: 10px;">
+          <span>💖</span> Confirmar Escolha do Presente
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 2: PARTICIPAR DE VAQUINHA / RACHAR VALOR
+       ==================================================================== -->
+  <div class="fairytale-modal-overlay" id="modalSplitGift">
+    <div class="fairytale-modal-card">
+      <button type="button" class="modal-close-btn" id="btnCloseSplitModal" title="Fechar">✕</button>
+
+      <div style="text-align: center; margin-bottom: 14px;">
+        <div style="font-size: 36px; margin-bottom: 4px;">🪙</div>
+        <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--disney-yellow); margin-bottom: 6px;">
+          Participar da Vaquinha Real
+        </h3>
+        <p style="font-size: 13px; color: var(--disney-cream-light);">
+          Ajude a princesinha a conquistar este presente com qualquer quantia!
+        </p>
+      </div>
+
+      <div id="splitGiftPreview" style="background: rgba(255, 255, 255, 0.07); border-radius: 14px; padding: 12px; margin-bottom: 16px; border: 1px solid rgba(255, 209, 96, 0.3);">
+        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 10px;">
+          <img id="splitGiftThumb" src="" alt="Presente" style="width: 55px; height: 55px; object-fit: cover; border-radius: 10px; border: 1px solid var(--disney-yellow);">
+          <div>
+            <h4 id="splitGiftTitle" style="font-size: 14px; color: #fff; font-family: 'Cinzel', serif; font-weight: 700;">Título</h4>
+            <div id="splitGiftGoal" style="font-size: 12px; color: var(--disney-yellow); margin-top: 2px;">Meta: R$ 0,00</div>
+          </div>
+        </div>
+        <div class="gift-progress-track">
+          <div id="splitGiftProgressFill" class="gift-progress-fill" style="width: 0%;"></div>
+        </div>
+        <div class="gift-progress-labels">
+          <span id="splitGiftRaisedText">R$ 0 arrecadados</span>
+          <span id="splitGiftPercentText">0%</span>
+        </div>
+      </div>
+
+      <!-- Chave Pix e Instruções -->
+      <div style="background: rgba(0, 0, 0, 0.4); border-radius: 14px; border: 1.5px dashed var(--disney-yellow); padding: 12px; text-align: center; margin-bottom: 16px;">
+        <div style="font-size: 11px; color: var(--disney-yellow); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Chave Pix Oficial</div>
+        <div id="splitPixKeyBox" style="font-family: monospace; font-size: 14px; color: #fff; word-break: break-all; margin-bottom: 8px;">
+          chave-pix...
+        </div>
+        <button type="button" id="btnCopySplitPix" class="btn-copy-pix" style="font-size: 12px; min-height: 38px; padding: 6px 14px; max-width: 240px; margin: 0 auto;">
+          <span>📋</span> Copiar Chave Pix
+        </button>
+      </div>
+
+      <form id="formSplitGift">
+        <input type="hidden" id="splitGiftId" value="">
+
+        <!-- Seleção de Valor / Cotas -->
+        <label class="form-label">Escolha o valor da sua contribuição:</label>
+        <div class="cota-chips-group" id="cotaChipsContainer">
+          <!-- Chips gerados dinamicamente baseados na cota -->
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="splitCustomAmount">Valor a Contribuir (R$) *</label>
+          <input type="number" id="splitCustomAmount" class="form-input" min="5" step="5" placeholder="50" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="splitGuestName">Seu Nome *</label>
+          <input type="text" id="splitGuestName" class="form-input" placeholder="Ex: Madrinha Jéssica" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="splitGuestMsg">Recadinho Carinhoso (Opcional)</label>
+          <input type="text" id="splitGuestMsg" class="form-input" placeholder="Muitas felicidades para a Isa!">
+        </div>
+
+        <button type="submit" class="btn-submit-action btn-whatsapp-submit" style="font-size: 17px; margin-top: 10px;">
+          <span>✅</span> Confirmar Contribuição via Pix
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notificação -->
+  <div id="fairyToast" class="fairy-toast">
+    <span id="toastIcon">✨</span>
+    <span id="toastMessage">Ação realizada com sucesso!</span>
+  </div>
+
   <footer class="royal-footer">
     <p><a href="index.html">← Voltar para a Página Principal do Convite</a></p>
+    <p style="margin-top: 8px;"><a href="admin.html" style="font-size: 11px; opacity: 0.45; color: var(--disney-yellow);">👑 Painel da Família</a></p>
   </footer>
 
   <!-- Scripts -->
@@ -115,7 +285,7 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Popula dados dinâmicos do config
+      // 1. Chave Pix e tamanhos fixos do config
       if (window.CONVITE_CONFIG && window.CONVITE_CONFIG.presentes) {
         const p = window.CONVITE_CONFIG.presentes;
         if (p.tamanhos) {
@@ -126,30 +296,380 @@
 
         if (p.pix) {
           document.getElementById("pixKeyBox").textContent = p.pix.chave;
+          document.getElementById("splitPixKeyBox").textContent = p.pix.chave;
           document.getElementById("pixBeneficiaryInfo").textContent = `Titular: ${p.pix.titular} (${p.pix.tipoChave}) • ${p.pix.banco}`;
         }
 
-        // Renderiza categorias
-        const container = document.getElementById("giftCategoriesContainer");
-        if (container && p.categorias) {
-          p.categorias.forEach((cat, index) => {
+        // Categorias gerais informativas
+        const catContainer = document.getElementById("giftCategoriesContainer");
+        if (catContainer && p.categorias) {
+          p.categorias.forEach((cat) => {
             const card = document.createElement("div");
             card.className = "gift-category-card";
             card.innerHTML = `
               <h4 class="gift-category-title">${cat.titulo}</h4>
               <p class="gift-category-desc">${cat.descricao}</p>
-              <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
-                <button type="button" class="btn-magic-tool btn-choose-gift" data-gift-index="${index}" style="font-size: 11px; padding: 6px 14px;">
-                  <span>🎁</span> Quero escolher esta opção!
-                </button>
-              </div>
             `;
-            container.appendChild(card);
+            catContainer.appendChild(card);
           });
         }
       }
 
-      // Copiar Pix
+      // 2. Carrega catálogo de presentes do localStorage (ou inicializa do config)
+      const STORAGE_KEY = "isadora_gifts_list";
+      function getGifts() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          try {
+            return JSON.parse(stored);
+          } catch(e) {
+            console.error("Erro ao parsear presentes:", e);
+          }
+        }
+        // Fallback para itens do config
+        if (window.CONVITE_CONFIG && window.CONVITE_CONFIG.presentes && window.CONVITE_CONFIG.presentes.itens) {
+          const defaults = window.CONVITE_CONFIG.presentes.itens;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
+          return defaults;
+        }
+        return [];
+      }
+
+      function saveGifts(list) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+      }
+
+      // Função Toast
+      function showToast(msg, icon = "✨") {
+        const toast = document.getElementById("fairyToast");
+        document.getElementById("toastIcon").textContent = icon;
+        document.getElementById("toastMessage").textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3500);
+      }
+
+      // 3. Renderização dos Presentes com Filtro
+      let currentFilter = "todos";
+
+      function renderCatalog() {
+        const gifts = getGifts();
+        const container = document.getElementById("giftsCatalogContainer");
+        container.innerHTML = "";
+
+        // Atualiza contadores dos filtros
+        const totalCount = gifts.length;
+        const racharCount = gifts.filter(g => g.tipo === "rachar").length;
+        const pessoalCount = gifts.filter(g => g.tipo === "pessoal").length;
+        const disponiveisCount = gifts.filter(g => g.tipo === "rachar" || g.status !== "reservado").length;
+
+        document.getElementById("countFilterTodos").textContent = totalCount;
+        document.getElementById("countFilterRachar").textContent = racharCount;
+        document.getElementById("countFilterPessoal").textContent = pessoalCount;
+        document.getElementById("countFilterDisponiveis").textContent = disponiveisCount;
+
+        // Filtra a lista
+        const filtered = gifts.filter(g => {
+          if (currentFilter === "rachar") return g.tipo === "rachar";
+          if (currentFilter === "pessoal") return g.tipo === "pessoal";
+          if (currentFilter === "disponiveis") return g.tipo === "rachar" || g.status !== "reservado";
+          return true; // todos
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px 10px; color: #a0aec0;">
+              <div style="font-size: 40px; margin-bottom: 8px;">🎀</div>
+              <p>Nenhum presente encontrado nesta categoria.</p>
+            </div>
+          `;
+          return;
+        }
+
+        filtered.forEach(gift => {
+          const card = document.createElement("div");
+          const isClaimed = gift.tipo === "pessoal" && gift.status === "reservado";
+          card.className = `gift-card ${isClaimed ? 'is-claimed' : ''}`;
+
+          const isRachar = gift.tipo === "rachar";
+          const progressPercent = isRachar 
+            ? Math.min(100, Math.round(((gift.arrecadado || 0) / (gift.valorTotal || 1)) * 100))
+            : 0;
+
+          // Placeholder de imagem se vazia ou erro
+          const imgUrl = gift.imagem || "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80";
+
+          card.innerHTML = `
+            <div class="gift-card-media">
+              <span class="gift-badge-type ${isRachar ? 'gift-badge-rachar' : 'gift-badge-pessoal'}">
+                ${isRachar ? '💰 Cota / Vaquinha' : '🎁 Presente Individual'}
+              </span>
+              ${!isRachar ? `
+                <span class="gift-badge-status ${isClaimed ? 'status-reservado' : 'status-disponivel'}">
+                  ${isClaimed ? '💖 Reservado' : '✨ Disponível'}
+                </span>
+              ` : ''}
+              <img src="${imgUrl}" alt="${gift.titulo}" class="gift-card-img" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80';">
+            </div>
+
+            <div class="gift-card-body">
+              <span class="gift-card-category">${gift.categoria || 'Geral'}</span>
+              <h4 class="gift-card-title">${gift.titulo}</h4>
+              <p class="gift-card-desc">${gift.descricao || ''}</p>
+
+              ${isRachar ? `
+                <div class="gift-split-section">
+                  <div class="gift-progress-track">
+                    <div class="gift-progress-fill" style="width: ${progressPercent}%;"></div>
+                  </div>
+                  <div class="gift-progress-labels">
+                    <span><strong>R$ ${gift.arrecadado || 0}</strong> de R$ ${gift.valorTotal}</span>
+                    <span>${progressPercent}%</span>
+                  </div>
+                  <div class="gift-quota-hint">
+                    Sugestão de cota: a partir de <strong>R$ ${gift.valorCota || 30}</strong>
+                  </div>
+                </div>
+              ` : ''}
+
+              <div class="gift-actions-group">
+                ${gift.linkLoja ? `
+                  <a href="${gift.linkLoja}" target="_blank" rel="noopener noreferrer" class="btn-store-link">
+                    <span>🛍️</span> Ver Modelo na Loja ↗
+                  </a>
+                ` : ''}
+
+                ${isRachar ? `
+                  <button type="button" class="btn-gift-action btn-gift-split" data-gift-id="${gift.id}">
+                    <span>🪙</span> Participar da Cota
+                  </button>
+                ` : isClaimed ? `
+                  <div class="gift-claimed-badge">
+                    <span>💖</span> Reservado com carinho ${gift.reservadoPor?.nome ? `por ${gift.reservadoPor.nome}` : ''}
+                  </div>
+                ` : `
+                  <button type="button" class="btn-gift-action btn-gift-claim" data-gift-id="${gift.id}">
+                    <span>🎁</span> Escolher & Presentear
+                  </button>
+                `}
+              </div>
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+      }
+
+      // Eventos de clique nos filtros
+      document.querySelectorAll(".gift-filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".gift-filter-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentFilter = btn.dataset.filter;
+          renderCatalog();
+        });
+      });
+
+      // 4. Modal de Escolha Pessoal
+      const modalClaim = document.getElementById("modalClaimGift");
+      const btnCloseClaimModal = document.getElementById("btnCloseClaimModal");
+      const formClaim = document.getElementById("formClaimGift");
+
+      function openClaimModal(giftId) {
+        const gifts = getGifts();
+        const gift = gifts.find(g => g.id === giftId);
+        if (!gift) return;
+
+        document.getElementById("claimGiftId").value = gift.id;
+        document.getElementById("claimGiftTitle").textContent = gift.titulo;
+        document.getElementById("claimGiftCat").textContent = gift.categoria || "Geral";
+        document.getElementById("claimGiftThumb").src = gift.imagem || "";
+        
+        const storeWrap = document.getElementById("claimGiftStoreLinkWrap");
+        if (gift.linkLoja) {
+          storeWrap.innerHTML = `
+            <a href="${gift.linkLoja}" target="_blank" rel="noopener noreferrer" style="font-size: 11px; color: var(--disney-yellow); text-decoration: underline;">
+              🛍️ Ver sugestão na loja onde comprar ↗
+            </a>
+          `;
+        } else {
+          storeWrap.innerHTML = "";
+        }
+
+        document.getElementById("claimGuestName").value = "";
+        document.getElementById("claimGuestPhone").value = "";
+        document.getElementById("claimGuestMsg").value = "";
+
+        modalClaim.classList.add("active");
+      }
+
+      btnCloseClaimModal.addEventListener("click", () => modalClaim.classList.remove("active"));
+      modalClaim.addEventListener("click", (e) => {
+        if (e.target === modalClaim) modalClaim.classList.remove("active");
+      });
+
+      formClaim.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const giftId = document.getElementById("claimGiftId").value;
+        const name = document.getElementById("claimGuestName").value.trim();
+        const phone = document.getElementById("claimGuestPhone").value.trim();
+        const msg = document.getElementById("claimGuestMsg").value.trim();
+
+        if (!name) return;
+
+        const gifts = getGifts();
+        const giftIndex = gifts.findIndex(g => g.id === giftId);
+        if (giftIndex !== -1) {
+          gifts[giftIndex].status = "reservado";
+          gifts[giftIndex].reservadoPor = {
+            nome: name,
+            telefone: phone,
+            mensagem: msg,
+            data: new Date().toLocaleDateString("pt-BR")
+          };
+          saveGifts(gifts);
+        }
+
+        modalClaim.classList.remove("active");
+        renderCatalog();
+
+        if (window.fairytaleConfetti) {
+          window.fairytaleConfetti.burst({ count: 80, power: 1.2 });
+        }
+        if (window.fairytaleAudio) {
+          window.fairytaleAudio.playSparkle();
+        }
+
+        showToast(`Presente reservado com carinho por ${name}!`, "💖");
+      });
+
+      // 5. Modal de Rachar Cota / Vaquinha
+      const modalSplit = document.getElementById("modalSplitGift");
+      const btnCloseSplitModal = document.getElementById("btnCloseSplitModal");
+      const formSplit = document.getElementById("formSplitGift");
+      const splitAmountInput = document.getElementById("splitCustomAmount");
+      const cotaChipsContainer = document.getElementById("cotaChipsContainer");
+
+      function openSplitModal(giftId) {
+        const gifts = getGifts();
+        const gift = gifts.find(g => g.id === giftId);
+        if (!gift) return;
+
+        document.getElementById("splitGiftId").value = gift.id;
+        document.getElementById("splitGiftTitle").textContent = gift.titulo;
+        document.getElementById("splitGiftGoal").textContent = `Meta: R$ ${gift.valorTotal || 0}`;
+        document.getElementById("splitGiftThumb").src = gift.imagem || "";
+
+        const raised = gift.arrecadado || 0;
+        const total = gift.valorTotal || 1;
+        const pct = Math.min(100, Math.round((raised / total) * 100));
+
+        document.getElementById("splitGiftProgressFill").style.width = `${pct}%`;
+        document.getElementById("splitGiftRaisedText").textContent = `R$ ${raised} arrecadados`;
+        document.getElementById("splitGiftPercentText").textContent = `${pct}%`;
+
+        // Monta chips de sugestão de cotas
+        cotaChipsContainer.innerHTML = "";
+        const baseCota = gift.valorCota || 30;
+        const suggestions = [baseCota, baseCota * 2, baseCota * 3, 100];
+        const uniqueSuggestions = [...new Set(suggestions)].sort((a,b) => a-b);
+
+        splitAmountInput.value = baseCota;
+
+        uniqueSuggestions.forEach((val, idx) => {
+          const chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = `cota-chip ${idx === 0 ? 'selected' : ''}`;
+          chip.textContent = `R$ ${val}`;
+          chip.addEventListener("click", () => {
+            document.querySelectorAll(".cota-chip").forEach(c => c.classList.remove("selected"));
+            chip.classList.add("selected");
+            splitAmountInput.value = val;
+          });
+          cotaChipsContainer.appendChild(chip);
+        });
+
+        document.getElementById("splitGuestName").value = "";
+        document.getElementById("splitGuestMsg").value = "";
+
+        modalSplit.classList.add("active");
+      }
+
+      btnCloseSplitModal.addEventListener("click", () => modalSplit.classList.remove("active"));
+      modalSplit.addEventListener("click", (e) => {
+        if (e.target === modalSplit) modalSplit.classList.remove("active");
+      });
+
+      formSplit.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const giftId = document.getElementById("splitGiftId").value;
+        const name = document.getElementById("splitGuestName").value.trim();
+        const amount = Number(splitAmountInput.value) || 0;
+        const msg = document.getElementById("splitGuestMsg").value.trim();
+
+        if (!name || amount <= 0) return;
+
+        const gifts = getGifts();
+        const giftIndex = gifts.findIndex(g => g.id === giftId);
+        if (giftIndex !== -1) {
+          gifts[giftIndex].arrecadado = (gifts[giftIndex].arrecadado || 0) + amount;
+          if (!gifts[giftIndex].contribuicoes) {
+            gifts[giftIndex].contribuicoes = [];
+          }
+          gifts[giftIndex].contribuicoes.push({
+            nome: name,
+            valor: amount,
+            mensagem: msg,
+            data: new Date().toLocaleDateString("pt-BR")
+          });
+          saveGifts(gifts);
+        }
+
+        modalSplit.classList.remove("active");
+        renderCatalog();
+
+        if (window.fairytaleConfetti) {
+          window.fairytaleConfetti.burst({ count: 90, power: 1.3 });
+        }
+        if (window.fairytaleAudio) {
+          window.fairytaleAudio.playSparkle();
+        }
+
+        showToast(`Cota de R$ ${amount} registrada com sucesso por ${name}!`, "🪙");
+      });
+
+      // Copiar Chave Pix dentro do modal
+      document.getElementById("btnCopySplitPix").addEventListener("click", () => {
+        const pixKey = document.getElementById("splitPixKeyBox").textContent.trim();
+        navigator.clipboard.writeText(pixKey).then(() => {
+          const btn = document.getElementById("btnCopySplitPix");
+          btn.innerHTML = "<span>✅</span> Chave Copiada!";
+          btn.style.background = "#52b788";
+          btn.style.color = "#fff";
+          if (window.fairytaleConfetti) window.fairytaleConfetti.burst({ count: 40 });
+          setTimeout(() => {
+            btn.innerHTML = "<span>📋</span> Copiar Chave Pix";
+            btn.style.background = "var(--gradient-golden-sun)";
+            btn.style.color = "#281203";
+          }, 3000);
+        });
+      });
+
+      // Delegação de cliques nos cards de presentes
+      document.addEventListener("click", (e) => {
+        const btnClaim = e.target.closest(".btn-gift-claim");
+        if (btnClaim) {
+          openClaimModal(btnClaim.dataset.giftId);
+          return;
+        }
+
+        const btnSplit = e.target.closest(".btn-gift-split");
+        if (btnSplit) {
+          openSplitModal(btnSplit.dataset.giftId);
+          return;
+        }
+      });
+
+      // Copiar Pix Principal
       const btnCopyPix = document.getElementById("btnCopyPix");
       btnCopyPix.addEventListener("click", () => {
         const pixKey = document.getElementById("pixKeyBox").textContent.trim();
@@ -175,23 +695,10 @@
         });
       });
 
-      // Interação nos botões de escolher presentes
-      document.addEventListener("click", (e) => {
-        const btn = e.target.closest(".btn-choose-gift");
-        if (btn) {
-          btn.innerHTML = "<span>💖</span> Opção Selecionada!";
-          btn.style.background = "rgba(82, 183, 136, 0.4)";
-          btn.style.borderColor = "#52b788";
-
-          if (window.fairytaleConfetti) {
-            window.fairytaleConfetti.burst({ count: 30 });
-          }
-          if (window.fairytaleAudio) {
-            window.fairytaleAudio.playSparkle();
-          }
-        }
-      });
+      // Inicializa catálogo
+      renderCatalog();
     });
   </script>
 </body>
 </html>
+

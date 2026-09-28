@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel de Confirmações | 1º Aninho da Isadora</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Painel de Gestão | 1º Aninho da Isadora</title>
   
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
   <link rel="stylesheet" href="css/animations.css">
@@ -23,7 +23,7 @@
       text-align: center;
     }
     .stat-number {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 700;
       color: var(--disney-yellow);
       font-family: 'Cinzel', serif;
@@ -31,7 +31,7 @@
     .stat-label {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       color: #e2e8f0;
       margin-top: 4px;
     }
@@ -41,16 +41,19 @@
       border-radius: 16px;
       border: 1px solid rgba(255, 209, 96, 0.3);
       margin-bottom: 20px;
+      -webkit-overflow-scrolling: touch;
     }
     table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
       font-size: 13px;
+      min-width: 600px;
     }
     th, td {
       padding: 12px 14px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      vertical-align: middle;
     }
     th {
       background: rgba(30, 66, 153, 0.6);
@@ -69,15 +72,38 @@
       border-radius: 12px;
       font-size: 11px;
       font-weight: 600;
+      white-space: nowrap;
     }
     .badge-sim { background: rgba(82, 183, 136, 0.3); color: #52b788; border: 1px solid #52b788; }
     .badge-nao { background: rgba(217, 22, 38, 0.3); color: #ff758f; border: 1px solid #ff758f; }
+    .admin-toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
     .admin-actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       justify-content: flex-end;
       margin-top: 15px;
+    }
+    .preset-img-btn {
+      padding: 4px 8px;
+      font-size: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--disney-wood-light);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--disney-yellow);
+      cursor: pointer;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+    .preset-img-btn:hover {
+      background: rgba(255, 209, 96, 0.2);
     }
   </style>
 </head>
@@ -91,93 +117,398 @@
       <span class="brand-crest-text">Voltar ao Convite</span>
     </a>
     <div class="nav-actions-group">
-      <button id="btnExportCSV" class="floating-action-btn">
-        <span>📥</span> Baixar CSV
-      </button>
+      <a href="sugestao-presentes.html" class="floating-action-btn">
+        <span>🎁</span> Ver Presentes
+      </a>
     </div>
   </header>
 
-  <main class="subpage-container" style="max-width: 900px;">
+  <main class="subpage-container" style="max-width: 960px;">
     <div class="subpage-card">
 
       <div class="subpage-header">
         <div class="wishing-star-icon">👑</div>
         <h1 class="subpage-title">Painel da Princesa</h1>
-        <h2 class="subpage-subtitle">Confirmações de Presença</h2>
-        <p class="subpage-intro-text">
-          Acompanhe aqui a lista de pessoas que confirmaram presença no site.
-        </p>
+        <h2 class="subpage-subtitle">Gestão de Presença & Presentes</h2>
       </div>
 
-      <!-- Métricas -->
-      <div class="admin-stats-grid">
-        <div class="stat-card">
-          <div class="stat-number" id="statConfirmed">0</div>
-          <div class="stat-label">Confirmados</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="statAdults">0</div>
-          <div class="stat-label">Total Adultos</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="statKids">0</div>
-          <div class="stat-label">Total Crianças</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="statDeclined">0</div>
-          <div class="stat-label">Não Vão</div>
-        </div>
-      </div>
-
-      <!-- Tabela de Convidados -->
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Data/Hora</th>
-              <th>Nome</th>
-              <th>WhatsApp</th>
-              <th>Presença</th>
-              <th>Adultos</th>
-              <th>Crianças</th>
-              <th>Acompanhantes</th>
-              <th>Recado</th>
-            </tr>
-          </thead>
-          <tbody id="guestsTableBody">
-            <tr>
-              <td colspan="8" style="text-align: center; color: #a0aec0; padding: 30px;">
-                Nenhuma confirmação salva no navegador ainda.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="admin-actions">
-        <button id="btnClearData" class="btn-magic-tool" style="font-size: 12px; background: rgba(217, 22, 38, 0.4); border-color: var(--disney-red);">
-          <span>🗑️</span> Limpar Lista
+      <!-- Abas de Navegação -->
+      <nav class="admin-nav-tabs">
+        <button type="button" class="admin-tab-btn active" id="tabBtnRsvp">
+          <span>📋</span> Confirmações (RSVP)
         </button>
-      </div>
+        <button type="button" class="admin-tab-btn" id="tabBtnGifts">
+          <span>🎁</span> Gerenciar Presentes
+        </button>
+      </nav>
+
+      <!-- ================================================================
+           ABA 1: CONFIRMAÇÕES DE PRESENÇA (RSVP)
+           ================================================================ -->
+      <section id="viewRsvp">
+        <!-- Métricas RSVP -->
+        <div class="admin-stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="statConfirmed">0</div>
+            <div class="stat-label">Confirmados</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statAdults">0</div>
+            <div class="stat-label">Total Adultos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statKids">0</div>
+            <div class="stat-label">Total Crianças</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statDeclined">0</div>
+            <div class="stat-label">Não Vão</div>
+          </div>
+        </div>
+
+        <div class="admin-toolbar">
+          <span style="font-size: 13px; color: var(--disney-yellow); font-weight: 600;">
+            Lista de Convidados Respondidos:
+          </span>
+          <button id="btnExportCSV" class="btn-magic-tool" style="font-size: 11px; padding: 6px 14px;">
+            <span>📥</span> Baixar CSV de Confirmações
+          </button>
+        </div>
+
+        <!-- Tabela de Convidados -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Data/Hora</th>
+                <th>Nome</th>
+                <th>WhatsApp</th>
+                <th>Presença</th>
+                <th>Adultos</th>
+                <th>Crianças</th>
+                <th>Acompanhantes</th>
+                <th>Recado</th>
+              </tr>
+            </thead>
+            <tbody id="guestsTableBody">
+              <tr>
+                <td colspan="8" style="text-align: center; color: #a0aec0; padding: 30px;">
+                  Nenhuma confirmação salva no navegador ainda.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="admin-actions">
+          <button id="btnClearData" class="btn-magic-tool" style="font-size: 11px; background: rgba(217, 22, 38, 0.4); border-color: var(--disney-red);">
+            <span>🗑️</span> Limpar Lista de RSVP
+          </button>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           ABA 2: GERENCIADOR DE PRESENTES (COTAS & INDICAÇÕES PESSOAIS)
+           ================================================================ -->
+      <section id="viewGifts" style="display: none;">
+        <!-- Métricas de Presentes -->
+        <div class="admin-stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="statTotalGifts">0</div>
+            <div class="stat-label">Total Presentes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statPersonalGifts">0</div>
+            <div class="stat-label">Pessoais (Reservados)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statSplitGifts">0</div>
+            <div class="stat-label">Vaquinhas Ativas</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statSplitRaised">R$ 0</div>
+            <div class="stat-label">Total Arrecadado</div>
+          </div>
+        </div>
+
+        <!-- Barra de Ações de Presentes -->
+        <div class="admin-toolbar">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button id="btnOpenNewGiftModal" class="btn-magic-tool" style="background: var(--gradient-apple-red); border-color: var(--disney-yellow); font-size: 12px; padding: 8px 16px; font-weight: 700;">
+              <span>➕</span> Novo Presente
+            </button>
+            <button id="btnExportGiftsCSV" class="btn-magic-tool" style="font-size: 11px; padding: 6px 12px;">
+              <span>📥</span> Exportar CSV
+            </button>
+            <button id="btnResetGiftsDefault" class="btn-magic-tool" style="font-size: 11px; padding: 6px 12px; background: rgba(255,255,255,0.08);">
+              <span>🔄</span> Restaurar Padrões
+            </button>
+          </div>
+
+          <!-- Filtro rápido no Admin -->
+          <div style="display: flex; gap: 6px;">
+            <select id="adminGiftFilter" class="form-select" style="min-height: 36px; padding: 4px 10px; font-size: 12px !important; width: auto;">
+              <option value="todos">Todos os Presentes</option>
+              <option value="rachar">Apenas Vaquinhas / Cotas</option>
+              <option value="pessoal">Apenas Pessoais</option>
+              <option value="reservado">Apenas Reservados</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tabela de Presentes -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 60px;">Foto</th>
+                <th>Título & Categoria</th>
+                <th>Tipo</th>
+                <th>Loja de Indicação</th>
+                <th>Status / Arrecadação</th>
+                <th style="text-align: right;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="giftsTableBody">
+              <tr>
+                <td colspan="6" style="text-align: center; color: #a0aec0; padding: 30px;">
+                  Carregando lista de presentes...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
     </div>
   </main>
 
+  <!-- ====================================================================
+       MODAL: ADICIONAR / EDITAR PRESENTE
+       ==================================================================== -->
+  <div class="fairytale-modal-overlay" id="modalGiftForm">
+    <div class="fairytale-modal-card" style="max-width: 550px;">
+      <button type="button" class="modal-close-btn" id="btnCloseGiftFormModal" title="Fechar">✕</button>
+
+      <div style="text-align: center; margin-bottom: 16px;">
+        <h3 id="giftFormModalTitle" style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--disney-yellow);">
+          Cadastrar Novo Presente
+        </h3>
+        <p style="font-size: 12px; color: var(--disney-cream-light);">
+          Preencha os dados do presente, imagem e link de indicação da loja.
+        </p>
+      </div>
+
+      <form id="formGiftSave">
+        <input type="hidden" id="giftEditId" value="">
+
+        <div class="form-group">
+          <label class="form-label" for="giftTitleInput">Título do Presente *</label>
+          <input type="text" id="giftTitleInput" class="form-input" placeholder="Ex: Vestidinho Branca de Neve ou Carrinho de Passeio" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label class="form-label" for="giftCategoryInput">Categoria *</label>
+            <select id="giftCategoryInput" class="form-select" required>
+              <option value="Roupinhas">Roupinhas</option>
+              <option value="Sapatinhos">Sapatinhos</option>
+              <option value="Brinquedos">Brinquedos</option>
+              <option value="Passeio">Passeio</option>
+              <option value="Cuidados">Cuidados / Fraldas</option>
+              <option value="Quartinho">Quartinho</option>
+              <option value="Geral">Geral</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="giftTypeInput">Tipo de Presente *</label>
+            <select id="giftTypeInput" class="form-select" required>
+              <option value="pessoal">🎁 Indicação Pessoal (Reservar)</option>
+              <option value="rachar">💰 Rachar Valor (Cotas / Vaquinha)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- URL da Imagem com Preview -->
+        <div class="form-group">
+          <label class="form-label" for="giftImageInput">URL da Imagem</label>
+          <input type="url" id="giftImageInput" class="form-input" placeholder="https://exemplo.com/foto.jpg">
+          
+          <div style="margin-top: 6px;">
+            <span style="font-size: 11px; color: #a0aec0;">Sugestões rápidas de fotos:</span>
+            <div style="margin-top: 4px;">
+              <button type="button" class="preset-img-btn" data-url="https://images.unsplash.com/photo-1591088398332-8a7791972843?w=500&auto=format&fit=crop&q=80">👶 Carrinho</button>
+              <button type="button" class="preset-img-btn" data-url="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=500&auto=format&fit=crop&q=80">👗 Vestidinho</button>
+              <button type="button" class="preset-img-btn" data-url="https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=500&auto=format&fit=crop&q=80">👟 Sapatinho</button>
+              <button type="button" class="preset-img-btn" data-url="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80">🧸 Brinquedo</button>
+              <button type="button" class="preset-img-btn" data-url="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=500&auto=format&fit=crop&q=80">🔴 Bolinhas</button>
+              <button type="button" class="preset-img-btn" data-url="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=500&auto=format&fit=crop&q=80">🍼 Fraldas</button>
+            </div>
+          </div>
+
+          <div class="img-preview-box" id="imgPreviewBox">
+            <span style="font-size: 12px; color: #a0aec0;">Pré-visualização da Imagem</span>
+          </div>
+        </div>
+
+        <!-- Link da Loja / Indicação -->
+        <div class="form-group">
+          <label class="form-label" for="giftStoreLinkInput">Link de Indicação da Loja (Onde comprar)</label>
+          <input type="url" id="giftStoreLinkInput" class="form-input" placeholder="Ex: https://www.amazon.com.br/dp/... ou Mercado Livre">
+          <small style="font-size: 11px; color: #a0aec0; margin-top: 2px; display: block;">
+            O convidado poderá clicar no botão "Ver Modelo na Loja" para comprar exatamente o modelo indicado.
+          </small>
+        </div>
+
+        <!-- Campos para "Rachar Valor" -->
+        <div id="fieldsRacharGroup" style="display: none; background: rgba(30, 66, 153, 0.2); border: 1px solid var(--disney-yellow); border-radius: 12px; padding: 12px; margin-bottom: 16px;">
+          <h4 style="font-size: 12px; color: var(--disney-yellow); font-weight: 700; text-transform: uppercase; margin-bottom: 10px;">
+            💰 Configuração de Cotas / Vaquinha
+          </h4>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <div>
+              <label class="form-label" style="font-size: 11px;">Meta Total (R$)</label>
+              <input type="number" id="giftValorTotalInput" class="form-input" min="0" step="10" placeholder="500">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 11px;">Cota Mínima (R$)</label>
+              <input type="number" id="giftValorCotaInput" class="form-input" min="5" step="5" placeholder="50">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 11px;">Já Arrecadado (R$)</label>
+              <input type="number" id="giftArrecadadoInput" class="form-input" min="0" step="5" placeholder="0">
+            </div>
+          </div>
+        </div>
+
+        <!-- Campos para "Pessoal" -->
+        <div id="fieldsPessoalGroup" style="background: rgba(217, 22, 38, 0.15); border: 1px solid var(--disney-red); border-radius: 12px; padding: 12px; margin-bottom: 16px;">
+          <h4 style="font-size: 12px; color: #ff758f; font-weight: 700; text-transform: uppercase; margin-bottom: 10px;">
+            🎁 Estado da Reserva Pessoal
+          </h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+            <div>
+              <label class="form-label" style="font-size: 11px;">Status</label>
+              <select id="giftStatusInput" class="form-select" style="min-height: 40px; padding: 8px;">
+                <option value="disponivel">✨ Disponível</option>
+                <option value="reservado">💖 Reservado</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 11px;">Reservado Por (Nome)</label>
+              <input type="text" id="giftReservadoNomeInput" class="form-input" placeholder="Nome do Convidado">
+            </div>
+          </div>
+          <div>
+            <label class="form-label" style="font-size: 11px;">Contato / WhatsApp do Reservante</label>
+            <input type="text" id="giftReservadoPhoneInput" class="form-input" placeholder="(11) 99999-9999">
+          </div>
+        </div>
+
+        <!-- Descrição -->
+        <div class="form-group">
+          <label class="form-label" for="giftDescInput">Descrição / Detalhes</label>
+          <textarea id="giftDescInput" class="form-textarea" placeholder="Detalhes de cor, tamanho ou por que a princesinha vai amar este mimo..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit-action btn-secondary-submit" style="font-size: 16px; margin-top: 10px;">
+          <span>💾</span> Salvar Presente
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL: EXTRATO DE CONTRIBUIÇÕES DE VAQUINHA
+       ==================================================================== -->
+  <div class="fairytale-modal-overlay" id="modalContribList">
+    <div class="fairytale-modal-card">
+      <button type="button" class="modal-close-btn" id="btnCloseContribModal" title="Fechar">✕</button>
+
+      <div style="text-align: center; margin-bottom: 16px;">
+        <div style="font-size: 32px; margin-bottom: 4px;">👥</div>
+        <h3 id="contribModalGiftTitle" style="font-family: 'Cinzel', serif; font-size: 17px; color: var(--disney-yellow);">
+          Contribuições da Vaquinha
+        </h3>
+        <p id="contribModalGiftSummary" style="font-size: 12px; color: #e2e8f0;">
+          R$ 0 arrecadados
+        </p>
+      </div>
+
+      <div class="table-container" style="max-height: 250px; overflow-y: auto;">
+        <table style="min-width: 100%;">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Nome</th>
+              <th>Valor</th>
+              <th>Recado</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="contribTableBody">
+            <!-- Linhas de contribuição -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Adicionar Contribuição Manual -->
+      <div style="background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px solid rgba(255,209,96,0.3); padding: 12px; margin-top: 14px;">
+        <h4 style="font-size: 12px; color: var(--disney-yellow); font-weight: 700; margin-bottom: 8px;">
+          ➕ Lançar Pix Manual (Recebido fora do site)
+        </h4>
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 8px;">
+          <input type="text" id="manualContribName" class="form-input" placeholder="Nome" style="min-height: 38px; font-size: 13px !important; padding: 6px 10px;">
+          <input type="number" id="manualContribAmount" class="form-input" placeholder="R$" style="min-height: 38px; font-size: 13px !important; padding: 6px 10px;">
+          <button type="button" id="btnAddManualContrib" class="btn-magic-tool" style="font-size: 11px; padding: 6px;">
+            Lançar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="js/config.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const list = JSON.parse(localStorage.getItem("isadora_rsvp_list") || "[]");
+      // ----------------------------------------------------------------------
+      // TABS DE NAVEGAÇÃO
+      // ----------------------------------------------------------------------
+      const tabBtnRsvp = document.getElementById("tabBtnRsvp");
+      const tabBtnGifts = document.getElementById("tabBtnGifts");
+      const viewRsvp = document.getElementById("viewRsvp");
+      const viewGifts = document.getElementById("viewGifts");
 
+      tabBtnRsvp.addEventListener("click", () => {
+        tabBtnRsvp.classList.add("active");
+        tabBtnGifts.classList.remove("active");
+        viewRsvp.style.display = "block";
+        viewGifts.style.display = "none";
+      });
+
+      tabBtnGifts.addEventListener("click", () => {
+        tabBtnGifts.classList.add("active");
+        tabBtnRsvp.classList.remove("active");
+        viewRsvp.style.display = "none";
+        viewGifts.style.display = "block";
+        renderGiftsTable();
+      });
+
+      // ----------------------------------------------------------------------
+      // GESTÃO DE CONFIRMAÇÕES (RSVP)
+      // ----------------------------------------------------------------------
+      const rsvpList = JSON.parse(localStorage.getItem("isadora_rsvp_list") || "[]");
       let confirmedCount = 0;
       let declinedCount = 0;
       let adultsCount = 0;
       let kidsCount = 0;
 
-      const tbody = document.getElementById("guestsTableBody");
+      const tbodyRsvp = document.getElementById("guestsTableBody");
 
-      if (list.length > 0) {
-        tbody.innerHTML = "";
-        list.forEach((item) => {
+      if (rsvpList.length > 0) {
+        tbodyRsvp.innerHTML = "";
+        rsvpList.forEach((item) => {
           const isSim = item.presenca === "sim";
           if (isSim) {
             confirmedCount++;
@@ -198,7 +529,7 @@
             <td>${item.acompanhantes || "-"}</td>
             <td><em>${item.recado || "-"}</em></td>
           `;
-          tbody.appendChild(tr);
+          tbodyRsvp.appendChild(tr);
         });
       }
 
@@ -207,15 +538,15 @@
       document.getElementById("statKids").textContent = kidsCount;
       document.getElementById("statDeclined").textContent = declinedCount;
 
-      // Exportar CSV
+      // Exportar CSV RSVP
       document.getElementById("btnExportCSV").addEventListener("click", () => {
-        if (list.length === 0) {
-          alert("Não há dados para exportar ainda.");
+        if (rsvpList.length === 0) {
+          alert("Não há dados de confirmação para exportar ainda.");
           return;
         }
 
         let csv = "Data;Nome;Telefone;Presenca;Adultos;Criancas;Acompanhantes;Recado\r\n";
-        list.forEach((row) => {
+        rsvpList.forEach((row) => {
           csv += `"${row.dataRegistro || ''}";"${row.nome || ''}";"${row.telefone || ''}";"${row.presenca || ''}";"${row.adultos || 0}";"${row.criancas || 0}";"${row.acompanhantes || ''}";"${row.recado || ''}"\r\n`;
         });
 
@@ -228,14 +559,504 @@
         document.body.removeChild(link);
       });
 
-      // Limpar lista
+      // Limpar lista RSVP
       document.getElementById("btnClearData").addEventListener("click", () => {
         if (confirm("Tem certeza que deseja apagar a lista de confirmações salvas neste computador?")) {
           localStorage.removeItem("isadora_rsvp_list");
           location.reload();
         }
       });
+
+      // ----------------------------------------------------------------------
+      // GESTÃO DE PRESENTES (COTAS & INDICAÇÃO PESSOAL)
+      // ----------------------------------------------------------------------
+      const GIFTS_STORAGE_KEY = "isadora_gifts_list";
+
+      function getGiftsData() {
+        const stored = localStorage.getItem(GIFTS_STORAGE_KEY);
+        if (stored) {
+          try {
+            return JSON.parse(stored);
+          } catch(e) {
+            console.error("Erro ao carregar presentes:", e);
+          }
+        }
+        if (window.CONVITE_CONFIG?.presentes?.itens) {
+          const def = window.CONVITE_CONFIG.presentes.itens;
+          localStorage.setItem(GIFTS_STORAGE_KEY, JSON.stringify(def));
+          return def;
+        }
+        return [];
+      }
+
+      function saveGiftsData(gifts) {
+        localStorage.setItem(GIFTS_STORAGE_KEY, JSON.stringify(gifts));
+        renderGiftsTable();
+      }
+
+      const giftsTableBody = document.getElementById("giftsTableBody");
+      const filterSelect = document.getElementById("adminGiftFilter");
+
+      function renderGiftsTable() {
+        const gifts = getGiftsData();
+
+        // Atualiza Métricas
+        const total = gifts.length;
+        const personal = gifts.filter(g => g.tipo === "pessoal");
+        const personalReserved = personal.filter(g => g.status === "reservado").length;
+        const split = gifts.filter(g => g.tipo === "rachar");
+        const totalRaised = split.reduce((acc, curr) => acc + (Number(curr.arrecadado) || 0), 0);
+
+        document.getElementById("statTotalGifts").textContent = total;
+        document.getElementById("statPersonalGifts").textContent = `${personalReserved} / ${personal.length}`;
+        document.getElementById("statSplitGifts").textContent = split.length;
+        document.getElementById("statSplitRaised").textContent = `R$ ${totalRaised}`;
+
+        // Filtragem
+        const filterVal = filterSelect.value;
+        const filtered = gifts.filter(g => {
+          if (filterVal === "rachar") return g.tipo === "rachar";
+          if (filterVal === "pessoal") return g.tipo === "pessoal";
+          if (filterVal === "reservado") return g.tipo === "pessoal" && g.status === "reservado";
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          giftsTableBody.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align: center; color: #a0aec0; padding: 30px;">
+                Nenhum presente encontrado no filtro selecionado.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        giftsTableBody.innerHTML = "";
+        filtered.forEach(gift => {
+          const tr = document.createElement("tr");
+          const isRachar = gift.tipo === "rachar";
+          const isReserved = gift.tipo === "pessoal" && gift.status === "reservado";
+          const imgUrl = gift.imagem || "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80";
+
+          tr.innerHTML = `
+            <td>
+              <img src="${imgUrl}" alt="${gift.titulo}" class="admin-thumb" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80';">
+            </td>
+            <td>
+              <strong>${gift.titulo}</strong>
+              <div style="font-size: 11px; color: var(--disney-yellow); text-transform: uppercase;">
+                ${gift.categoria || 'Geral'}
+              </div>
+              ${gift.descricao ? `<div style="font-size: 11px; color: #cbd5e1; max-width: 240px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${gift.descricao}</div>` : ''}
+            </td>
+            <td>
+              <span class="badge-status ${isRachar ? 'badge-sim' : 'badge-nao'}" style="${isRachar ? 'background: rgba(30,66,153,0.3); color: #93c5fd; border-color: #3b82f6;' : 'background: rgba(217,22,38,0.3); color: #fca5a5; border-color: #ef4444;'}">
+                ${isRachar ? '💰 Cota / Vaquinha' : '🎁 Pessoal'}
+              </span>
+            </td>
+            <td>
+              ${gift.linkLoja ? `
+                <a href="${gift.linkLoja}" target="_blank" rel="noopener noreferrer" style="color: var(--disney-yellow); text-decoration: underline; font-size: 12px; display: inline-flex; align-items: center; gap: 4px;">
+                  <span>🛍️</span> Abrir Loja ↗
+                </a>
+              ` : `<span style="color: #64748b; font-size: 11px;">Sem link</span>`}
+            </td>
+            <td>
+              ${isRachar ? `
+                <div style="font-size: 12px;">
+                  <strong>R$ ${gift.arrecadado || 0}</strong> de R$ ${gift.valorTotal || 0}
+                  <div style="font-size: 10px; color: #94a3b8;">
+                    Cota sugerida: R$ ${gift.valorCota || 30}
+                  </div>
+                  <button type="button" class="admin-btn-action btn-edit btn-view-contribs" data-id="${gift.id}" style="margin-top: 4px;">
+                    👥 Extrato (${gift.contribuicoes ? gift.contribuicoes.length : 0})
+                  </button>
+                </div>
+              ` : `
+                <div>
+                  <span class="badge-status ${isReserved ? 'badge-nao' : 'badge-sim'}">
+                    ${isReserved ? '💖 Reservado' : '✨ Disponível'}
+                  </span>
+                  ${isReserved && gift.reservadoPor ? `
+                    <div style="font-size: 11px; color: #ffd700; margin-top: 3px;">
+                      Por: <strong>${gift.reservadoPor.nome || 'Convidado'}</strong>
+                      ${gift.reservadoPor.telefone ? ` (<a href="https://wa.me/${gift.reservadoPor.telefone.replace(/\\D/g, '')}" target="_blank" style="color:#fff;">${gift.reservadoPor.telefone}</a>)` : ''}
+                    </div>
+                  ` : ''}
+                  ${isReserved ? `
+                    <button type="button" class="admin-btn-action btn-toggle-reserve btn-free-reserve" data-id="${gift.id}" style="margin-top: 4px; font-size: 10px;">
+                      🔄 Liberar Reserva
+                    </button>
+                  ` : ''}
+                </div>
+              `}
+            </td>
+            <td style="text-align: right; white-space: nowrap;">
+              <button type="button" class="admin-btn-action btn-edit btn-edit-gift" data-id="${gift.id}">
+                ✏️ Editar
+              </button>
+              <button type="button" class="admin-btn-action btn-delete btn-del-gift" data-id="${gift.id}">
+                🗑️
+              </button>
+            </td>
+          `;
+
+          giftsTableBody.appendChild(tr);
+        });
+      }
+
+      filterSelect.addEventListener("change", renderGiftsTable);
+
+      // ----------------------------------------------------------------------
+      // MODAL ADICIONAR / EDITAR PRESENTE
+      // ----------------------------------------------------------------------
+      const modalGiftForm = document.getElementById("modalGiftForm");
+      const btnCloseGiftForm = document.getElementById("btnCloseGiftFormModal");
+      const btnOpenNewGift = document.getElementById("btnOpenNewGiftModal");
+      const formGiftSave = document.getElementById("formGiftSave");
+
+      const giftTypeSelect = document.getElementById("giftTypeInput");
+      const fieldsRacharGroup = document.getElementById("fieldsRacharGroup");
+      const fieldsPessoalGroup = document.getElementById("fieldsPessoalGroup");
+      const giftImgInput = document.getElementById("giftImageInput");
+      const imgPreviewBox = document.getElementById("imgPreviewBox");
+
+      function updateTypeFields() {
+        if (giftTypeSelect.value === "rachar") {
+          fieldsRacharGroup.style.display = "block";
+          fieldsPessoalGroup.style.display = "none";
+        } else {
+          fieldsRacharGroup.style.display = "none";
+          fieldsPessoalGroup.style.display = "block";
+        }
+      }
+      giftTypeSelect.addEventListener("change", updateTypeFields);
+
+      function updateImgPreview(url) {
+        if (url && url.startsWith("http")) {
+          imgPreviewBox.innerHTML = `<img src="${url}" alt="Preview" onerror="this.onerror=null;this.parentElement.innerHTML='<span style=\\'color:#ef4444;font-size:11px;\\'>Foto não carregou</span>';">`;
+        } else {
+          imgPreviewBox.innerHTML = `<span style="font-size: 12px; color: #a0aec0;">Pré-visualização da Imagem</span>`;
+        }
+      }
+
+      giftImgInput.addEventListener("input", (e) => updateImgPreview(e.target.value.trim()));
+
+      // Presets rápidos de imagem
+      document.querySelectorAll(".preset-img-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          giftImgInput.value = btn.dataset.url;
+          updateImgPreview(btn.dataset.url);
+        });
+      });
+
+      function openGiftModal(giftId = null) {
+        if (giftId) {
+          // Edição
+          const gifts = getGiftsData();
+          const gift = gifts.find(g => g.id === giftId);
+          if (!gift) return;
+
+          document.getElementById("giftFormModalTitle").textContent = "Editar Presente";
+          document.getElementById("giftEditId").value = gift.id;
+          document.getElementById("giftTitleInput").value = gift.titulo || "";
+          document.getElementById("giftCategoryInput").value = gift.categoria || "Geral";
+          document.getElementById("giftTypeInput").value = gift.tipo || "pessoal";
+          document.getElementById("giftImageInput").value = gift.imagem || "";
+          document.getElementById("giftStoreLinkInput").value = gift.linkLoja || "";
+          document.getElementById("giftDescInput").value = gift.descricao || "";
+
+          // Rachar
+          document.getElementById("giftValorTotalInput").value = gift.valorTotal || "";
+          document.getElementById("giftValorCotaInput").value = gift.valorCota || "";
+          document.getElementById("giftArrecadadoInput").value = gift.arrecadado || 0;
+
+          // Pessoal
+          document.getElementById("giftStatusInput").value = gift.status || "disponivel";
+          document.getElementById("giftReservadoNomeInput").value = gift.reservadoPor?.nome || "";
+          document.getElementById("giftReservadoPhoneInput").value = gift.reservadoPor?.telefone || "";
+
+          updateImgPreview(gift.imagem);
+        } else {
+          // Novo
+          document.getElementById("giftFormModalTitle").textContent = "Cadastrar Novo Presente";
+          document.getElementById("giftEditId").value = "";
+          formGiftSave.reset();
+          document.getElementById("giftTypeInput").value = "pessoal";
+          document.getElementById("giftCategoryInput").value = "Brinquedos";
+          updateImgPreview("");
+        }
+
+        updateTypeFields();
+        modalGiftForm.classList.add("active");
+      }
+
+      btnOpenNewGift.addEventListener("click", () => openGiftModal());
+      btnCloseGiftForm.addEventListener("click", () => modalGiftForm.classList.remove("active"));
+      modalGiftForm.addEventListener("click", (e) => {
+        if (e.target === modalGiftForm) modalGiftForm.classList.remove("active");
+      });
+
+      // Salvar Presente
+      formGiftSave.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const editId = document.getElementById("giftEditId").value;
+        const gifts = getGiftsData();
+
+        const tipo = document.getElementById("giftTypeInput").value;
+        const titulo = document.getElementById("giftTitleInput").value.trim();
+        const categoria = document.getElementById("giftCategoryInput").value;
+        const imagem = document.getElementById("giftImageInput").value.trim();
+        const linkLoja = document.getElementById("giftStoreLinkInput").value.trim();
+        const descricao = document.getElementById("giftDescInput").value.trim();
+
+        if (editId) {
+          // Atualiza existente
+          const idx = gifts.findIndex(g => g.id === editId);
+          if (idx !== -1) {
+            gifts[idx].titulo = titulo;
+            gifts[idx].categoria = categoria;
+            gifts[idx].tipo = tipo;
+            gifts[idx].imagem = imagem;
+            gifts[idx].linkLoja = linkLoja;
+            gifts[idx].descricao = descricao;
+
+            if (tipo === "rachar") {
+              gifts[idx].valorTotal = Number(document.getElementById("giftValorTotalInput").value) || 0;
+              gifts[idx].valorCota = Number(document.getElementById("giftValorCotaInput").value) || 30;
+              gifts[idx].arrecadado = Number(document.getElementById("giftArrecadadoInput").value) || 0;
+            } else {
+              const status = document.getElementById("giftStatusInput").value;
+              gifts[idx].status = status;
+              const resNome = document.getElementById("giftReservadoNomeInput").value.trim();
+              const resPhone = document.getElementById("giftReservadoPhoneInput").value.trim();
+              if (status === "reservado" && resNome) {
+                gifts[idx].reservadoPor = {
+                  nome: resNome,
+                  telefone: resPhone,
+                  data: gifts[idx].reservadoPor?.data || new Date().toLocaleDateString("pt-BR")
+                };
+              } else if (status === "disponivel") {
+                gifts[idx].reservadoPor = null;
+              }
+            }
+          }
+        } else {
+          // Cria novo
+          const newGift = {
+            id: `gift-${Date.now()}`,
+            titulo,
+            categoria,
+            tipo,
+            imagem: imagem || "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80",
+            linkLoja,
+            descricao,
+            status: "disponivel",
+            reservadoPor: null
+          };
+
+          if (tipo === "rachar") {
+            newGift.valorTotal = Number(document.getElementById("giftValorTotalInput").value) || 300;
+            newGift.valorCota = Number(document.getElementById("giftValorCotaInput").value) || 30;
+            newGift.arrecadado = Number(document.getElementById("giftArrecadadoInput").value) || 0;
+            newGift.contribuicoes = [];
+          } else {
+            const status = document.getElementById("giftStatusInput").value;
+            newGift.status = status;
+            const resNome = document.getElementById("giftReservadoNomeInput").value.trim();
+            const resPhone = document.getElementById("giftReservadoPhoneInput").value.trim();
+            if (status === "reservado" && resNome) {
+              newGift.reservadoPor = {
+                nome: resNome,
+                telefone: resPhone,
+                data: new Date().toLocaleDateString("pt-BR")
+              };
+            }
+          }
+
+          gifts.push(newGift);
+        }
+
+        saveGiftsData(gifts);
+        modalGiftForm.classList.remove("active");
+      });
+
+      // ----------------------------------------------------------------------
+      // EXTRATO / CONTRIBUIÇÕES DA VAQUINHA
+      // ----------------------------------------------------------------------
+      const modalContribList = document.getElementById("modalContribList");
+      const btnCloseContribModal = document.getElementById("btnCloseContribModal");
+      const contribTableBody = document.getElementById("contribTableBody");
+      let activeContribGiftId = null;
+
+      function openContribModal(giftId) {
+        activeContribGiftId = giftId;
+        const gifts = getGiftsData();
+        const gift = gifts.find(g => g.id === giftId);
+        if (!gift) return;
+
+        document.getElementById("contribModalGiftTitle").textContent = gift.titulo;
+        document.getElementById("contribModalGiftSummary").textContent = `R$ ${gift.arrecadado || 0} arrecadados de R$ ${gift.valorTotal || 0} em meta`;
+
+        const list = gift.contribuicoes || [];
+        if (list.length === 0) {
+          contribTableBody.innerHTML = `
+            <tr>
+              <td colspan="5" style="text-align: center; color: #a0aec0; padding: 20px;">
+                Nenhuma contribuição registrada ainda.
+              </td>
+            </tr>
+          `;
+        } else {
+          contribTableBody.innerHTML = "";
+          list.forEach((item, index) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${item.data || "-"}</td>
+              <td><strong>${item.nome || "Anônimo"}</strong></td>
+              <td style="color: #52b788; font-weight: 700;">R$ ${item.valor}</td>
+              <td><em>${item.mensagem || "-"}</em></td>
+              <td>
+                <button type="button" class="admin-btn-action btn-delete btn-del-contrib" data-gift-id="${gift.id}" data-index="${index}" title="Remover contribuição">
+                  ✕
+                </button>
+              </td>
+            `;
+            contribTableBody.appendChild(tr);
+          });
+        }
+
+        modalContribList.classList.add("active");
+      }
+
+      btnCloseContribModal.addEventListener("click", () => modalContribList.classList.remove("active"));
+      modalContribList.addEventListener("click", (e) => {
+        if (e.target === modalContribList) modalContribList.classList.remove("active");
+      });
+
+      // Lançar Contribuição Manual no Admin
+      document.getElementById("btnAddManualContrib").addEventListener("click", () => {
+        if (!activeContribGiftId) return;
+        const name = document.getElementById("manualContribName").value.trim();
+        const amount = Number(document.getElementById("manualContribAmount").value) || 0;
+
+        if (!name || amount <= 0) {
+          alert("Por favor, preencha o nome e um valor válido.");
+          return;
+        }
+
+        const gifts = getGiftsData();
+        const idx = gifts.findIndex(g => g.id === activeContribGiftId);
+        if (idx !== -1) {
+          if (!gifts[idx].contribuicoes) gifts[idx].contribuicoes = [];
+          gifts[idx].contribuicoes.push({
+            nome: name,
+            valor: amount,
+            data: new Date().toLocaleDateString("pt-BR"),
+            mensagem: "Lançamento manual pelo painel"
+          });
+          gifts[idx].arrecadado = (gifts[idx].arrecadado || 0) + amount;
+          saveGiftsData(gifts);
+
+          document.getElementById("manualContribName").value = "";
+          document.getElementById("manualContribAmount").value = "";
+          openContribModal(activeContribGiftId);
+        }
+      });
+
+      // Delegação de cliques na tabela de presentes
+      giftsTableBody.addEventListener("click", (e) => {
+        const btnEdit = e.target.closest(".btn-edit-gift");
+        if (btnEdit) {
+          openGiftModal(btnEdit.dataset.id);
+          return;
+        }
+
+        const btnDel = e.target.closest(".btn-del-gift");
+        if (btnDel) {
+          if (confirm("Tem certeza que deseja excluir este presente?")) {
+            const gifts = getGiftsData().filter(g => g.id !== btnDel.dataset.id);
+            saveGiftsData(gifts);
+          }
+          return;
+        }
+
+        const btnFree = e.target.closest(".btn-free-reserve");
+        if (btnFree) {
+          if (confirm("Deseja liberar este presente para que outro convidado possa escolher?")) {
+            const gifts = getGiftsData();
+            const g = gifts.find(item => item.id === btnFree.dataset.id);
+            if (g) {
+              g.status = "disponivel";
+              g.reservadoPor = null;
+              saveGiftsData(gifts);
+            }
+          }
+          return;
+        }
+
+        const btnContribs = e.target.closest(".btn-view-contribs");
+        if (btnContribs) {
+          openContribModal(btnContribs.dataset.id);
+          return;
+        }
+      });
+
+      // Delegação para apagar contribuição individual
+      contribTableBody.addEventListener("click", (e) => {
+        const btnDel = e.target.closest(".btn-del-contrib");
+        if (btnDel) {
+          const giftId = btnDel.dataset.giftId;
+          const index = Number(btnDel.dataset.index);
+
+          if (confirm("Deseja estornar esta contribuição?")) {
+            const gifts = getGiftsData();
+            const g = gifts.find(item => item.id === giftId);
+            if (g && g.contribuicoes && g.contribuicoes[index]) {
+              const removedVal = Number(g.contribuicoes[index].valor) || 0;
+              g.arrecadado = Math.max(0, (g.arrecadado || 0) - removedVal);
+              g.contribuicoes.splice(index, 1);
+              saveGiftsData(gifts);
+              openContribModal(giftId);
+            }
+          }
+        }
+      });
+
+      // Exportar CSV de Presentes
+      document.getElementById("btnExportGiftsCSV").addEventListener("click", () => {
+        const gifts = getGiftsData();
+        if (gifts.length === 0) {
+          alert("Não há presentes cadastrados.");
+          return;
+        }
+
+        let csv = "ID;Titulo;Categoria;Tipo;LinkLoja;Status;ReservadoPor;Telefone;MetaTotal;Arrecadado\r\n";
+        gifts.forEach(g => {
+          csv += `"${g.id}";"${g.titulo || ''}";"${g.categoria || ''}";"${g.tipo || ''}";"${g.linkLoja || ''}";"${g.status || ''}";"${g.reservadoPor?.nome || ''}";"${g.reservadoPor?.telefone || ''}";"${g.valorTotal || 0}";"${g.arrecadado || 0}"\r\n`;
+        });
+
+        const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "presentes-isadora-1ano.csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+
+      // Restaurar padrões
+      document.getElementById("btnResetGiftsDefault").addEventListener("click", () => {
+        if (confirm("Deseja restaurar a lista de presentes padrão do arquivo de configuração? Todas as edições e reservas feitas no navegador serão redefinidas.")) {
+          if (window.CONVITE_CONFIG?.presentes?.itens) {
+            localStorage.setItem(GIFTS_STORAGE_KEY, JSON.stringify(window.CONVITE_CONFIG.presentes.itens));
+            renderGiftsTable();
+          }
+        }
+      });
     });
   </script>
 </body>
 </html>
+

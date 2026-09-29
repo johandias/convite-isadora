@@ -221,8 +221,7 @@ const CONVITE_CONFIG = {
 
   // Trilha Sonora
   audio: {
-    trilhaAmbiente: "assets/o-conto-de-isadora-louise.mp3",
-    titulo: "O Conto de Isadora Louise (Versão Orquestral Clássica 1)",
+    trilhaAmbiente: "assets/ambient-fairytale.mp3",
     autoPlayAposIntro: true
   }
 };

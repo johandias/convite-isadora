@@ -2,6 +2,17 @@
 Firefly*
 assets/convite-video-*.mp4
 
+# Screenshots temporárias e arquivos de teste de auditoria
+desktop_*.png
+mobile_*.png
+verify_*.png
+screenshot_*.png
+extracted_fairytale_styles.css
+fairytale_index_backup.html
+fairytale_style_step709.css
+*.mp3
+!assets/*.mp3
+
 # Arquivos de sistema
 .DS_Store
 Thumbs.db

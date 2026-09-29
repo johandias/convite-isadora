@@ -20,7 +20,7 @@ class FairytaleAudio {
     this.bgMusic = new Audio();
     this.bgMusic.src = (window.CONVITE_CONFIG && window.CONVITE_CONFIG.audio) 
       ? window.CONVITE_CONFIG.audio.trilhaAmbiente 
-      : "assets/o-conto-de-isadora-louise.mp3";
+      : "assets/ambient-fairytale.mp3";
     this.bgMusic.loop = true;
     this.bgMusic.volume = this.isMuted ? 0 : this.volume;
   }
@@ -86,29 +86,19 @@ class FairytaleAudio {
   }
 
   updateUiState(active) {
-    const isCurrentlyPlaying = this.isPlaying && !this.isMuted;
-    
-    // Atualiza todos os botões de áudio da interface
-    document.querySelectorAll(".music-toggle-btn, #musicToggleBtn, #musicToggleBtnSection").forEach(btn => {
+    const btn = document.getElementById("musicToggleBtn");
+    if (!btn) return;
+    if (this.isMuted || !this.isPlaying) {
+      btn.classList.remove("playing");
+      btn.setAttribute("title", "Ligar música de conto de fadas 🎵");
       const icon = btn.querySelector(".music-icon");
-      const textSpan = btn.querySelector("span:not(.music-icon)");
-      
-      if (!isCurrentlyPlaying) {
-        btn.classList.remove("playing");
-        btn.setAttribute("title", "Tocar: O Conto de Isadora Louise 🎵");
-        if (icon) icon.textContent = "🎵";
-        if (btn.id === "musicToggleBtnSection" && textSpan) {
-          textSpan.textContent = "Tocar Trilha Sonora Real";
-        }
-      } else {
-        btn.classList.add("playing");
-        btn.setAttribute("title", "Pausar música 🎵");
-        if (icon) icon.textContent = "⏸️";
-        if (btn.id === "musicToggleBtnSection" && textSpan) {
-          textSpan.textContent = "Pausar Trilha Sonora";
-        }
-      }
-    });
+      if (icon) icon.textContent = "🔇";
+    } else {
+      btn.classList.add("playing");
+      btn.setAttribute("title", "Desligar música 🎵");
+      const icon = btn.querySelector(".music-icon");
+      if (icon) icon.textContent = "🎵";
+    }
   }
 
   /* =========================================================================

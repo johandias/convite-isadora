@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initCalendarAction();
   initToast();
   setupButtonSounds();
+  initScrollStory();
 });
 
 /* =========================================================================
@@ -25,16 +26,16 @@ function initIntroExperience() {
   const videoTimerTag = document.getElementById("videoTimerTag");
   const btnRewatch = document.getElementById("btnRewatch");
 
-  if (!introGate) return;
+  // Se houver tela de intro, inicializa comportamento de abertura
+  if (introGate) {
+    const hasSeenIntro = sessionStorage.getItem("isadora_intro_seen");
+    const urlParams = new URLSearchParams(window.location.search);
+    const skipViaParam = urlParams.get("convite") === "1";
 
-  const hasSeenIntro = sessionStorage.getItem("isadora_intro_seen");
-  const urlParams = new URLSearchParams(window.location.search);
-  const skipViaParam = urlParams.get("convite") === "1";
-
-  // Se já viu nesta sessão (ex: voltou de uma subpágina) ou via parâmetro ?convite=1
-  if (hasSeenIntro === "true" || skipViaParam) {
-    introGate.classList.add("hidden");
-    introGate.style.display = "none";
+    if (hasSeenIntro === "true" || skipViaParam) {
+      introGate.classList.add("hidden");
+      introGate.style.display = "none";
+    }
   }
 
   // Clique em "Assistir ao Convite Real"
@@ -247,14 +248,71 @@ function setupButtonSounds() {
     });
   }
 
-  // Botão de soltar confetes
+  // Botão de soltar confetes (brilho sutil de festa)
   const btnConfetti = document.getElementById("btnThrowConfetti");
   if (btnConfetti) {
     btnConfetti.addEventListener("click", () => {
       if (window.fairytaleConfetti) {
-        window.fairytaleConfetti.burst({ count: 70 });
+        window.fairytaleConfetti.burst({ count: 32 });
       }
       showToast("Chuva de confetes comemorativa! 🎊");
     });
   }
+}
+
+/* =========================================================================
+ * 6. ANIMAÇÕES DE ROLAGEM MÁGICA ("STORYTELLING SCROLL")
+ * Controla o surgimento suave dos personagens da Isadora e mensagens ao rolar
+ * ========================================================================= */
+function initScrollStory() {
+  const revealElements = document.querySelectorAll(".scroll-reveal");
+  if (!revealElements.length) return;
+
+  // Observador de Interseção para animar suavemente ao entrar e sair da tela
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px 0px -40px 0px",
+    threshold: 0.12
+  };
+
+  const storyObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("revealed");
+      } else {
+        // Ao rolar para fora da tela, recolhe suavemente conforme solicitado
+        const rect = entry.target.getBoundingClientRect();
+        if (rect.top > window.innerHeight || rect.bottom < 0) {
+          entry.target.classList.remove("revealed");
+        }
+      }
+    });
+  }, observerOptions);
+
+  revealElements.forEach((el) => storyObserver.observe(el));
+
+  // Interatividade: Toque nos personagens da Isadora
+  const characterBoxes = document.querySelectorAll(".story-character-box");
+  characterBoxes.forEach((box) => {
+    box.addEventListener("click", () => {
+      const img = box.querySelector(".story-isadora-img");
+      const bubble = box.querySelector(".character-speech-bubble");
+
+      if (img) {
+        img.style.animation = "none";
+        void img.offsetWidth; // força reflow
+        img.style.animation = "isadoraBounceTap 0.6s ease";
+      }
+
+      if (bubble) {
+        bubble.style.animation = "none";
+        void bubble.offsetWidth;
+        bubble.style.animation = "speechBubblePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+      }
+
+      if (window.fairytaleAudio) {
+        window.fairytaleAudio.playSparkle();
+      }
+    });
+  });
 }

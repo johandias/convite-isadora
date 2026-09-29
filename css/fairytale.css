@@ -1,0 +1,1144 @@
+/**
+ * ============================================================================
+ * CONVITE REAL DA PRINCESINHA ISADORA (1 ANINHO)
+ * Folha de Estilos Oficial do Conto de Fadas & Seção Hero Responsiva
+ * Tipografia Padronizada: Waltograph, Cinzel Decorative, Playfair Display & Poppins
+ * Paleta Oficial Disney: Ouro Real, Vermelho Maçã Branca de Neve, Azul Real Disney
+ * 100% Otimizado Mobile-First: Perfeito em telas de 320px até 430px+ e Desktop
+ * ============================================================================
+ */
+
+/* =========================================================================
+ * 1. VARIÁVEIS E COMPATIBILIDADE DISNEY
+ * ========================================================================= */
+:root {
+  --royal-gold: #ffd160;
+  --royal-gold-glow: rgba(255, 209, 96, 0.45);
+  --royal-gold-light: #ffe89e;
+  --royal-red: #d91626;
+  --royal-red-dark: #990a18;
+  --royal-red-light: #f03a49;
+  --royal-blue: #1e4299;
+  --royal-blue-dark: #122b6d;
+  --royal-forest: #14281a;
+  --royal-forest-translucent: rgba(14, 30, 20, 0.92);
+  --royal-cream: #fde9c4;
+  --royal-white: #ffffff;
+  --royal-parchment: #fcf8f0;
+  
+  --gradient-royal-red: linear-gradient(135deg, #f03a49 0%, #d91626 50%, #990a18 100%);
+  --gradient-royal-blue: linear-gradient(135deg, #2f5edb 0%, #1e4299 50%, #122b6d 100%);
+  --gradient-royal-gold: linear-gradient(135deg, #ffe07a 0%, #ffd160 50%, #ba7947 100%);
+  
+  --radius-pill: 50px;
+  --radius-card: 22px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+
+/* Reset & Proteção Anti-Overflow Global */
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* =========================================================================
+ * 2. SEÇÃO HERO: TELA DE ABERTURA DO CONVITE (INÍCIO DO SITE)
+ * ========================================================================= */
+.hero-fairytale-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--safe-top) + 6px) 8px 0 8px;
+  overflow: hidden;
+  background-color: var(--royal-forest);
+  background-image: 
+    radial-gradient(ellipse at 50% 36%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 247, 231, 0.16) 45%, rgba(20, 40, 26, 0.5) 80%, rgba(14, 28, 18, 0.9) 100%),
+    linear-gradient(to bottom, rgba(16, 32, 22, 0.15) 0%, transparent 45%, rgba(16, 32, 22, 0.65) 85%, #14281a 100%),
+    url('../assets/isadora/clareira_encantada_com_macas.webp');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+@supports not (background-image: url('../assets/isadora/clareira_encantada_com_macas.webp')) {
+  .hero-fairytale-section {
+    background-image: 
+      radial-gradient(ellipse at 50% 36%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 247, 231, 0.16) 45%, rgba(20, 40, 26, 0.5) 80%, rgba(14, 28, 18, 0.9) 100%),
+      linear-gradient(to bottom, rgba(16, 32, 22, 0.15) 0%, transparent 45%, rgba(16, 32, 22, 0.65) 85%, #14281a 100%),
+      url('../assets/isadora/clareira_encantada_com_macas.png');
+  }
+}
+
+/* Partículas Mágicas Flutuantes */
+.fairy-sparkles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.fairy-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--royal-gold-light);
+  box-shadow: 0 0 8px var(--royal-gold), 0 0 14px rgba(255, 247, 231, 0.9);
+  opacity: 0;
+  animation: fairyParticleDrift 5s ease-in-out infinite;
+}
+
+/* Ornamentos Vegetais Laterais */
+.ornament-hero-left {
+  position: absolute;
+  left: -20px;
+  bottom: 0;
+  width: clamp(80px, 20vw, 180px);
+  max-height: 48vh;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.45));
+}
+
+.ornament-hero-right {
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  width: clamp(80px, 20vw, 180px);
+  max-height: 48vh;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.45));
+}
+
+/* =========================================================================
+ * 3. BARRA SUPERIOR DE CONTROLES (COMPACTA, 100% VISÍVEL NO MOBILE)
+ * ========================================================================= */
+.hero-top-controls {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px;
+  box-sizing: border-box;
+}
+
+.hero-royal-crest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: var(--royal-gold);
+  flex-shrink: 0;
+}
+
+.crest-badge-apple {
+  font-size: 19px;
+  filter: drop-shadow(0 2px 5px rgba(217, 22, 38, 0.8));
+}
+
+.crest-badge-title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.crest-name-top {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(10.5px, 2.8vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--royal-gold);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 8px var(--royal-gold-glow);
+}
+
+.crest-name-bottom {
+  font-family: 'Waltograph', cursive;
+  font-size: clamp(12px, 3.4vw, 15px);
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.hero-actions-cluster {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.hero-pill-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px 9px;
+  min-height: 32px;
+  background: rgba(16, 34, 22, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid var(--royal-gold);
+  border-radius: var(--radius-pill);
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(11px, 2.8vw, 12px);
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4), 0 0 6px rgba(255, 209, 96, 0.25);
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.hero-pill-action:hover {
+  background: var(--royal-red);
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(217, 22, 38, 0.6);
+}
+
+.hero-pill-action.music-toggle-btn {
+  background: var(--gradient-royal-blue);
+  border-color: var(--royal-gold);
+}
+
+.hero-pill-action:active {
+  transform: scale(0.95);
+}
+
+.mini-bird-perch {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* =========================================================================
+ * 4. CENTRO DO HERO: PASSARINHOS, EMBLEMA, TEXTO E DATA
+ * ========================================================================= */
+.hero-center-content {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+  margin: auto auto;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+/* Pássaros Encantados Voando Acima do Emblema */
+.hero-birds-flying-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: -10px;
+  z-index: 5;
+}
+
+.hero-flying-birds-img {
+  width: clamp(65px, 16vw, 90px);
+  height: auto;
+  object-fit: contain;
+  pointer-events: auto;
+  cursor: pointer;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.45));
+  transition: transform 0.3s ease;
+}
+
+.hero-flying-birds-img:hover {
+  transform: translateY(-3px) scale(1.06);
+}
+
+.hero-flying-birds-img:active {
+  animation: birdHop 0.4s ease;
+}
+
+/* Emblema Oficial da Princesinha Isadora (1 Aninho) */
+.hero-emblem-picture {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.hero-emblem-img {
+  width: 68vw;
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+  filter: drop-shadow(0 5px 16px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.hero-emblem-img:hover {
+  transform: scale(1.02);
+}
+
+/* Frase Mágica de Abertura Padronizada e Cristalina */
+.hero-magical-phrase {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(12px, 3.2vw, 14.5px);
+  line-height: 1.4;
+  color: #ffffff;
+  text-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.95),
+    0 1px 3px rgba(0, 0, 0, 0.9),
+    0 0 14px rgba(255, 209, 96, 0.45);
+  margin: 4px auto 8px auto;
+  max-width: 350px;
+  width: 100%;
+  padding: 0 6px;
+  box-sizing: border-box;
+  letter-spacing: 0.2px;
+}
+
+/* Fita Mágica de Data & Contagem Regressiva */
+.hero-date-ribbon {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: var(--royal-forest-translucent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid var(--royal-gold);
+  border-radius: 20px;
+  padding: 5px 14px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.6), 0 0 12px var(--royal-gold-glow);
+  margin: 0 auto 8px auto;
+  width: auto;
+  max-width: 95%;
+  box-sizing: border-box;
+}
+
+.hero-event-datetime {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(11.5px, 3.1vw, 13.5px);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hero-countdown-ticker {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(10.5px, 2.7vw, 12px);
+  color: var(--royal-cream);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.ticker-gold {
+  color: var(--royal-gold);
+  font-weight: 800;
+  text-shadow: 0 0 6px rgba(255, 209, 96, 0.7);
+}
+
+/* =========================================================================
+ * 5. OS 3 BOTÕES PRINCIPAIS: PERFEITAMENTE AJUSTADOS, CENTRALIZADOS E SEM CORTES
+ * ========================================================================= */
+.hero-primary-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 6px;
+  width: 100%;
+  max-width: 360px;
+  margin: 6px auto 10px auto;
+  padding: 0 6px;
+  box-sizing: border-box;
+}
+
+.hero-royal-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 114px;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 3px;
+  background: var(--gradient-royal-red);
+  border: 1.5px solid var(--royal-gold);
+  border-radius: var(--radius-pill);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(10px, 2.8vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  box-shadow: 0 5px 14px rgba(185, 20, 35, 0.45), 0 0 10px rgba(255, 209, 96, 0.3);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  touch-action: manipulation;
+  text-align: center;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.hero-royal-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.1);
+  border-color: #ffffff;
+  box-shadow: 0 7px 20px rgba(185, 20, 35, 0.65), 0 0 16px var(--royal-gold);
+}
+
+.hero-royal-btn:active {
+  transform: scale(0.95);
+  filter: brightness(0.92);
+}
+
+.btn-emoji-icon {
+  font-size: 13.5px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.btn-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================================================
+ * 6. BASE DO HERO: PALCO COM A PRINCESINHA ISADORA E ANIMAIS DA FLORESTA
+ * ========================================================================= */
+.hero-stage-wrapper {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hero-stage-img {
+  width: 100%;
+  height: auto;
+  max-height: clamp(170px, 29vh, 240px);
+  object-fit: contain;
+  display: block;
+  pointer-events: auto;
+  cursor: pointer;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  transition: transform 0.3s ease;
+}
+
+.hero-stage-img:active {
+  transform: scale(0.98);
+}
+
+/* =========================================================================
+ * 7. MODAL DO CINEMA DO VÍDEO DO CONVITE
+ * ========================================================================= */
+.intro-video-theater {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 5, 2, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 99999;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  padding-top: calc(var(--safe-top) + 16px);
+  padding-bottom: calc(var(--safe-bottom) + 16px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.intro-video-theater.active {
+  display: flex;
+  opacity: 1;
+}
+
+.video-frame-royal {
+  max-width: 720px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 3px solid var(--royal-gold);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 35px var(--royal-gold-glow);
+  position: relative;
+}
+
+.video-frame-royal video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.video-controls-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 720px;
+  margin-top: 14px;
+  gap: 10px;
+}
+
+.video-timer-tag {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  color: var(--royal-gold);
+  background: rgba(20, 10, 4, 0.85);
+  border: 1px solid var(--royal-gold-glow);
+  padding: 8px 14px;
+  border-radius: 20px;
+}
+
+.btn-skip-video {
+  padding: 10px 22px;
+  min-height: 44px;
+  background: var(--gradient-royal-red);
+  border: 1.5px solid var(--royal-gold);
+  color: #ffffff;
+  border-radius: 30px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.btn-skip-video:hover {
+  filter: brightness(1.15);
+  border-color: #ffffff;
+}
+
+.btn-skip-video:active {
+  transform: scale(0.96);
+}
+
+/* =========================================================================
+ * 8. DEMAIS SEÇÕES DO CONTO DE FADAS (HISTÓRIA, DETALHES, MÚSICA, RSVP, RODAPÉ)
+ * ========================================================================= */
+.section-fairytale-story {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 48px 16px 36px 16px;
+  background: transparent;
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.story-container {
+  max-width: 580px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.royal-medallion-frame {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  padding: 3.5px;
+  background: linear-gradient(135deg, var(--royal-gold), var(--royal-red));
+  box-shadow: 0 8px 24px rgba(229, 36, 59, 0.2), 0 0 18px rgba(250, 204, 21, 0.4);
+  margin: 0 auto 4px auto;
+}
+
+.royal-portrait-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2.5px solid #ffffff;
+}
+
+.royal-portrait-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.story-waving-figure {
+  width: 120px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
+}
+
+.story-text-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2.5px solid #facc15;
+  border-radius: 28px;
+  padding: 26px 20px;
+  box-shadow: 0 14px 40px rgba(229, 36, 59, 0.12), 0 4px 16px rgba(250, 204, 21, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.story-badge {
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #b45309;
+  background: #fef3c7;
+  border: 1.5px solid #f59e0b;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.story-title {
+  font-family: 'Cinzel Decorative', cursive, serif;
+  font-size: clamp(21px, 5.2vw, 28px);
+  color: #b91423;
+  margin-bottom: 12px;
+  text-shadow: 0 1px 2px rgba(245, 158, 11, 0.3);
+}
+
+.story-title span {
+  color: #1e3a8a;
+}
+
+.story-paragraph {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #334155;
+  margin-bottom: 14px;
+}
+
+.story-highlight-box {
+  background: #fefce8;
+  border-left: 4px solid #f59e0b;
+  border-right: 4px solid #f59e0b;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-style: italic;
+  color: #854d0e;
+  font-size: 14px;
+  margin: 14px 0;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
+}
+
+/* Seção de Detalhes da Festa */
+.section-fairytale-details {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 40px 14px;
+  background: transparent;
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.details-section-header {
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto 24px auto;
+}
+
+.details-section-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(22px, 5.5vw, 30px);
+  color: #b91423;
+  text-shadow: 0 1px 3px rgba(245, 158, 11, 0.3);
+  margin-bottom: 6px;
+}
+
+.details-section-desc {
+  font-size: 13.5px;
+  color: #64748b;
+}
+
+.details-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  max-width: 860px;
+  margin: 0 auto 26px auto;
+}
+
+.details-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2.5px solid #facc15;
+  border-radius: 24px;
+  padding: 22px 16px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(229, 36, 59, 0.1), 0 3px 12px rgba(250, 204, 21, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.details-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(229, 36, 59, 0.16), 0 6px 20px rgba(250, 204, 21, 0.3);
+}
+
+.card-magic-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-size: 17px;
+  color: #1e3a8a;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.card-content {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #475569;
+  margin-bottom: 16px;
+}
+
+.card-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 210px;
+  min-height: 42px;
+  background: var(--gradient-royal-red);
+  border: 2px solid #fef08a;
+  border-radius: var(--radius-pill);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(229, 36, 59, 0.35);
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(229, 36, 59, 0.5);
+}
+
+.details-companion-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.details-companion-strip img {
+  max-height: 110px;
+  object-fit: contain;
+}
+
+/* Seção de Música e Efeitos */
+.section-fairytale-music {
+  width: 100%;
+  overflow: hidden;
+  padding: 40px 14px;
+  background: transparent;
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.music-section-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.music-player-card {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid #facc15;
+  border-radius: 28px;
+  padding: 24px 18px;
+  text-align: center;
+  box-shadow: 0 14px 40px rgba(37, 99, 235, 0.12), 0 4px 16px rgba(250, 204, 21, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.music-card-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(21px, 5.2vw, 26px);
+  color: #1e3a8a;
+  margin-bottom: 6px;
+}
+
+.music-card-subtitle {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.55;
+  margin-bottom: 18px;
+}
+
+.music-main-play-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 290px;
+  min-height: 48px;
+  background: var(--gradient-royal-blue);
+  border: 2px solid #fef08a;
+  border-radius: var(--radius-pill);
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(30, 66, 153, 0.4);
+  transition: all 0.2s ease;
+  margin-bottom: 14px;
+  touch-action: manipulation;
+}
+
+.music-main-play-btn:active {
+  transform: scale(0.96);
+}
+
+.music-interactive-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.magic-action-pill {
+  flex: 1;
+  max-width: 150px;
+  min-height: 40px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-pill);
+  color: #1e293b;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.magic-action-pill:hover {
+  background: #fefce8;
+  border-color: #f59e0b;
+  color: #78350f;
+}
+
+/* Seção de Confirmação & Presentes Final */
+.section-fairytale-rsvp {
+  width: 100%;
+  overflow: hidden;
+  padding: 40px 14px;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.rsvp-final-card {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.96);
+  border: 3px solid #facc15;
+  border-radius: 28px;
+  padding: 26px 18px;
+  text-align: center;
+  box-shadow: 0 16px 45px rgba(229, 36, 59, 0.15), 0 4px 18px rgba(250, 204, 21, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.rsvp-isadora-fullbody {
+  max-height: 140px;
+  object-fit: contain;
+  margin: 0 auto 10px auto;
+  display: block;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
+}
+
+.rsvp-final-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(21px, 5.2vw, 27px);
+  color: #b91423;
+  margin-bottom: 8px;
+}
+
+.rsvp-final-desc {
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.rsvp-buttons-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.rsvp-main-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 300px;
+  min-height: 48px;
+  background: var(--gradient-royal-red);
+  border: 2px solid #fef08a;
+  border-radius: var(--radius-pill);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(217, 22, 38, 0.4), 0 0 14px var(--royal-gold-glow);
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.rsvp-main-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(217, 22, 38, 0.55);
+}
+
+.rsvp-secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 300px;
+  min-height: 42px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-pill);
+  color: #1e293b;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.rsvp-secondary-cta:hover {
+  background: #eff6ff;
+  border-color: #2563eb;
+  color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+/* Rodapé Real */
+.royal-footer {
+  padding: 28px 14px calc(var(--safe-bottom) + 24px) 14px;
+  background: rgba(254, 240, 138, 0.45);
+  border-top: 1.5px solid rgba(245, 158, 11, 0.35);
+  text-align: center;
+  font-size: 12px;
+  color: #78350f;
+}
+
+.royal-footer strong {
+  color: #b91423;
+}
+
+.royal-footer a {
+  color: #1e40af;
+}
+
+
+/* Imagens e Personagens das Seções Seguintes (Sem Estouro de Largura) */
+.story-celebrate-isadora {
+  width: 100%;
+  max-width: 140px;
+  height: auto;
+  margin: 10px auto;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+}
+
+.details-corner-ornament {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: clamp(70px, 16vw, 120px);
+  max-height: 25vh;
+  object-fit: contain;
+  pointer-events: none;
+  opacity: 0.85;
+  z-index: 2;
+}
+
+.music-isadora-sitting {
+  width: 100%;
+  max-width: 130px;
+  height: auto;
+  margin: 0 auto 12px auto;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+}
+
+.music-birds-branch {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  margin: 0 auto 10px auto;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+}
+
+.music-isadora-princess-stand {
+  width: 100%;
+  max-width: 140px;
+  height: auto;
+  margin: 12px auto 0 auto;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+}
+
+.music-side-scene {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .music-side-scene {
+    display: none;
+  }
+}
+
+.music-isadora-birds {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+}
+
+/* =========================================================================
+ * 9. RESPONSIVIDADE MOBILE CIRÚRGICA (320px - 480px)
+ * ========================================================================= */
+@media (max-width: 480px) {
+  .hero-top-controls {
+    padding: 2px 4px;
+  }
+  .crest-badge-apple {
+    font-size: 18px;
+  }
+  .crest-name-top {
+    font-size: 9.5px;
+  }
+  .crest-name-bottom {
+    font-size: 11px;
+  }
+  .hero-pill-action {
+    padding: 4px 6px;
+    font-size: 10px;
+    min-height: 28px;
+    gap: 2px;
+  }
+  .mini-bird-perch {
+    width: 13px;
+    height: 13px;
+  }
+  .hero-primary-actions {
+    gap: 5px;
+    padding: 0 4px;
+  }
+  .hero-royal-btn {
+    padding: 7px 3px;
+    font-size: 11px;
+    gap: 3px;
+    min-height: 40px;
+  }
+  .hero-royal-btn .btn-emoji-icon {
+    font-size: 12px;
+  }
+  .hero-magical-phrase {
+    font-size: 12px;
+    padding: 0 4px;
+  }
+}

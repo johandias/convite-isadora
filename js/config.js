@@ -63,9 +63,9 @@ const CONVITE_CONFIG = {
   // Sugestões de Presentes
   presentes: {
     tamanhos: {
-      roupa: "1 ano (12 a 18 meses)",
+      roupa: "1 ano (12-18m)",
       calcado: "Nº 19 ou 20",
-      fralda: "Tamanho G (Pampers ou Huggies)"
+      fralda: "Tam. G (Pampers / Huggies)"
     },
     pix: {
       chave: "isadora.1ano@exemplo.com", // << Altere para a sua chave Pix aqui
@@ -100,7 +100,7 @@ const CONVITE_CONFIG = {
         descricao: "Carrinho moderno, leve e seguro para os passeios no parque e viagens da princesinha.",
         categoria: "Passeio",
         tipo: "rachar",
-        imagem: "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=500&auto=format&fit=crop&q=80",
+        imagem: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500&auto=format&fit=crop&q=80",
         linkLoja: "https://www.amazon.com.br/s?k=carrinho+bebe+travel+system",
         valorTotal: 800,
         valorCota: 50,
@@ -119,7 +119,7 @@ const CONVITE_CONFIG = {
         imagem: "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=500&auto=format&fit=crop&q=80",
         linkLoja: "https://www.amazon.com.br/s?k=piscina+de+bolinhas+espuma+bebe",
         valorTotal: 300,
-        valorCota: 30,
+        valorCota: 50,
         arrecadado: 90,
         contribuicoes: [
           { nome: "Tio Renato", valor: 90, data: "28/09/2026", mensagem: "Muitas brincadeiras divertidas pra você!" }

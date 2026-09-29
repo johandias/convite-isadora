@@ -9,12 +9,13 @@ class NoCacheHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Expires', '0')
         super().end_headers()
 
+class ThreadedHTTPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    allow_reuse_address = True
+    daemon_threads = True
+
 PORT = 8000
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-# Permite reusar a porta imediatamente
-socketserver.TCPServer.allow_reuse_address = True
-
-with socketserver.TCPServer(("", PORT), NoCacheHTTPRequestHandler) as httpd:
-    print(f"Serving at port {PORT} with strict no-cache headers")
+with ThreadedHTTPServer(("", PORT), NoCacheHTTPRequestHandler) as httpd:
+    print(f"Serving at port {PORT} multi-threaded with strict no-cache headers")
     httpd.serve_forever()

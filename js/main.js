@@ -38,26 +38,38 @@ function initIntroExperience() {
     }
   }
 
-  // Clique em "Assistir ao Convite Real"
+  // Clique em "Abrir Convite Real & Vídeo" ou no próprio cartão
+  const introRoyalCard = document.getElementById("introRoyalCard");
+
+  function startIntroExperience() {
+    if (window.fairytaleAudio) {
+      window.fairytaleAudio.playSparkle();
+    }
+
+    introGate.classList.add("hidden");
+    setTimeout(() => {
+      introGate.style.display = "none";
+    }, 600);
+
+    if (videoTheater && introVideo) {
+      videoTheater.classList.add("active");
+      introVideo.currentTime = 0;
+      introVideo.play().catch((err) => {
+        console.log("Erro ao iniciar vídeo automaticamente:", err);
+      });
+    }
+  }
+
   if (btnStartIntro) {
-    btnStartIntro.addEventListener("click", () => {
-      // Dispara som de fanfarra e abre o cinema
-      if (window.fairytaleAudio) {
-        window.fairytaleAudio.playSparkle();
-      }
+    btnStartIntro.addEventListener("click", (e) => {
+      e.stopPropagation();
+      startIntroExperience();
+    });
+  }
 
-      introGate.classList.add("hidden");
-      setTimeout(() => {
-        introGate.style.display = "none";
-      }, 600);
-
-      if (videoTheater && introVideo) {
-        videoTheater.classList.add("active");
-        introVideo.currentTime = 0;
-        introVideo.play().catch((err) => {
-          console.log("Erro ao iniciar vídeo automaticamente:", err);
-        });
-      }
+  if (introRoyalCard) {
+    introRoyalCard.addEventListener("click", () => {
+      startIntroExperience();
     });
   }
 

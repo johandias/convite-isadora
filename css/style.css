@@ -111,6 +111,9 @@ body {
 /* =========================================================================
  * 1. TELA DE INTRODUÇÃO PADRÃO DISNEY ("ERA UMA VEZ...")
  * ========================================================================= */
+/* =========================================================================
+ * 1. TELA DE INTRODUÇÃO: O CONVITE REAL DA PRINCESINHA ISADORA
+ * ========================================================================= */
 .intro-gate-overlay {
   position: fixed;
   top: 0;
@@ -124,9 +127,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  padding-top: calc(var(--safe-top) + 16px);
-  padding-bottom: calc(var(--safe-bottom) + 16px);
+  padding: 10px 8px;
+  padding-top: calc(var(--safe-top) + 8px);
+  padding-bottom: calc(var(--safe-bottom) + 8px);
   transition: opacity 0.75s ease, transform 0.75s ease;
   overflow-y: auto;
 }
@@ -137,100 +140,156 @@ body {
   pointer-events: none;
 }
 
-/* Livro de Contos Disney Infantil com Cantoneiras Douradas */
-.intro-content-box {
-  max-width: 480px;
-  width: 100%;
-  text-align: center;
-  background: #ffffff;
+/* Cartão Vertical do Convite Real da Princesinha Isadora (100% Personagens Originais) */
+.intro-royal-card {
+  width: min(420px, 94vw);
+  height: min(730px, 94dvh);
+  max-height: 94dvh;
+  border-radius: 28px;
   border: 3.5px solid var(--disney-yellow-bright);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 0 0 30px rgba(255, 190, 26, 0.3);
-  border-radius: var(--radius-playful);
-  padding: clamp(24px, 5vh, 36px) clamp(16px, 5vw, 28px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28), 0 0 35px rgba(255, 190, 26, 0.45);
+  background-color: #14281a;
+  background-image: 
+    radial-gradient(ellipse at 50% 40%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 247, 231, 0.2) 48%, rgba(14, 28, 18, 0.65) 85%, rgba(14, 28, 18, 0.9) 100%),
+    url('../assets/isadora/clareira_encantada_com_macas.webp');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
   position: relative;
-  animation: revealCard 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px 0 12px;
+  box-sizing: border-box;
+  animation: revealCard 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   margin: auto;
 }
 
-.intro-content-box::before, .intro-content-box::after {
-  content: '✦';
-  position: absolute;
-  font-size: 20px;
-  color: var(--disney-yellow-bright);
-  text-shadow: 0 0 10px rgba(255, 190, 26, 0.8);
-}
-.intro-content-box::before { top: 12px; left: 16px; }
-.intro-content-box::after { top: 12px; right: 16px; }
-
-.wishing-star-icon {
-  font-size: 32px;
-  display: inline-block;
-  animation: wishingStarGlow 3s ease-in-out infinite;
-  margin-bottom: 6px;
+@supports not (background-image: url('../assets/isadora/clareira_encantada_com_macas.webp')) {
+  .intro-royal-card {
+    background-image: 
+      radial-gradient(ellipse at 50% 40%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 247, 231, 0.2) 48%, rgba(14, 28, 18, 0.65) 85%, rgba(14, 28, 18, 0.9) 100%),
+      url('../assets/isadora/clareira_encantada_com_macas.png');
+  }
 }
 
-.intro-badge-icon {
-  font-size: clamp(48px, 12vw, 62px);
-  margin-bottom: 6px;
-  display: inline-block;
-  animation: gentleBreathe 3s ease-in-out infinite;
-  filter: drop-shadow(0 6px 15px rgba(229, 36, 59, 0.5));
+.intro-card-birds-wrap {
+  margin-top: 2px;
+  margin-bottom: -6px;
+  z-index: 2;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.25));
+  animation: birdsChirp 4s ease-in-out infinite;
+}
+.intro-card-birds-img {
+  width: clamp(65px, 16vw, 90px);
+  height: auto;
+  display: block;
 }
 
-.intro-disney-tag {
-  font-family: 'Cinzel', serif;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--disney-red);
-  font-weight: 700;
+.intro-card-emblem-wrap {
+  z-index: 2;
   margin-bottom: 4px;
+  filter: drop-shadow(0 4px 12px rgba(229, 36, 59, 0.35));
+}
+.intro-card-emblem-img {
+  width: clamp(170px, 48vw, 230px);
+  height: auto;
+  display: block;
 }
 
-/* Título em Fonte Oficial Disney (Waltograph) */
-.intro-title {
-  font-family: 'Waltograph', cursive;
-  font-size: clamp(32px, 8.5vw, 46px);
-  color: var(--disney-red);
-  margin-bottom: 2px;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 8px rgba(229, 36, 59, 0.25);
-}
-
-.intro-subtitle {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(32px, 8.5vw, 44px);
-  color: var(--disney-blue);
-  margin-bottom: 12px;
-  text-shadow: 0 1px 4px rgba(30, 80, 216, 0.2);
-}
-
-.intro-desc {
-  font-size: clamp(13px, 3.7vw, 15px);
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin-bottom: 22px;
+.intro-card-center-content {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   padding: 0 6px;
+  margin: 0 0 6px 0;
+}
+
+.intro-card-phrase {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(11px, 2.9vw, 12.5px);
+  font-weight: 600;
+  line-height: 1.4;
+  color: #1e293b;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.85);
+  margin-bottom: 8px;
+  max-width: 320px;
+}
+
+/* Fita Nobre de Data e Horário com Maçãzinha Central */
+.intro-card-datetime-ribbon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1.8px solid var(--disney-yellow-bright);
+  border-radius: 50px;
+  padding: 5px 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  margin-bottom: 10px;
+}
+.intro-datetime-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+.intro-datetime-main {
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-size: clamp(14px, 3.8vw, 17px);
+  font-weight: 900;
+  color: var(--disney-red);
+}
+.intro-datetime-sub {
+  font-family: 'Poppins', sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #78350f;
+  text-transform: lowercase;
+}
+.intro-datetime-apple {
+  font-size: clamp(18px, 5vw, 24px);
+  animation: gentleBreathe 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 5px rgba(229, 36, 59, 0.4));
+}
+
+.intro-card-stage-wrap {
+  width: 106%;
+  max-width: 440px;
+  margin-bottom: -4px;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 -4px 10px rgba(0, 0, 0, 0.18));
+}
+.intro-card-stage-img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .btn-open-real {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  max-width: 400px;
-  min-height: 56px;
-  padding: 15px 26px;
+  max-width: 340px;
+  min-height: 50px;
+  padding: 12px 22px;
   font-family: 'Waltograph', cursive;
-  font-size: clamp(19px, 5.2vw, 24px);
-  letter-spacing: 1.5px;
+  font-size: clamp(17px, 4.6vw, 22px);
+  letter-spacing: 1.2px;
   color: #ffffff;
   background: var(--gradient-apple-red);
   border: 2.5px solid var(--disney-yellow);
   border-radius: 50px;
   cursor: pointer;
-  box-shadow: 0 12px 35px rgba(217, 22, 38, 0.65), 0 0 25px rgba(255, 209, 96, 0.5);
+  box-shadow: 0 10px 30px rgba(217, 22, 38, 0.65), 0 0 20px rgba(255, 209, 96, 0.5);
   transition: all 0.25s ease;
   animation: ctaPulse 2.4s ease-in-out infinite;
   touch-action: manipulation;
@@ -238,7 +297,7 @@ body {
 
 .btn-open-real:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 16px 45px rgba(217, 22, 38, 0.85), 0 0 35px rgba(255, 209, 96, 0.75);
+  box-shadow: 0 14px 40px rgba(217, 22, 38, 0.85), 0 0 30px rgba(255, 209, 96, 0.75);
 }
 
 .btn-open-real:active {

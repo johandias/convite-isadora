@@ -501,6 +501,20 @@
           overlaySad.classList.add("active");
         }
       });
+
+      // Suporte para visualização instantânea de testes das reações (?preview=happy ou ?preview=sad)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("preview") === "happy") {
+        document.getElementById("happyGuestMsg").innerHTML = `
+          <strong>Tia Carolina</strong>, sua confirmação foi registrada no site com sucesso! A Princesinha Isadora está dando pulinhos de alegria e te manda um beijo bem carinhoso! Mal podemos esperar para te receber com muito amor! 🥰👑🍎
+        `;
+        overlayHappy.classList.add("active");
+      } else if (urlParams.get("preview") === "sad") {
+        document.getElementById("sadGuestMsg").innerHTML = `
+          Puxa, <strong>Tio Marcelo</strong>... Sua resposta foi registrada no site. A Princesinha Isadora vai sentir muita saudade, mas agradece imensamente pelo seu carinho e deseja muitas bênçãos! 🥺💔🍎
+        `;
+        overlaySad.classList.add("active");
+      }
     });
   </script>
 </body>

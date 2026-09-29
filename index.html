@@ -15,9 +15,9 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
   
   <!-- Google Fonts: Conto de Fadas & Tipografia Nobre -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Estilos -->
   <link rel="stylesheet" href="css/animations.css">
@@ -76,10 +76,13 @@
 
     <!-- Barra de Controles Rápidos Superiores -->
     <div class="hero-top-controls">
-      <div class="hero-royal-crest-badge">
-        <span>🍎</span>
-        <span>Princesinha Isadora</span>
-      </div>
+      <a href="index.html" class="hero-royal-crest-badge" title="Princesinha Isadora 1 Aninho">
+        <span class="crest-badge-apple">🍎</span>
+        <span class="crest-badge-title">
+          <span class="crest-name-top">Princesinha</span>
+          <span class="crest-name-bottom">Isadora</span>
+        </span>
+      </a>
 
       <div class="hero-actions-cluster">
         <button id="btnRewatch" class="hero-pill-action" title="Rever vídeo de abertura">
@@ -138,20 +141,17 @@
             <nav class="hero-primary-actions" aria-label="Ações Principais do Convite">
         <a href="confirmar-presenca.html" class="hero-royal-btn btn-confirmar" title="Confirmar Presença">
           <span class="btn-emoji-icon">💬</span>
-          <span class="btn-label-desktop">Confirmar Presença</span>
-          <span class="btn-label-mobile">Confirmar</span>
+          <span class="btn-text">Confirmar</span>
         </a>
 
         <a href="localizacao.html" class="hero-royal-btn btn-localizacao" title="Localização da Festa">
           <span class="btn-emoji-icon">📍</span>
-          <span class="btn-label-desktop">Localização</span>
-          <span class="btn-label-mobile">Localização</span>
+          <span class="btn-text">Localização</span>
         </a>
 
         <a href="sugestao-presentes.html" class="hero-royal-btn btn-presentes" title="Sugestão de Presentes">
           <span class="btn-emoji-icon">🎁</span>
-          <span class="btn-label-desktop">Presentes</span>
-          <span class="btn-label-mobile">Presentes</span>
+          <span class="btn-text">Presentes</span>
         </a>
       </nav>
 

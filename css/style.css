@@ -27,41 +27,39 @@
 
 :root {
   /* =========================================================================
-   * PALETA OFICIAL DISNEY BRANCA DE NEVE (Extraída da imagem fornecida)
+   * PALETA DISNEY INFANTIL, VIVA E DIVERTIDA (BRANCA DE NEVE)
    * ========================================================================= */
-  --disney-blue: #1e4299;         /* Azul Real do Corpinho do Vestido */
-  --disney-blue-dark: #122b6d;    /* Azul Real Noturno */
-  --disney-blue-light: #3a68d0;   /* Azul Real Iluminado */
-  
-  --disney-red: #d91626;          /* Vermelho Maçã & Laço da Branca de Neve */
-  --disney-red-dark: #a10f1c;     /* Vermelho Rubi Profundo */
-  --disney-red-light: #f03a49;    /* Vermelho Vivo Cintilante */
-  
-  --disney-yellow: #ffd160;       /* Amarelo Ouro da Saia da Branca de Neve */
-  --disney-yellow-glow: #ffe07a;  /* Brilho Solar Dourado */
-  --disney-yellow-dark: #ba7947;  /* Ouro Âmbar Real */
-  
-  /* Tons do Bosque, Cabana e Animais */
-  --disney-ebony: #281203;        /* Ébano / Cabelos da Branca de Neve */
-  --disney-wood-dark: #57331d;    /* Madeira Carvalho Cabana dos Anões */
-  --disney-wood-warm: #744e33;    /* Madeira Cedro Aconchegante */
-  --disney-wood-light: #d3ab87;   /* Madeira Clara / Bétula Mágica */
-  --disney-amber-deer: #ba7947;   /* Caramelo / Bambi & Cervos Encantados */
-  
-  /* Tons Suaves e Encantados */
-  --disney-peach: #f5b693;        /* Pêssego / Pele da Princesa */
-  --disney-rose: #f4b6a1;         /* Rosa Suave / Bochechas Rosadas */
-  --disney-cream-light: #fde9c4;  /* Creme Gola da Princesa / Vela Mágica */
-  --disney-parchment: #f6eee1;    /* Pergaminho Livro de Contos Disney */
-  --disney-parchment-soft: #fcf8f2; /* Marfim Puro */
-  
-  /* Gradientes Mágicos Disney */
-  --gradient-disney-blue: linear-gradient(135deg, #2b55b8 0%, #1e4299 50%, #122b6d 100%);
-  --gradient-apple-red: linear-gradient(135deg, #f03a49 0%, #d91626 50%, #a10f1c 100%);
-  --gradient-golden-sun: linear-gradient(135deg, #ffe07a 0%, #ffd160 50%, #ba7947 100%);
-  --gradient-wood-royal: linear-gradient(135deg, #744e33 0%, #57331d 50%, #281203 100%);
-  
+  --bg-yellow-light: #fffdf2;       /* Amarelo Claro Suave / Iluminado */
+  --bg-yellow-butter: #fef8d8;      /* Amarelo Manteiga Ensolarado */
+  --bg-yellow-warm: #fef08a;        /* Amarelo Alegre de Festa */
+
+  --disney-red: #e5243b;            /* Vermelho Maçã Vivo & Doce */
+  --disney-red-dark: #b91c1c;       /* Vermelho Bordô Nobre */
+  --disney-red-light: #ff4d6d;      /* Vermelho Pirulito Brilhante */
+  --gradient-apple-red: linear-gradient(135deg, #ff4d6d 0%, #e5243b 50%, #b91c1c 100%);
+
+  --disney-blue: #1e50d8;           /* Azul Real Disney Vibrante */
+  --disney-blue-dark: #1e3a8a;      /* Azul Marinho Nobre Legível */
+  --disney-blue-light: #38bdf8;     /* Azul Celeste Céu de Parque */
+  --gradient-disney-blue: linear-gradient(135deg, #38bdf8 0%, #1e50d8 50%, #173db0 100%);
+
+  --disney-yellow: #f59e0b;         /* Dourado Ouro Quente e Vivo */
+  --disney-yellow-bright: #ffbe1a;  /* Amarelo Sol Cintilante */
+  --disney-yellow-glow: #fef08a;    /* Brilho Solar Suave */
+  --gradient-golden-sun: linear-gradient(135deg, #fef08a 0%, #ffbe1a 50%, #f59e0b 100%);
+
+  --disney-green: #22c55e;          /* Verde Folha / Maçã Verde */
+  --disney-green-dark: #16a34a;
+
+  /* Cartões Luminosos, Limpos e Infantis */
+  --card-bg-white: #ffffff;
+  --card-bg-cream: #fffdf5;
+  --text-primary: #1e293b;          /* Grafite Azulado Escuro Ultra Legível */
+  --text-secondary: #475569;        /* Texto de apoio legível */
+  --text-muted: #64748b;
+
   --radius-royal: 24px;
+  --radius-playful: 28px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -81,13 +79,15 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--disney-ebony);
+  background-color: var(--bg-yellow-light);
   background-image: 
-    radial-gradient(circle at 50% 10%, rgba(255, 209, 96, 0.25) 0%, transparent 55%),
-    radial-gradient(circle at 10% 80%, rgba(30, 66, 153, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 90% 70%, rgba(217, 22, 38, 0.25) 0%, transparent 50%),
-    linear-gradient(180deg, #281203 0%, #1b0c03 40%, #0d0601 100%);
-  color: #ffffff;
+    /* Estampa SVG de Maçãzinhas Vermelhas, Folhas Verdes e Estrelinhas */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3C!-- Maçã 1 --%3E%3Cg transform='translate(24, 20)'%3E%3Cpath d='M12 7 C18 1 23 4 21 10 C16 10 12 9 12 7 Z' fill='%2322c55e' fill-opacity='0.6'/%3E%3Cpath d='M10 8 C11 4 13 2 15 1' stroke='%2378350f' stroke-width='2.2' stroke-linecap='round' stroke-opacity='0.65'/%3E%3Cpath d='M10 8 C5 8 1 12 1 18 C1 25 5 29 10 29 C15 29 19 25 19 18 C19 12 15 8 10 8 Z' fill='%23e5243b' fill-opacity='0.28'/%3E%3Ccircle cx='5.5' cy='14' r='1.8' fill='%23ffffff' fill-opacity='0.6'/%3E%3C/g%3E%3C!-- Maçã 2 --%3E%3Cg transform='translate(84, 80) rotate(16)'%3E%3Cpath d='M11 6 C16 1 21 3 19 9 C15 9 11 8 11 6 Z' fill='%2322c55e' fill-opacity='0.55'/%3E%3Cpath d='M9 7 C10 4 12 2 14 1' stroke='%2378350f' stroke-width='2' stroke-linecap='round' stroke-opacity='0.6'/%3E%3Cpath d='M9 7 C5 7 1 11 1 16 C1 23 5 27 9 27 C13 27 17 23 17 16 C17 11 13 7 9 7 Z' fill='%23d91626' fill-opacity='0.25'/%3E%3Ccircle cx='5' cy='12.5' r='1.6' fill='%23ffffff' fill-opacity='0.55'/%3E%3C/g%3E%3C!-- Florzinha Branca/Amarela --%3E%3Cg transform='translate(82, 26) scale(0.85)'%3E%3Ccircle cx='8' cy='8' r='3.2' fill='%23f59e0b' fill-opacity='0.45'/%3E%3Ccircle cx='8' cy='3.5' r='2.4' fill='%23ffffff' fill-opacity='0.65'/%3E%3Ccircle cx='12.5' cy='8' r='2.4' fill='%23ffffff' fill-opacity='0.65'/%3E%3Ccircle cx='8' cy='12.5' r='2.4' fill='%23ffffff' fill-opacity='0.65'/%3E%3Ccircle cx='3.5' cy='8' r='2.4' fill='%23ffffff' fill-opacity='0.65'/%3E%3C/g%3E%3C!-- Estrelinha Dourada --%3E%3Cpath d='M28 88 L29.5 92.5 L34 93.5 L30.5 96.5 L31.5 101 L28 98.5 L24.5 101 L25.5 96.5 L22 93.5 L26.5 92.5 Z' fill='%23f59e0b' fill-opacity='0.35'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(180deg, #fffdf2 0%, #fef8d8 35%, #fef3c7 70%, #fef08a 100%);
+  background-repeat: repeat, no-repeat;
+  background-size: 120px 120px, 100% 100%;
+  background-attachment: fixed;
+  color: var(--text-primary);
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: hidden;
@@ -95,14 +95,14 @@ body {
   padding-bottom: calc(var(--safe-bottom) + 20px);
 }
 
-/* Raios de sol mágicos estilo Disney */
+/* Raios de sol mágicos estilo Disney Infantil */
 .sunbeams-bg {
   position: fixed;
-  top: -20vh;
-  left: 10%;
-  width: 80vw;
+  top: -10vh;
+  left: 5%;
+  width: 90vw;
   height: 80vh;
-  background: radial-gradient(ellipse at top, rgba(255, 209, 96, 0.18), transparent 70%);
+  background: radial-gradient(ellipse at top, rgba(255, 230, 100, 0.45), rgba(255, 255, 255, 0.3) 45%, transparent 70%);
   pointer-events: none;
   z-index: 1;
   animation: forestRays 12s ease-in-out infinite;
@@ -118,7 +118,7 @@ body {
   width: 100%;
   height: 100%;
   height: 100dvh;
-  background: radial-gradient(circle at center, #351a08 0%, #170901 75%, #080300 100%);
+  background: radial-gradient(circle at center, rgba(255, 253, 242, 0.98) 0%, rgba(254, 243, 199, 0.98) 100%);
   z-index: 10000;
   display: flex;
   flex-direction: column;
@@ -137,17 +137,16 @@ body {
   pointer-events: none;
 }
 
-/* Livro de Contos Disney com Cantoneiras Douradas */
+/* Livro de Contos Disney Infantil com Cantoneiras Douradas */
 .intro-content-box {
-  max-width: 500px;
+  max-width: 480px;
   width: 100%;
   text-align: center;
-  background: rgba(40, 18, 3, 0.94);
-  backdrop-filter: blur(18px);
-  border: 3px solid var(--disney-yellow);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(255, 209, 96, 0.4);
-  border-radius: var(--radius-royal);
-  padding: clamp(26px, 5vh, 40px) clamp(18px, 5vw, 32px);
+  background: #ffffff;
+  border: 3.5px solid var(--disney-yellow-bright);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 0 0 30px rgba(255, 190, 26, 0.3);
+  border-radius: var(--radius-playful);
+  padding: clamp(24px, 5vh, 36px) clamp(16px, 5vw, 28px);
   position: relative;
   animation: revealCard 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   margin: auto;
@@ -157,8 +156,8 @@ body {
   content: '✦';
   position: absolute;
   font-size: 20px;
-  color: var(--disney-yellow);
-  text-shadow: 0 0 10px rgba(255, 209, 96, 0.8);
+  color: var(--disney-yellow-bright);
+  text-shadow: 0 0 10px rgba(255, 190, 26, 0.8);
 }
 .intro-content-box::before { top: 12px; left: 16px; }
 .intro-content-box::after { top: 12px; right: 16px; }
@@ -175,7 +174,7 @@ body {
   margin-bottom: 6px;
   display: inline-block;
   animation: gentleBreathe 3s ease-in-out infinite;
-  filter: drop-shadow(0 6px 15px rgba(217, 22, 38, 0.8));
+  filter: drop-shadow(0 6px 15px rgba(229, 36, 59, 0.5));
 }
 
 .intro-disney-tag {
@@ -183,34 +182,34 @@ body {
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--disney-yellow);
-  opacity: 0.95;
+  color: var(--disney-red);
+  font-weight: 700;
   margin-bottom: 4px;
 }
 
 /* Título em Fonte Oficial Disney (Waltograph) */
 .intro-title {
   font-family: 'Waltograph', cursive;
-  font-size: clamp(30px, 8.5vw, 44px);
-  color: var(--disney-yellow);
+  font-size: clamp(32px, 8.5vw, 46px);
+  color: var(--disney-red);
   margin-bottom: 2px;
   letter-spacing: 1px;
-  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 209, 96, 0.65);
+  text-shadow: 0 2px 8px rgba(229, 36, 59, 0.25);
 }
 
 .intro-subtitle {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(30px, 8.5vw, 42px);
-  color: #ffffff;
-  margin-bottom: 14px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  font-size: clamp(32px, 8.5vw, 44px);
+  color: var(--disney-blue);
+  margin-bottom: 12px;
+  text-shadow: 0 1px 4px rgba(30, 80, 216, 0.2);
 }
 
 .intro-desc {
   font-size: clamp(13px, 3.7vw, 15px);
-  line-height: 1.65;
-  color: var(--disney-cream-light);
-  margin-bottom: 26px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 22px;
   padding: 0 6px;
 }
 
@@ -638,23 +637,23 @@ body {
 }
 
 /* =========================================================================
- * 5. CONTAGEM REGRESSIVA (Estilo Relógio Real Disney)
+ * 5. CONTAGEM REGRESSIVA (Estilo Relógio Real Disney Infantil)
  * ========================================================================= */
 .countdown-section {
   margin-top: 20px;
-  background: rgba(40, 18, 3, 0.92);
-  backdrop-filter: blur(14px);
-  border: 2.5px solid var(--disney-yellow);
+  background: #ffffff;
+  border: 3px solid var(--disney-yellow-bright);
   border-radius: var(--radius-royal);
   padding: 18px 14px;
   text-align: center;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 209, 96, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 .countdown-title {
   font-family: 'Cinzel', serif;
   font-size: clamp(13px, 3.6vw, 16px);
-  color: var(--disney-yellow);
+  color: var(--disney-red);
+  font-weight: 700;
   letter-spacing: 1px;
   margin-bottom: 12px;
   display: flex;
@@ -672,28 +671,28 @@ body {
 }
 
 .countdown-unit {
-  background: rgba(18, 43, 109, 0.75);
-  border: 1.5px solid var(--disney-yellow);
+  background: #fefce8;
+  border: 1.5px solid var(--disney-yellow-bright);
   border-radius: 14px;
   padding: 8px 2px;
 }
 
 .countdown-num {
   font-family: 'Cinzel', serif;
-  font-size: clamp(19px, 5.8vw, 26px);
-  font-weight: 700;
-  color: var(--disney-yellow);
+  font-size: clamp(20px, 5.8vw, 26px);
+  font-weight: 800;
+  color: var(--disney-blue);
   line-height: 1.1;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 209, 96, 0.4);
+  text-shadow: 0 1px 3px rgba(30, 80, 216, 0.2);
 }
 
 .countdown-label {
   font-size: clamp(9px, 2.5vw, 11px);
   text-transform: uppercase;
-  color: var(--disney-cream-light);
+  color: #78350f;
   letter-spacing: 0.6px;
   margin-top: 3px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* =========================================================================
@@ -883,28 +882,28 @@ body {
 }
 
 .subpage-card {
-  background: rgba(40, 18, 3, 0.94);
-  backdrop-filter: blur(16px);
-  border: 3px solid var(--disney-yellow);
-  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 209, 96, 0.3);
-  border-radius: var(--radius-royal);
-  padding: clamp(22px, 4.2vw, 34px) clamp(14px, 3.6vw, 24px);
+  background: #ffffff;
+  border: 3.5px solid var(--disney-yellow-bright);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08), 0 0 25px rgba(255, 190, 26, 0.2);
+  border-radius: var(--radius-playful);
+  padding: clamp(20px, 4.2vw, 32px) clamp(14px, 3.6vw, 24px);
   position: relative;
+  color: var(--text-primary);
 }
 
 .subpage-card::before, .subpage-card::after {
   content: '✦';
   position: absolute;
   font-size: 18px;
-  color: var(--disney-yellow);
-  text-shadow: 0 0 10px rgba(255, 209, 96, 0.8);
+  color: var(--disney-yellow-bright);
+  text-shadow: 0 0 8px rgba(255, 190, 26, 0.6);
 }
 .subpage-card::before { top: 12px; left: 16px; }
 .subpage-card::after { top: 12px; right: 16px; }
 
 .subpage-header {
   text-align: center;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   position: relative;
 }
 
@@ -912,67 +911,66 @@ body {
   font-size: clamp(38px, 8.5vw, 48px);
   margin-bottom: 6px;
   display: inline-block;
-  filter: drop-shadow(0 4px 12px rgba(217, 22, 38, 0.8));
+  filter: drop-shadow(0 4px 10px rgba(229, 36, 59, 0.4));
 }
 
 .subpage-title {
   font-family: 'Waltograph', cursive;
-  font-size: clamp(26px, 6.8vw, 36px);
-  color: var(--disney-yellow);
-  margin-bottom: 4px;
+  font-size: clamp(28px, 6.8vw, 38px);
+  color: var(--disney-red);
+  margin-bottom: 2px;
   letter-spacing: 1px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 .subpage-subtitle {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(26px, 7vw, 32px);
-  color: #ffffff;
-  margin-bottom: 10px;
+  font-size: clamp(26px, 7vw, 34px);
+  color: var(--disney-blue);
+  margin-bottom: 8px;
 }
 
 .subpage-intro-text {
   font-size: clamp(13px, 3.4vw, 14px);
   line-height: 1.6;
-  color: var(--disney-cream-light);
+  color: var(--text-secondary);
 }
 
 /* Formulário de RSVP */
 .form-group {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .form-label {
   display: block;
   font-size: 13px;
-  font-weight: 600;
-  color: var(--disney-yellow);
+  font-weight: 700;
+  color: #78350f;
   margin-bottom: 6px;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.3px;
 }
 
 .form-input, .form-textarea, .form-select {
   width: 100%;
-  padding: 13px 15px;
+  padding: 12px 14px;
   min-height: 48px;
-  background: rgba(255, 255, 255, 0.09);
-  border: 1.5px solid var(--disney-wood-light);
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
   border-radius: 14px;
-  color: #ffffff;
+  color: var(--text-primary);
   font-family: 'Poppins', sans-serif;
-  font-size: 16px !important;
+  font-size: 15px !important;
   transition: all 0.2s ease;
   outline: none;
 }
 
 .form-input:focus, .form-textarea:focus, .form-select:focus {
-  border-color: var(--disney-yellow);
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 14px rgba(255, 209, 96, 0.45);
+  border-color: var(--disney-blue);
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(30, 80, 216, 0.25);
 }
 
 .form-textarea {
-  min-height: 90px;
+  min-height: 80px;
   resize: vertical;
 }
 
@@ -984,8 +982,8 @@ body {
 }
 
 .radio-card {
-  border: 1.5px solid var(--disney-wood-light);
-  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid #cbd5e1;
+  background: #f8fafc;
   padding: 12px 8px;
   min-height: 52px;
   border-radius: 14px;
@@ -998,6 +996,7 @@ body {
   justify-content: center;
   gap: 4px;
   touch-action: manipulation;
+  color: var(--text-primary);
 }
 
 .radio-card input {
@@ -1006,8 +1005,9 @@ body {
 
 .radio-card.active {
   background: var(--gradient-apple-red);
-  border-color: var(--disney-yellow);
-  box-shadow: 0 6px 18px rgba(217, 22, 38, 0.55);
+  border-color: var(--disney-yellow-bright);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(229, 36, 59, 0.35);
 }
 
 .radio-card-emoji {
@@ -1017,7 +1017,7 @@ body {
 .radio-card-title {
   font-size: 12px;
   font-weight: 700;
-  color: #ffffff;
+  color: inherit;
 }
 
 /* Contadores numéricos */
@@ -1025,33 +1025,34 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1.5px solid var(--disney-wood-light);
-  padding: 8px 12px;
-  min-height: 52px;
+  background: #fefce8;
+  border: 1.5px solid var(--disney-yellow-bright);
+  padding: 6px 12px;
+  min-height: 50px;
   border-radius: 14px;
 }
 
 .counter-btn {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 1.5px solid var(--disney-yellow);
-  background: rgba(255, 209, 96, 0.25);
-  color: var(--disney-yellow);
+  border: none;
+  background: var(--gradient-golden-sun);
+  color: #78350f;
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
   touch-action: manipulation;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
 
 .counter-btn:hover {
-  background: var(--disney-yellow);
-  color: #000;
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 .counter-btn:active {
@@ -1060,8 +1061,8 @@ body {
 
 .counter-value {
   font-size: 19px;
-  font-weight: 700;
-  color: #fff;
+  font-weight: 800;
+  color: var(--text-primary);
 }
 
 /* Botões de Ação das Subpáginas */
@@ -1116,8 +1117,8 @@ body {
 
 /* Box de Localização & Mapa */
 .location-details-box {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1.5px solid var(--disney-wood-light);
+  background: #fefce8;
+  border: 2px solid var(--disney-yellow-bright);
   border-radius: 16px;
   padding: clamp(14px, 3.5vw, 20px);
   margin-bottom: 18px;
@@ -1136,21 +1137,22 @@ body {
 
 .location-item-icon {
   font-size: 22px;
-  color: var(--disney-yellow);
+  color: var(--disney-red);
   flex-shrink: 0;
   margin-top: 2px;
 }
 
 .location-item-content h4 {
   font-size: clamp(14px, 3.8vw, 16px);
-  color: var(--disney-yellow);
+  color: var(--disney-red);
   margin-bottom: 3px;
   font-family: 'Cinzel', serif;
+  font-weight: 700;
 }
 
 .location-item-content p {
   font-size: clamp(13px, 3.4vw, 14px);
-  color: var(--disney-cream-light);
+  color: #334155;
   line-height: 1.5;
 }
 
@@ -1404,67 +1406,67 @@ body {
   white-space: nowrap;
   padding: 8px 16px;
   border-radius: 20px;
-  border: 1.5px solid var(--disney-wood-light);
-  background: rgba(255, 255, 255, 0.08);
-  color: #e2e8f0;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: var(--text-primary);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   touch-action: manipulation;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .gift-filter-btn:hover {
-  border-color: var(--disney-yellow);
-  background: rgba(255, 209, 96, 0.15);
-  color: #fff;
+  border-color: var(--disney-yellow-bright);
+  background: #fefce8;
 }
 
 .gift-filter-btn.active {
   background: var(--gradient-apple-red);
-  border-color: var(--disney-yellow);
+  border-color: var(--disney-yellow-bright);
   color: #ffffff;
-  box-shadow: 0 4px 14px rgba(217, 22, 38, 0.45);
+  box-shadow: 0 4px 14px rgba(229, 36, 59, 0.35);
 }
 
 .gift-catalog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 16px;
   margin-top: 14px;
   margin-bottom: 24px;
 }
 
 .gift-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1.5px solid var(--disney-wood-light);
-  border-radius: 18px;
+  background: #ffffff;
+  border: 2.5px solid var(--disney-yellow-bright);
+  border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .gift-card:hover {
   transform: translateY(-3px);
-  border-color: var(--disney-yellow);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 209, 96, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12), 0 0 15px rgba(255, 190, 26, 0.2);
 }
 
 .gift-card.is-claimed {
-  border-color: rgba(82, 183, 136, 0.5);
-  background: rgba(255, 255, 255, 0.04);
+  border-color: #cbd5e1;
+  background: #f8fafc;
 }
 
 .gift-card-media {
   position: relative;
   width: 100%;
-  height: 170px;
-  background: rgba(18, 9, 3, 0.7);
+  height: 175px;
+  background: #f1f5f9;
   overflow: hidden;
 }
 
@@ -1490,19 +1492,19 @@ body {
   letter-spacing: 0.3px;
   backdrop-filter: blur(8px);
   z-index: 2;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .gift-badge-rachar {
-  background: rgba(30, 66, 153, 0.9);
-  color: #ffe07a;
-  border: 1px solid var(--disney-yellow);
+  background: var(--gradient-disney-blue);
+  color: #ffffff;
+  border: 1px solid #93c5fd;
 }
 
 .gift-badge-pessoal {
-  background: rgba(217, 22, 38, 0.9);
-  color: #fff;
-  border: 1px solid #ff758f;
+  background: var(--gradient-apple-red);
+  color: #ffffff;
+  border: 1px solid #fca5a5;
 }
 
 .gift-badge-status {
@@ -1515,19 +1517,17 @@ body {
   font-weight: 700;
   backdrop-filter: blur(8px);
   z-index: 2;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .status-disponivel {
-  background: rgba(82, 183, 136, 0.9);
+  background: #22c55e;
   color: #ffffff;
-  border: 1px solid #95d5b2;
 }
 
 .status-reservado {
-  background: rgba(100, 116, 139, 0.9);
-  color: #ffd700;
-  border: 1px solid rgba(255, 215, 0, 0.6);
+  background: #64748b;
+  color: #ffffff;
 }
 
 .gift-card-body {
@@ -1540,7 +1540,7 @@ body {
 .gift-card-category {
   font-size: 10.5px;
   text-transform: uppercase;
-  color: var(--disney-yellow);
+  color: var(--disney-red);
   font-weight: 700;
   letter-spacing: 0.5px;
 }
@@ -1549,14 +1549,14 @@ body {
   font-family: 'Cinzel', serif;
   font-size: 15px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-primary);
   margin: 4px 0 6px 0;
   line-height: 1.35;
 }
 
 .gift-card-desc {
   font-size: 12.5px;
-  color: var(--disney-cream-light);
+  color: var(--text-secondary);
   line-height: 1.45;
   margin-bottom: 12px;
   flex-grow: 1;
@@ -1564,8 +1564,8 @@ body {
 
 /* Progresso de Rachar */
 .gift-split-section {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 209, 96, 0.25);
+  background: #fefce8;
+  border: 1.5px solid var(--disney-yellow-bright);
   border-radius: 12px;
   padding: 10px;
   margin-bottom: 12px;
@@ -1574,7 +1574,7 @@ body {
 .gift-progress-track {
   width: 100%;
   height: 9px;
-  background: rgba(255, 255, 255, 0.12);
+  background: #e2e8f0;
   border-radius: 6px;
   overflow: hidden;
   position: relative;
@@ -1582,7 +1582,7 @@ body {
 
 .gift-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #52b788 0%, #ffd160 100%);
+  background: linear-gradient(90deg, #22c55e 0%, #38bdf8 100%);
   border-radius: 6px;
   transition: width 0.5s ease-out;
 }
@@ -1592,17 +1592,17 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: 11px;
-  color: #e2e8f0;
+  color: var(--text-secondary);
   margin-top: 6px;
 }
 
 .gift-progress-labels strong {
-  color: var(--disney-yellow);
+  color: var(--disney-blue-dark);
 }
 
 .gift-quota-hint {
   font-size: 11px;
-  color: #a0aec0;
+  color: var(--text-muted);
   margin-top: 4px;
 }
 
@@ -1621,20 +1621,18 @@ body {
   gap: 6px;
   padding: 8px 12px;
   border-radius: 12px;
-  border: 1.5px solid rgba(255, 209, 96, 0.6);
-  background: rgba(255, 209, 96, 0.1);
-  color: var(--disney-yellow);
+  border: 1.5px solid #93c5fd;
+  background: #eff6ff;
+  color: var(--disney-blue);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   transition: all 0.2s ease;
   touch-action: manipulation;
 }
 
 .btn-store-link:hover {
-  background: rgba(255, 209, 96, 0.25);
-  border-color: var(--disney-yellow);
-  color: #fff;
+  background: #dbeafe;
 }
 
 .btn-gift-action {
@@ -1652,7 +1650,7 @@ body {
   justify-content: center;
   gap: 6px;
   transition: all 0.2s ease;
-  border: 1.5px solid var(--disney-yellow);
+  border: 1.5px solid var(--disney-yellow-bright);
   touch-action: manipulation;
 }
 
@@ -1662,8 +1660,8 @@ body {
 }
 
 .btn-gift-split:hover {
-  background: linear-gradient(135deg, #3a68d0, #1e4299);
-  box-shadow: 0 4px 15px rgba(30, 66, 153, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(30, 80, 216, 0.4);
 }
 
 .btn-gift-claim {
@@ -1672,17 +1670,17 @@ body {
 }
 
 .btn-gift-claim:hover {
-  background: linear-gradient(135deg, #f03a49, #d91626);
-  box-shadow: 0 4px 15px rgba(217, 22, 38, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(229, 36, 59, 0.4);
 }
 
 .gift-claimed-badge {
   text-align: center;
   padding: 10px;
   border-radius: 12px;
-  background: rgba(82, 183, 136, 0.15);
-  border: 1.5px solid #52b788;
-  color: #95d5b2;
+  background: #f1f5f9;
+  border: 1.5px solid #cbd5e1;
+  color: var(--text-muted);
   font-size: 12px;
   font-weight: 600;
 }
@@ -1691,7 +1689,7 @@ body {
 .fairytale-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(8, 3, 1, 0.85);
+  background: rgba(15, 23, 42, 0.8);
   backdrop-filter: blur(8px);
   z-index: 100000;
   display: flex;
@@ -1713,14 +1711,15 @@ body {
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  background: rgba(40, 18, 3, 0.98);
-  border: 3px solid var(--disney-yellow);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 209, 96, 0.4);
-  border-radius: var(--radius-royal);
+  background: #ffffff;
+  border: 3.5px solid var(--disney-yellow-bright);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-playful);
   padding: clamp(20px, 4.5vw, 30px);
   position: relative;
   transform: translateY(20px);
   transition: transform 0.3s ease;
+  color: var(--text-primary);
 }
 
 .fairytale-modal-overlay.active .fairytale-modal-card {
@@ -1734,9 +1733,9 @@ body {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1.5px solid var(--disney-yellow);
-  color: var(--disney-yellow);
+  background: #f1f5f9;
+  border: 1.5px solid #cbd5e1;
+  color: var(--text-primary);
   font-size: 16px;
   cursor: pointer;
   display: flex;

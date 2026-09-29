@@ -3014,9 +3014,9 @@ img {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 45px 16px 35px 16px;
-  background: linear-gradient(180deg, #14281a 0%, #1e1008 40%, #281203 100%);
-  color: #ffffff;
+  padding: 48px 16px 36px 16px;
+  background: transparent;
+  color: var(--text-primary);
   box-sizing: border-box;
 }
 
@@ -3026,7 +3026,7 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   text-align: center;
 }
 
@@ -3036,8 +3036,8 @@ img {
   border-radius: 50%;
   padding: 3.5px;
   background: linear-gradient(135deg, var(--royal-gold), var(--royal-red));
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 22px var(--royal-gold-glow);
-  margin: 0 auto 8px auto;
+  box-shadow: 0 8px 24px rgba(229, 36, 59, 0.2), 0 0 18px rgba(250, 204, 21, 0.4);
+  margin: 0 auto 4px auto;
 }
 
 .royal-portrait-inner {
@@ -3045,7 +3045,7 @@ img {
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #ffffff;
+  border: 2.5px solid #ffffff;
 }
 
 .royal-portrait-inner img {
@@ -3060,60 +3060,64 @@ img {
   height: auto;
   margin: 0 auto;
   display: block;
-  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
 }
 
 .story-text-card {
-  background: rgba(40, 18, 3, 0.94);
-  border: 2px solid var(--royal-gold);
-  border-radius: var(--radius-card);
-  padding: 22px 18px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 209, 96, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  border: 2.5px solid #facc15;
+  border-radius: 28px;
+  padding: 26px 20px;
+  box-shadow: 0 14px 40px rgba(229, 36, 59, 0.12), 0 4px 16px rgba(250, 204, 21, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .story-badge {
   display: inline-block;
-  font-family: 'Cinzel', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--royal-gold);
-  background: rgba(255, 209, 96, 0.15);
-  border: 1px solid var(--royal-gold);
-  padding: 4px 12px;
-  border-radius: 12px;
-  margin-bottom: 10px;
+  letter-spacing: 1.5px;
+  color: #b45309;
+  background: #fef3c7;
+  border: 1.5px solid #f59e0b;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 12px;
 }
 
 .story-title {
   font-family: 'Cinzel Decorative', cursive, serif;
-  font-size: clamp(20px, 5.2vw, 26px);
-  color: #ffffff;
-  margin-bottom: 10px;
+  font-size: clamp(21px, 5.2vw, 28px);
+  color: #b91423;
+  margin-bottom: 12px;
+  text-shadow: 0 1px 2px rgba(245, 158, 11, 0.3);
 }
 
 .story-title span {
-  color: var(--royal-gold);
+  color: #1e3a8a;
 }
 
 .story-paragraph {
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--royal-cream);
-  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #334155;
+  margin-bottom: 14px;
 }
 
 .story-highlight-box {
-  background: rgba(255, 209, 96, 0.12);
-  border-left: 3px solid var(--royal-gold);
-  border-right: 3px solid var(--royal-gold);
-  padding: 10px 12px;
-  border-radius: 10px;
+  background: #fefce8;
+  border-left: 4px solid #f59e0b;
+  border-right: 4px solid #f59e0b;
+  padding: 12px 14px;
+  border-radius: 14px;
   font-style: italic;
-  color: var(--royal-gold-light);
-  font-size: 13.5px;
-  margin: 12px 0;
+  color: #854d0e;
+  font-size: 14px;
+  margin: 14px 0;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
 }
 
 /* Seção de Detalhes da Festa */
@@ -3121,70 +3125,78 @@ img {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 35px 14px;
-  background: #281203;
-  color: #ffffff;
+  padding: 40px 14px;
+  background: transparent;
+  color: var(--text-primary);
   box-sizing: border-box;
 }
 
 .details-section-header {
   text-align: center;
   max-width: 480px;
-  margin: 0 auto 20px auto;
+  margin: 0 auto 24px auto;
 }
 
 .details-section-title {
   font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(22px, 5.5vw, 28px);
-  color: var(--royal-gold);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-  margin-bottom: 4px;
+  font-size: clamp(22px, 5.5vw, 30px);
+  color: #b91423;
+  text-shadow: 0 1px 3px rgba(245, 158, 11, 0.3);
+  margin-bottom: 6px;
 }
 
 .details-section-desc {
-  font-size: 13px;
-  color: var(--royal-cream);
+  font-size: 13.5px;
+  color: #64748b;
 }
 
 .details-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
   max-width: 860px;
   margin: 0 auto 26px auto;
 }
 
 .details-card {
-  background: rgba(55, 25, 6, 0.92);
-  border: 1.5px solid var(--royal-gold);
-  border-radius: 18px;
-  padding: 18px 14px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2.5px solid #facc15;
+  border-radius: 24px;
+  padding: 22px 16px;
   text-align: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(229, 36, 59, 0.1), 0 3px 12px rgba(250, 204, 21, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.details-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(229, 36, 59, 0.16), 0 6px 20px rgba(250, 204, 21, 0.3);
 }
 
 .card-magic-icon {
-  font-size: 30px;
-  margin-bottom: 6px;
+  font-size: 32px;
+  margin-bottom: 8px;
 }
 
 .card-title {
-  font-family: 'Cinzel', serif;
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
   font-size: 17px;
-  color: var(--royal-gold);
-  margin-bottom: 6px;
+  color: #1e3a8a;
+  margin-bottom: 8px;
   font-weight: 700;
 }
 
 .card-content {
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: #fcecd2;
-  margin-bottom: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #475569;
+  margin-bottom: 16px;
 }
 
 .card-btn {
@@ -3193,18 +3205,24 @@ img {
   justify-content: center;
   gap: 6px;
   width: 100%;
-  max-width: 200px;
-  min-height: 40px;
+  max-width: 210px;
+  min-height: 42px;
   background: var(--gradient-royal-red);
-  border: 1.5px solid var(--royal-gold);
+  border: 2px solid #fef08a;
   border-radius: var(--radius-pill);
   color: #ffffff;
   text-decoration: none;
   font-family: 'Poppins', sans-serif;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 700;
+  box-shadow: 0 4px 14px rgba(229, 36, 59, 0.35);
   transition: all 0.2s ease;
   touch-action: manipulation;
+}
+
+.card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(229, 36, 59, 0.5);
 }
 
 .details-companion-strip {
@@ -3219,41 +3237,54 @@ img {
 .details-companion-strip img {
   max-height: 110px;
   object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
 }
 
 /* Seção de Música e Efeitos */
 .section-fairytale-music {
   width: 100%;
   overflow: hidden;
-  padding: 35px 14px;
-  background: linear-gradient(180deg, #281203 0%, #170901 100%);
-  color: #ffffff;
+  padding: 40px 14px;
+  background: transparent;
+  color: var(--text-primary);
   box-sizing: border-box;
 }
 
-.music-player-card {
-  max-width: 440px;
+.music-section-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 900px;
   margin: 0 auto;
-  background: rgba(40, 18, 3, 0.95);
-  border: 2px solid var(--royal-gold);
-  border-radius: 22px;
-  padding: 20px 16px;
+}
+
+.music-player-card {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid #facc15;
+  border-radius: 28px;
+  padding: 24px 18px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 209, 96, 0.2);
+  box-shadow: 0 14px 40px rgba(37, 99, 235, 0.12), 0 4px 16px rgba(250, 204, 21, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .music-card-title {
   font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(20px, 5.2vw, 24px);
-  color: var(--royal-gold);
-  margin-bottom: 4px;
+  font-size: clamp(21px, 5.2vw, 26px);
+  color: #1e3a8a;
+  margin-bottom: 6px;
 }
 
 .music-card-subtitle {
-  font-size: 12.5px;
-  color: var(--royal-cream);
-  line-height: 1.5;
-  margin-bottom: 16px;
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.55;
+  margin-bottom: 18px;
 }
 
 .music-main-play-btn {
@@ -3263,18 +3294,18 @@ img {
   gap: 8px;
   width: 100%;
   max-width: 290px;
-  min-height: 46px;
+  min-height: 48px;
   background: var(--gradient-royal-blue);
-  border: 2px solid var(--royal-gold);
+  border: 2px solid #fef08a;
   border-radius: var(--radius-pill);
   color: #ffffff;
   font-family: 'Poppins', sans-serif;
   font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(30, 66, 153, 0.6);
+  box-shadow: 0 6px 18px rgba(30, 66, 153, 0.4);
   transition: all 0.2s ease;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   touch-action: manipulation;
 }
 
@@ -3286,64 +3317,75 @@ img {
   display: flex;
   gap: 8px;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .magic-action-pill {
   flex: 1;
-  max-width: 145px;
-  min-height: 38px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1.5px solid var(--royal-gold);
+  max-width: 150px;
+  min-height: 40px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
   border-radius: var(--radius-pill);
-  color: #ffffff;
+  color: #1e293b;
   font-family: 'Poppins', sans-serif;
-  font-size: 11.5px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
   touch-action: manipulation;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.magic-action-pill:hover {
+  background: #fefce8;
+  border-color: #f59e0b;
+  color: #78350f;
 }
 
 /* Seção de Confirmação & Presentes Final */
 .section-fairytale-rsvp {
   width: 100%;
   overflow: hidden;
-  padding: 35px 14px;
-  background: #170901;
+  padding: 40px 14px;
+  background: transparent;
   box-sizing: border-box;
 }
 
 .rsvp-final-card {
-  max-width: 440px;
+  max-width: 480px;
+  width: 100%;
   margin: 0 auto;
-  background: rgba(40, 18, 3, 0.95);
-  border: 2px solid var(--royal-gold);
-  border-radius: 22px;
-  padding: 22px 16px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 3px solid #facc15;
+  border-radius: 28px;
+  padding: 26px 18px;
   text-align: center;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 22px rgba(255, 209, 96, 0.2);
+  box-shadow: 0 16px 45px rgba(229, 36, 59, 0.15), 0 4px 18px rgba(250, 204, 21, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .rsvp-isadora-fullbody {
-  max-height: 150px;
+  max-height: 140px;
   object-fit: contain;
   margin: 0 auto 10px auto;
   display: block;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
 }
 
 .rsvp-final-title {
   font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(20px, 5.2vw, 26px);
-  color: var(--royal-gold);
-  margin-bottom: 6px;
+  font-size: clamp(21px, 5.2vw, 27px);
+  color: #b91423;
+  margin-bottom: 8px;
 }
 
 .rsvp-final-desc {
-  font-size: 13px;
-  color: var(--royal-cream);
-  line-height: 1.55;
-  margin-bottom: 18px;
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
 
 .rsvp-buttons-group {
@@ -3359,19 +3401,24 @@ img {
   justify-content: center;
   gap: 8px;
   width: 100%;
-  max-width: 290px;
+  max-width: 300px;
   min-height: 48px;
   background: var(--gradient-royal-red);
-  border: 2px solid var(--royal-gold);
+  border: 2px solid #fef08a;
   border-radius: var(--radius-pill);
   color: #ffffff;
   text-decoration: none;
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 700;
-  box-shadow: 0 6px 20px rgba(217, 22, 38, 0.6), 0 0 14px var(--royal-gold-glow);
+  box-shadow: 0 6px 20px rgba(217, 22, 38, 0.4), 0 0 14px var(--royal-gold-glow);
   transition: all 0.2s ease;
   touch-action: manipulation;
+}
+
+.rsvp-main-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(217, 22, 38, 0.55);
 }
 
 .rsvp-secondary-cta {
@@ -3380,39 +3427,54 @@ img {
   justify-content: center;
   gap: 6px;
   width: 100%;
-  max-width: 290px;
-  min-height: 40px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1.5px solid var(--royal-gold);
+  max-width: 300px;
+  min-height: 42px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
   border-radius: var(--radius-pill);
-  color: #ffffff;
+  color: #1e293b;
   text-decoration: none;
   font-family: 'Poppins', sans-serif;
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: all 0.2s ease;
   touch-action: manipulation;
 }
 
-/* Rodapé Real */
-.royal-footer {
-  padding: 26px 14px calc(var(--safe-bottom) + 20px) 14px;
-  background: #0d0601;
-  text-align: center;
-  border-top: 1.5px solid rgba(255, 209, 96, 0.3);
-  font-size: 11.5px;
-  color: var(--royal-cream);
+.rsvp-secondary-cta:hover {
+  background: #eff6ff;
+  border-color: #2563eb;
+  color: #1d4ed8;
+  transform: translateY(-2px);
 }
 
+/* Rodapé Real */
+.royal-footer {
+  padding: 28px 14px calc(var(--safe-bottom) + 24px) 14px;
+  background: rgba(254, 240, 138, 0.45);
+  border-top: 1.5px solid rgba(245, 158, 11, 0.35);
+  text-align: center;
+  font-size: 12px;
+  color: #78350f;
+}
+
+.royal-footer strong {
+  color: #b91423;
+}
+
+.royal-footer a {
+  color: #1e40af;
+}
 
 /* Imagens e Personagens das Seções Seguintes (Sem Estouro de Largura) */
 .story-celebrate-isadora {
   width: 100%;
-  max-width: 150px;
+  max-width: 140px;
   height: auto;
-  margin: 12px auto;
+  margin: 10px auto;
   display: block;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
 }
 
 .details-corner-ornament {
@@ -3433,7 +3495,7 @@ img {
   height: auto;
   margin: 0 auto 12px auto;
   display: block;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
 }
 
 .music-birds-branch {
@@ -3442,7 +3504,7 @@ img {
   height: auto;
   margin: 0 auto 10px auto;
   display: block;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.45));
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
 }
 
 .music-isadora-princess-stand {
@@ -3451,7 +3513,7 @@ img {
   height: auto;
   margin: 12px auto 0 auto;
   display: block;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
 }
 
 .music-side-scene {
@@ -3460,12 +3522,18 @@ img {
   justify-content: center;
 }
 
+@media (max-width: 768px) {
+  .music-side-scene {
+    display: none;
+  }
+}
+
 .music-isadora-birds {
   width: 100%;
   max-width: 150px;
   height: auto;
   display: block;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
 }
 
 /* =========================================================================

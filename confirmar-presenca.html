@@ -2,22 +2,210 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Confirmar Presença | 1º Aninho da Isadora</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Confirmar Presença no Site | 1º Aninho da Isadora</title>
   
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Otimização Específica para Tela Única Mobile Sem Rolagem */
+    html, body {
+      height: 100%;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding-top: calc(var(--safe-top) + 52px);
+        padding-bottom: var(--safe-bottom);
+        height: 100dvh;
+        overflow-y: auto;
+      }
+      .single-screen-rsvp-container {
+        min-height: calc(100dvh - 58px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 6px 12px 14px 12px;
+      }
+      .single-screen-rsvp-card {
+        padding: 16px 14px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 440px;
+        border-radius: 24px;
+      }
+      .rsvp-header-compact {
+        margin-bottom: 12px;
+        text-align: center;
+      }
+      .rsvp-header-compact .subpage-title {
+        font-size: 24px !important;
+        margin-bottom: 2px !important;
+      }
+      .rsvp-header-compact .subpage-subtitle {
+        font-size: 11px !important;
+        margin-bottom: 4px !important;
+      }
+      .rsvp-header-compact p {
+        font-size: 11px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 6px !important;
+      }
+      .form-compact-group {
+        margin-bottom: 9px !important;
+      }
+      .form-compact-group .form-label {
+        font-size: 11px !important;
+        margin-bottom: 3px !important;
+      }
+      .form-compact-group .form-input {
+        min-height: 40px !important;
+        padding: 6px 12px !important;
+        font-size: 13px !important;
+        border-radius: 12px !important;
+      }
+      .attendance-compact-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .attendance-btn-radio {
+        padding: 8px 6px;
+        font-size: 12px;
+        border-radius: 12px;
+      }
+      .counter-compact-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        background: #fefce8;
+        border: 1.5px solid var(--disney-yellow-bright);
+        border-radius: 14px;
+        padding: 6px 8px;
+      }
+      .counter-unit-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .counter-btn-mini {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: var(--gradient-golden-sun);
+        color: #78350f;
+        font-size: 18px;
+        font-weight: 800;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      }
+      .btn-rsvp-main-action {
+        min-height: 46px !important;
+        font-size: 15px !important;
+        padding: 10px 14px !important;
+        margin-top: 10px !important;
+      }
+    }
+
+    /* Modal / Overlay de Reação da Isadora */
+    .reaction-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reaction-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .reaction-card {
+      background: #ffffff;
+      border: 3.5px solid var(--disney-yellow-bright);
+      border-radius: 28px;
+      max-width: 400px;
+      width: 100%;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+      transform: scale(0.85);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .reaction-overlay.active .reaction-card {
+      transform: scale(1);
+    }
+    .reaction-char-img-wrap {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 12px auto;
+      position: relative;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fef08a 0%, #ffffff 80%);
+      box-shadow: 0 0 0 4px var(--disney-yellow-bright), 0 8px 24px rgba(229, 36, 59, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .reaction-char-img {
+      width: 125px;
+      height: 125px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    }
+    .kiss-bubble {
+      position: absolute;
+      font-size: 28px;
+      animation: floatKiss 2s infinite ease-in-out;
+      pointer-events: none;
+    }
+    @keyframes floatKiss {
+      0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+      40% { opacity: 1; }
+      100% { transform: translate(var(--tx, 20px), -60px) scale(1.3); opacity: 0; }
+    }
+    .teardrop {
+      position: absolute;
+      font-size: 22px;
+      animation: fallTear 1.8s infinite linear;
+      pointer-events: none;
+    }
+    @keyframes fallTear {
+      0% { transform: translateY(0); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(50px); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
 
   <div class="sunbeams-bg"></div>
 
-  <!-- Barra de Navegação -->
+  <!-- Barra de Navegação Congelada -->
   <header class="top-nav-bar">
     <a href="index.html" class="brand-crest">
-      <span style="font-size: 20px;">←</span>
-      <span class="brand-crest-text">Voltar ao Convite</span>
+      <span style="font-size: 18px;">←</span>
+      <span class="brand-crest-text">Voltar</span>
     </a>
     <div class="nav-actions-group">
       <a href="localizacao.html" class="floating-action-btn">
@@ -32,266 +220,285 @@
     </div>
   </header>
 
-  <!-- Conteúdo Principal -->
-  <main class="subpage-container">
-    <div class="subpage-card">
+  <!-- Container de Tela Única -->
+  <main class="single-screen-rsvp-container">
+    <div class="subpage-card single-screen-rsvp-card">
 
-      <div class="subpage-header">
-        <div class="wishing-star-icon">⭐</div>
-        <div class="subpage-badge-apple">🍎</div>
-        <h1 class="subpage-title">Confirmação de Presença</h1>
-        <h2 class="subpage-subtitle">O Reino te Espera!</h2>
-        <p class="subpage-intro-text">
-          Sua presença é muito importante para nós e tornará o primeiro aninho da <strong>Isadora</strong> ainda mais encantador! Por favor, confirme até o dia <strong id="rsvpDeadline">28/12</strong>.
+      <div class="rsvp-header-compact">
+        <div style="font-size: 24px; line-height: 1;">👑 🍎</div>
+        <h1 class="subpage-title" style="margin: 2px 0; font-size: 26px;">Confirmação de Presença</h1>
+        <h2 class="subpage-subtitle" style="font-size: 12px; margin-bottom: 4px;">1º Aninho da Princesinha Isadora</h2>
+        <p style="font-size: 12px; color: var(--text-secondary); margin: 0 auto; max-width: 330px;">
+          Confirme sua presença diretamente pelo site até <strong id="rsvpDeadline" style="color: var(--disney-red);">28/12</strong>:
         </p>
       </div>
 
-      <!-- Formulário de RSVP -->
+      <!-- Formulário Direto & Exclusivo pelo Site -->
       <form id="rsvpForm">
 
-        <!-- Nome Completo -->
-        <div class="form-group">
+        <!-- 1. Nome Completo -->
+        <div class="form-compact-group">
           <label class="form-label" for="guestName">👑 Seu Nome Completo *</label>
-          <input type="text" id="guestName" class="form-input" placeholder="Ex: Maria Clara dos Santos" required>
+          <input type="text" id="guestName" class="form-input" placeholder="Ex: Maria Clara dos Santos" required autocomplete="name">
         </div>
 
-        <!-- Telefone / WhatsApp -->
-        <div class="form-group">
+        <!-- 2. WhatsApp / Celular -->
+        <div class="form-compact-group">
           <label class="form-label" for="guestPhone">📱 Seu WhatsApp / Celular *</label>
-          <input type="tel" id="guestPhone" class="form-input" placeholder="Ex: (11) 98765-4321" required>
+          <input type="tel" id="guestPhone" class="form-input" placeholder="Ex: (11) 98765-4321" required autocomplete="tel">
         </div>
 
-        <!-- Confirmação: Sim ou Não -->
-        <div class="form-group">
-          <label class="form-label">✨ Você irá comparecer? *</label>
-          <div class="attendance-options">
-            <label class="radio-card active" id="cardAttendanceYes">
+        <!-- 3. Decisão: Sim ou Não -->
+        <div class="form-compact-group">
+          <label class="form-label">✨ Você irá comparecer?</label>
+          <div class="attendance-compact-row">
+            <label class="radio-card active attendance-btn-radio" id="cardAttendanceYes">
               <input type="radio" name="attendance" value="sim" checked>
-              <span class="radio-card-emoji">🎉</span>
-              <span class="radio-card-title">Sim, com certeza!</span>
+              <span class="radio-card-emoji" style="font-size: 18px;">🎉</span>
+              <span class="radio-card-title" style="font-size: 12px;">Sim, vou com certeza!</span>
             </label>
-            <label class="radio-card" id="cardAttendanceNo">
+            <label class="radio-card attendance-btn-radio" id="cardAttendanceNo">
               <input type="radio" name="attendance" value="nao">
-              <span class="radio-card-emoji">💔</span>
-              <span class="radio-card-title">Infelizmente não</span>
+              <span class="radio-card-emoji" style="font-size: 18px;">💔</span>
+              <span class="radio-card-title" style="font-size: 12px;">Infelizmente não posso</span>
             </label>
           </div>
         </div>
 
-        <!-- Quantidade de Pessoas -->
-        <div id="additionalGuestsSection">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
-            <div class="form-group">
-              <label class="form-label">👥 Adultos</label>
-              <div class="counter-box">
-                <button type="button" class="counter-btn" id="btnMinusAdults">-</button>
-                <span class="counter-value" id="valAdults">1</span>
-                <button type="button" class="counter-btn" id="btnPlusAdults">+</button>
+        <!-- 4. Quantidade de Pessoas (visível se "Sim") -->
+        <div class="form-compact-group" id="guestsCountSection">
+          <label class="form-label">👨‍👩‍👧 Quantas pessoas vão com você?</label>
+          <div class="counter-compact-row">
+            <!-- Adultos -->
+            <div class="counter-unit-box">
+              <span style="font-size: 11px; font-weight: 700; color: #78350f;">👥 Adultos:</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button type="button" class="counter-btn-mini" id="btnMinusAdults">-</button>
+                <span id="valAdults" style="font-size: 16px; font-weight: 800; min-width: 16px; text-align: center; color: var(--text-primary);">1</span>
+                <button type="button" class="counter-btn-mini" id="btnPlusAdults">+</button>
               </div>
             </div>
-
-            <div class="form-group">
-              <label class="form-label">👶 Crianças</label>
-              <div class="counter-box">
-                <button type="button" class="counter-btn" id="btnMinusKids">-</button>
-                <span class="counter-value" id="valKids">0</span>
-                <button type="button" class="counter-btn" id="btnPlusKids">+</button>
+            <!-- Crianças -->
+            <div class="counter-unit-box">
+              <span style="font-size: 11px; font-weight: 700; color: #78350f;">👶 Crianças:</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button type="button" class="counter-btn-mini" id="btnMinusKids">-</button>
+                <span id="valKids" style="font-size: 16px; font-weight: 800; min-width: 16px; text-align: center; color: var(--text-primary);">0</span>
+                <button type="button" class="counter-btn-mini" id="btnPlusKids">+</button>
               </div>
             </div>
           </div>
-
-          <!-- Nomes dos Acompanhantes -->
-          <div class="form-group">
-            <label class="form-label" for="guestCompanions">👨‍👩‍👧 Nomes dos Acompanhantes (opcional)</label>
-            <input type="text" id="guestCompanions" class="form-input" placeholder="Ex: João (esposo), Alice (filha de 3 anos)">
-          </div>
         </div>
 
-        <!-- Recado Carinhoso -->
-        <div class="form-group">
-          <label class="form-label" for="guestMessage">💌 Deixe um Recadinho Mágico para a Isa</label>
-          <textarea id="guestMessage" class="form-textarea" placeholder="Escreva uma mensagem de carinho para a nossa princesinha..."></textarea>
-        </div>
-
-        <!-- Botões de Ação -->
-        <button type="button" id="btnSendWhatsapp" class="btn-submit-action btn-whatsapp-submit">
-          <span>💬</span> Confirmar pelo WhatsApp
-        </button>
-
-        <button type="submit" id="btnSaveLocal" class="btn-submit-action btn-secondary-submit">
-          <span>👑</span> Salvar Confirmação no Site
+        <!-- Botão Único: Confirmar Presença no Site -->
+        <button type="submit" id="btnSaveRsvp" class="btn-submit-action btn-rsvp-main-action" style="background: var(--gradient-apple-red); border-color: var(--disney-yellow-bright);">
+          <span>👑</span> Confirmar Presença no Site
         </button>
 
       </form>
 
-      <!-- Cartão de Confirmação Concluída -->
-      <div id="confirmationTicket" style="display: none; margin-top: 24px; padding: 20px; background: rgba(82, 183, 136, 0.2); border: 2px solid #52b788; border-radius: 18px; text-align: center;">
-        <div style="font-size: 36px; margin-bottom: 8px;">🎉</div>
-        <h3 style="color: #ffd700; font-family: 'Cinzel', serif; font-size: 18px; margin-bottom: 6px;">
-          Presença Registrada com Sucesso!
-        </h3>
-        <p id="ticketDetails" style="font-size: 14px; color: #e2e8f0; line-height: 1.5;"></p>
-        <p style="margin-top: 10px; font-size: 12px; color: #ffd700;">
-          Aguardamos você para viver esse conto de fadas! ✨🍎
-        </p>
-      </div>
-
     </div>
   </main>
 
-  <footer class="royal-footer">
-    <p><a href="index.html">← Voltar para a Página Principal do Convite</a></p>
-  </footer>
+  <!-- ====================================================================
+       OVERLAY 1: REAÇÃO DE BEIJO DA ISADORA (CONFIRMOU SIM NO SITE)
+       ==================================================================== -->
+  <div class="reaction-overlay" id="overlayHappyKiss">
+    <div class="reaction-card">
+      <div class="reaction-char-img-wrap">
+        <img src="assets/isadora/princesinha_a_acenar_com_coroa_floral.webp" alt="Princesinha Isadora Sorrindo" class="reaction-char-img">
+        <span class="kiss-bubble" style="top: 10px; left: 10px; --tx: -25px;">💋</span>
+        <span class="kiss-bubble" style="top: 20px; right: 10px; --tx: 30px; animation-delay: 0.5s;">💖</span>
+        <span class="kiss-bubble" style="bottom: 10px; left: 20px; --tx: -15px; animation-delay: 1s;">✨</span>
+      </div>
+
+      <div style="font-size: 26px; margin-bottom: 4px;">🎉 👑 🍎</div>
+      <h3 style="font-family: 'Waltograph', cursive; font-size: 28px; color: var(--disney-red); margin-bottom: 6px;">
+        Presença Confirmada no Site!
+      </h3>
+      <p id="happyGuestMsg" style="font-size: 14px; color: var(--text-primary); line-height: 1.5; font-weight: 500; margin-bottom: 16px;">
+        A Princesinha Isadora está dando pulinhos de alegria e te manda um beijo bem carinhoso! Ela mal pode esperar para comemorar com você! 🥰
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <a href="localizacao.html" class="btn-submit-action" style="background: var(--gradient-disney-blue); font-size: 14px; min-height: 42px;">
+          <span>📍</span> Ver Local da Festa no Mapa
+        </a>
+        <a href="index.html" class="btn-submit-action" style="background: var(--gradient-golden-sun); color: #78350f; font-size: 14px; min-height: 42px;">
+          <span>←</span> Voltar para o Convite
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       OVERLAY 2: REAÇÃO DE CHORO DA ISADORA (INFORMOU NÃO NO SITE)
+       ==================================================================== -->
+  <div class="reaction-overlay" id="overlaySadCry">
+    <div class="reaction-card">
+      <div class="reaction-char-img-wrap" style="background: radial-gradient(circle, #e2e8f0 0%, #ffffff 80%); box-shadow: 0 0 0 4px #94a3b8;">
+        <img src="assets/isadora/retrato_de_bebe_com_vestido_floral.webp" alt="Princesinha Isadora Triste" class="reaction-char-img" style="filter: grayscale(15%);">
+        <span class="teardrop" style="top: 30px; left: 35px; animation-delay: 0.2s;">💧</span>
+        <span class="teardrop" style="top: 35px; right: 35px; animation-delay: 0.7s;">💧</span>
+        <span class="teardrop" style="top: 50px; left: 45px; animation-delay: 1.2s;">🥺</span>
+      </div>
+
+      <div style="font-size: 26px; margin-bottom: 4px;">💔 🥺 🍎</div>
+      <h3 style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--disney-blue-dark); margin-bottom: 6px;">
+        Sentiremos Sua Falta!
+      </h3>
+      <p id="sadGuestMsg" style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
+        Sua resposta foi registrada no site. A Princesinha Isadora vai sentir muita saudade, mas agradece de todo o coração pelo seu carinho! 💖
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <a href="sugestao-presentes.html" class="btn-submit-action" style="background: var(--gradient-apple-red); font-size: 13px; min-height: 40px;">
+          <span>🎁</span> Enviar um Mimo para a Princesa
+        </a>
+        <a href="index.html" class="btn-submit-action" style="background: rgba(0,0,0,0.08); color: var(--text-primary); font-size: 13px; min-height: 40px; border: 1.5px solid #cbd5e1;">
+          <span>←</span> Voltar para o Convite
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="js/config.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/confetti.js"></script>
   <script src="js/sparkles.js"></script>
-  <script src="js/balloons.js"></script>
-  
+
   <script>
-    // Lógica da página de RSVP
     document.addEventListener("DOMContentLoaded", () => {
       let adults = 1;
       let kids = 0;
       let attendance = "sim";
 
-      // Atualiza data limite do config
-      if (window.CONVITE_CONFIG && window.CONVITE_CONFIG.rsvp) {
+      // 1. Data Limite do Config
+      if (window.CONVITE_CONFIG && window.CONVITE_CONFIG.rsvp && window.CONVITE_CONFIG.rsvp.dataLimite) {
         document.getElementById("rsvpDeadline").textContent = window.CONVITE_CONFIG.rsvp.dataLimite;
       }
 
-      // Alternador de presença Sim / Não
+      // 2. Controles de Adultos e Crianças
+      const valAdults = document.getElementById("valAdults");
+      const valKids = document.getElementById("valKids");
+
+      document.getElementById("btnPlusAdults").addEventListener("click", () => {
+        adults++;
+        valAdults.textContent = adults;
+        if (window.fairytaleAudio) window.fairytaleAudio.playSparkle();
+      });
+
+      document.getElementById("btnMinusAdults").addEventListener("click", () => {
+        if (adults > 1) {
+          adults--;
+          valAdults.textContent = adults;
+        }
+      });
+
+      document.getElementById("btnPlusKids").addEventListener("click", () => {
+        kids++;
+        valKids.textContent = kids;
+        if (window.fairytaleAudio) window.fairytaleAudio.playSparkle();
+      });
+
+      document.getElementById("btnMinusKids").addEventListener("click", () => {
+        if (kids > 0) {
+          kids--;
+          valKids.textContent = kids;
+        }
+      });
+
+      // 3. Alternância Sim / Não
       const cardYes = document.getElementById("cardAttendanceYes");
       const cardNo = document.getElementById("cardAttendanceNo");
-      const sectionGuests = document.getElementById("additionalGuestsSection");
+      const guestsCountSection = document.getElementById("guestsCountSection");
 
       cardYes.addEventListener("click", () => {
         attendance = "sim";
         cardYes.classList.add("active");
         cardNo.classList.remove("active");
-        sectionGuests.style.display = "block";
+        guestsCountSection.style.display = "block";
       });
 
       cardNo.addEventListener("click", () => {
         attendance = "nao";
         cardNo.classList.add("active");
         cardYes.classList.remove("active");
-        sectionGuests.style.display = "none";
+        guestsCountSection.style.display = "none";
       });
 
-      // Contadores
-      const valAdultsEl = document.getElementById("valAdults");
-      const valKidsEl = document.getElementById("valKids");
-
-      document.getElementById("btnPlusAdults").addEventListener("click", () => {
-        adults++;
-        valAdultsEl.textContent = adults;
-      });
-      document.getElementById("btnMinusAdults").addEventListener("click", () => {
-        if (adults > 1) { adults--; valAdultsEl.textContent = adults; }
-      });
-
-      document.getElementById("btnPlusKids").addEventListener("click", () => {
-        kids++;
-        valKidsEl.textContent = kids;
-      });
-      document.getElementById("btnMinusKids").addEventListener("click", () => {
-        if (kids > 0) { kids--; valKidsEl.textContent = kids; }
-      });
-
-      // Ação 1: Enviar pelo WhatsApp
-      document.getElementById("btnSendWhatsapp").addEventListener("click", () => {
-        const name = document.getElementById("guestName").value.trim();
-        const phone = document.getElementById("guestPhone").value.trim();
-        const companions = document.getElementById("guestCompanions").value.trim();
-        const message = document.getElementById("guestMessage").value.trim();
-
-        if (!name) {
-          alert("Por favor, preencha o seu nome completo!");
-          document.getElementById("guestName").focus();
-          return;
+      // Máscara de Telefone
+      const phoneInput = document.getElementById("guestPhone");
+      phoneInput.addEventListener("input", (e) => {
+        let v = e.target.value.replace(/\D/g, "");
+        if (v.length > 11) v = v.slice(0, 11);
+        if (v.length > 10) {
+          v = v.replace(/^(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+        } else if (v.length > 6) {
+          v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+        } else if (v.length > 2) {
+          v = v.replace(/^(\d{2})(\d{0,5})/, "($1) $2");
         }
-
-        const targetWhatsapp = (window.CONVITE_CONFIG && window.CONVITE_CONFIG.rsvp)
-          ? window.CONVITE_CONFIG.rsvp.whatsapp
-          : "5511999999999";
-
-        let text = `👑 *CONFIRMAÇÃO DE PRESENÇA* 👑%0A`;
-        text += `✨ *1º Aninho da Isadora - Conto de Fadas* ✨%0A%0A`;
-        text += `👤 *Nome:* ${encodeURIComponent(name)}%0A`;
-        if (phone) text += `📱 *Telefone:* ${encodeURIComponent(phone)}%0A`;
-        
-        if (attendance === "sim") {
-          text += `🎉 *Presença:* Sim, estarei lá com certeza!%0A`;
-          text += `👥 *Total:* ${adults} Adulto(s) e ${kids} Criança(s)%0A`;
-          if (companions) text += `👨‍👩‍👧 *Acompanhantes:* ${encodeURIComponent(companions)}%0A`;
-        } else {
-          text += `💔 *Presença:* Infelizmente não poderei comparecer%0A`;
-        }
-
-        if (message) {
-          text += `%0A💌 *Recado:* "${encodeURIComponent(message)}"%0A`;
-        }
-
-        text += `%0A_Enviado pelo convite digital!_ 🍎✨`;
-
-        const waUrl = `https://api.whatsapp.com/send?phone=${targetWhatsapp}&text=${text}`;
-        
-        // Efeito comemorativo
-        if (window.fairytaleConfetti) {
-          window.fairytaleConfetti.burst({ count: 90 });
-        }
-        if (window.fairytaleAudio) {
-          window.fairytaleAudio.playRoyalFanfare();
-        }
-
-        // Abre WhatsApp
-        window.open(waUrl, "_blank");
+        e.target.value = v;
       });
 
-      // Ação 2: Salvar no site
-      document.getElementById("rsvpForm").addEventListener("submit", (e) => {
+      // 4. Salvar Confirmação no LocalStorage (Exclusivo pelo Site)
+      function saveConfirmation(data) {
+        const STORAGE_KEY = "isadora_rsvp_list";
+        let list = [];
+        try {
+          list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        } catch(e) { list = []; }
+        list.push(data);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+      }
+
+      // 5. Envio do Formulário Exclusivo pelo Site com Reações da Isadora
+      const rsvpForm = document.getElementById("rsvpForm");
+      const overlayHappy = document.getElementById("overlayHappyKiss");
+      const overlaySad = document.getElementById("overlaySadCry");
+
+      rsvpForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const name = document.getElementById("guestName").value.trim();
         const phone = document.getElementById("guestPhone").value.trim();
-        const companions = document.getElementById("guestCompanions").value.trim();
-        const message = document.getElementById("guestMessage").value.trim();
+
+        if (!name || !phone) {
+          alert("Por favor, preencha seu nome e telefone celular.");
+          return;
+        }
 
         const data = {
           nome: name,
           telefone: phone,
           presenca: attendance,
-          adultos: adults,
-          criancas: kids,
-          acompanhantes: companions,
-          recado: message,
-          dataRegistro: new Date().toLocaleString("pt-BR")
+          adultos: attendance === "sim" ? adults : 0,
+          criancas: attendance === "sim" ? kids : 0,
+          canal: "site",
+          dataRegistro: new Date().toLocaleDateString("pt-BR") + " " + new Date().toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' })
         };
 
-        const list = JSON.parse(localStorage.getItem("isadora_rsvp_list") || "[]");
-        list.push(data);
-        localStorage.setItem("isadora_rsvp_list", JSON.stringify(list));
+        saveConfirmation(data);
 
-        // Exibe cartão
-        const ticket = document.getElementById("confirmationTicket");
-        const details = document.getElementById("ticketDetails");
-        
         if (attendance === "sim") {
-          details.innerHTML = `Obrigado, <strong>${name}</strong>!<br>Registramos <strong>${adults} adulto(s)</strong> e <strong>${kids} criança(s)</strong>.`;
+          // Reação Feliz com Beijo da Isadora
+          if (window.fairytaleConfetti) {
+            window.fairytaleConfetti.burst({ count: 120, power: 1.5 });
+          }
+          if (window.fairytaleAudio) {
+            window.fairytaleAudio.playSparkle();
+          }
+          document.getElementById("happyGuestMsg").innerHTML = `
+            <strong>${name}</strong>, sua confirmação foi registrada no site com sucesso! A Princesinha Isadora está dando pulinhos de alegria e te manda um beijo bem carinhoso! Mal podemos esperar para te receber com muito amor! 🥰👑🍎
+          `;
+          overlayHappy.classList.add("active");
         } else {
-          details.innerHTML = `Obrigado por nos avisar, <strong>${name}</strong>! Sentiremos sua falta! ❤️`;
-        }
-
-        ticket.style.display = "block";
-        ticket.scrollIntoView({ behavior: "smooth" });
-
-        if (window.fairytaleConfetti) {
-          window.fairytaleConfetti.burst({ count: 100 });
-        }
-        if (window.fairytaleAudio) {
-          window.fairytaleAudio.playRoyalFanfare();
+          // Reação Triste com Choro da Isadora
+          document.getElementById("sadGuestMsg").innerHTML = `
+            Puxa, <strong>${name}</strong>... Sua resposta foi registrada no site. A Princesinha Isadora vai sentir muita saudade, mas agradece imensamente pelo seu carinho e deseja muitas bênçãos! 🥺💔🍎
+          `;
+          overlaySad.classList.add("active");
         }
       });
     });

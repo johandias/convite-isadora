@@ -28,13 +28,13 @@ function initIntroExperience() {
   if (!introGate) return;
 
   const hasSeenIntro = sessionStorage.getItem("isadora_intro_seen");
+  const urlParams = new URLSearchParams(window.location.search);
+  const skipViaParam = urlParams.get("convite") === "1";
 
-  // Se já viu nesta sessão (ex: voltou de uma subpágina), pode pular direto
-  if (hasSeenIntro === "true") {
+  // Se já viu nesta sessão (ex: voltou de uma subpágina) ou via parâmetro ?convite=1
+  if (hasSeenIntro === "true" || skipViaParam) {
     introGate.classList.add("hidden");
-    setTimeout(() => {
-      introGate.style.display = "none";
-    }, 800);
+    introGate.style.display = "none";
   }
 
   // Clique em "Assistir ao Convite Real"

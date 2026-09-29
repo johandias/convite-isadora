@@ -2,45 +2,45 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Convite 1 Aninho da Isadora | Conto de Fadas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Princesinha Isadora 1 Aninho | Convite Real Conto de Fadas</title>
   
-  <!-- Meta tags para compartilhamento no WhatsApp -->
-  <meta property="og:title" content="🍎 Convite 1 Aninho da Isadora | Branca de Neve">
-  <meta property="og:description" content="A magia vai começar! Venha comemorar comigo o meu primeiro aninho em um conto de fadas!">
-  <meta property="og:image" content="assets/video-poster.jpg">
+  <!-- Meta tags para compartilhamento no WhatsApp e Redes -->
+  <meta property="og:title" content="👑 Princesinha Isadora • 1 Aninho | Convite de Conto de Fadas">
+  <meta property="og:description" content="A magia vai começar! Venha comemorar comigo o meu primeiro aninho em um lindo conto de fadas!">
+  <meta property="og:image" content="assets/isadora/emblema_princesinha_isadora_1_aninho.png">
   <meta property="og:type" content="website">
   
-  <!-- Favicon -->
+  <!-- Favicon Real -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
+  
+  <!-- Google Fonts: Conto de Fadas & Tipografia Nobre -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Estilos -->
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fairytale.css">
 </head>
 <body>
 
   <!-- Raios de sol mágicos no fundo -->
-  <div class="sunbeams-bg"></div>
+  <div class="sunbeams-bg" aria-hidden="true"></div>
 
-  <!-- =====================================================================
-       1. TELA DE INTRODUÇÃO ("ANTES DO CONVITE")
-       ===================================================================== -->
-  <div id="introGate" class="intro-gate-overlay">
-    <div class="intro-content-box">
-      <div class="wishing-star-icon">⭐</div>
-      <div class="intro-disney-tag">Conto de Fadas Real • Era Uma Vez</div>
-      <div class="intro-badge-icon">🍎</div>
-      <h1 class="intro-title">Reino Encantado</h1>
-      <h2 class="intro-subtitle">Princesa Isadora</h2>
-      <p class="intro-desc">
-        A magia está prestes a começar! Abra as portas deste conto de fadas para celebrar o 1º aninho da nossa princesinha!
-      </p>
-      <button id="btnStartIntro" class="btn-open-real">
-        <span>✨</span> Assistir ao Convite Real <span>▶</span>
-      </button>
-    </div>
+  <!-- Camada global de partículas mágicas sutis -->
+  <div class="fairy-sparkles-container" aria-hidden="true">
+    <div class="fairy-sparkle" style="top: 12%; left: 18%; animation-delay: 0s;"></div>
+    <div class="fairy-sparkle" style="top: 24%; left: 78%; animation-delay: 1.2s;"></div>
+    <div class="fairy-sparkle" style="top: 38%; left: 32%; animation-delay: 2.4s;"></div>
+    <div class="fairy-sparkle" style="top: 52%; left: 86%; animation-delay: 0.8s;"></div>
+    <div class="fairy-sparkle" style="top: 68%; left: 14%; animation-delay: 3.1s;"></div>
+    <div class="fairy-sparkle" style="top: 79%; left: 64%; animation-delay: 1.9s;"></div>
+    <div class="fairy-sparkle" style="top: 88%; left: 42%; animation-delay: 2.7s;"></div>
   </div>
+
+  
 
   <!-- =====================================================================
        2. CINEMA DO VÍDEO DO CONVITE
@@ -59,130 +59,352 @@
   </div>
 
   <!-- =====================================================================
-       3. BARRA SUPERIOR DE NAVEGAÇÃO
+       3. HERO SECTION: ABERTURA DO CONVITE REAL (PRIMEIRA DOBRA MOBILE)
        ===================================================================== -->
-  <header class="top-nav-bar">
-    <a href="index.html" class="brand-crest">
-      <span class="brand-crest-apple">🍎</span>
-      <span class="brand-crest-text">Isadora 1 Ano</span>
-    </a>
-    <div class="nav-actions-group">
-      <button id="btnRewatch" class="floating-action-btn" title="Rever vídeo de abertura">
-        <span>🎬</span> Rever Vídeo
-      </button>
-      <button id="musicToggleBtn" class="floating-action-btn music-toggle-btn" title="Ligar música">
-        <span class="music-icon">🎵</span> Música
-      </button>
+  <header class="hero-fairytale-section" id="hero-section">
+    
+    <!-- Ornamentos Vegetais Laterais da Floresta Encantada -->
+    <picture>
+      <source srcset="assets/isadora/moldura_encantada_de_macas_e_flores.webp" type="image/webp">
+      <img src="assets/isadora/moldura_encantada_de_macas_e_flores.png" alt="" class="ornament-hero-left" loading="eager" draggable="false">
+    </picture>
+    
+    <picture>
+      <source srcset="assets/isadora/ornamento_floral_encantado_com_macas.webp" type="image/webp">
+      <img src="assets/isadora/ornamento_floral_encantado_com_macas.png" alt="" class="ornament-hero-right" loading="eager" draggable="false">
+    </picture>
+
+    <!-- Barra de Controles Rápidos Superiores -->
+    <div class="hero-top-controls">
+      <div class="hero-royal-crest-badge">
+        <span>🍎</span>
+        <span>Princesinha Isadora</span>
+      </div>
+
+      <div class="hero-actions-cluster">
+        <button id="btnRewatch" class="hero-pill-action" title="Rever vídeo de abertura">
+          <picture>
+            <source srcset="assets/isadora/tres_passarinhos_encantados_entre_flores.webp" type="image/webp">
+            <img src="assets/isadora/tres_passarinhos_encantados_entre_flores.png" alt="" class="mini-bird-perch">
+          </picture>
+          <span>🎬 Vídeo</span>
+        </button>
+
+        <button id="musicToggleBtn" class="hero-pill-action music-toggle-btn" title="Ligar/desligar música">
+          <span class="music-icon">🎵</span>
+          <span>Som</span>
+        </button>
+      </div>
     </div>
+
+    <!-- Centro Nobre do Hero: Iluminação Natural e Conteúdo Sem Obstruções -->
+    <div class="hero-center-content">
+      
+      <!-- Passarinhos Voando Suavemente Acima do Emblema -->
+      <div class="hero-birds-flying-wrapper">
+        <picture>
+          <source srcset="assets/isadora/trio_de_passaros_encantados.webp" type="image/webp">
+          <img src="assets/isadora/trio_de_passaros_encantados.png" alt="Pássaros Encantados Cantores" class="hero-flying-birds-img interactive-character" data-character="birds-trio" draggable="false">
+        </picture>
+      </div>
+
+      <!-- Logotipo Oficial: Emblema Princesinha Isadora 1 Aninho -->
+      <picture class="hero-emblem-picture">
+        <source srcset="assets/isadora/emblema_princesinha_isadora_1_aninho.webp" type="image/webp">
+        <img src="assets/isadora/emblema_princesinha_isadora_1_aninho.png" alt="Emblema Oficial: Princesinha Isadora 1 Aninho" class="hero-emblem-img" fetchpriority="high">
+      </picture>
+
+      <!-- Frase Mágica de Abertura -->
+      <p class="hero-magical-phrase">
+        A magia vai começar! Venha comemorar comigo o meu primeiro aninho em um conto de fadas!
+      </p>
+
+      <!-- Fita Mágica de Data & Contagem Regressiva -->
+      <div class="hero-date-ribbon" title="Domingo, 05 de Janeiro de 2027 às 19:00">
+        <div class="hero-event-datetime">
+          <span>📅</span> 05 • 01 • Domingo às 19:00h
+        </div>
+        <div class="hero-countdown-ticker">
+          <span>✨ Faltam</span>
+          <span id="countdownDays" class="ticker-gold">00</span>d
+          <span id="countdownHours" class="ticker-gold">00</span>h
+          <span id="countdownMinutes" class="ticker-gold">00</span>m
+          <span id="countdownSeconds" class="ticker-gold">00</span>s
+          <span>🍎</span>
+        </div>
+      </div>
+
+      <!-- Os 3 Botões Principais de Ação Conforme o Conceito -->
+            <nav class="hero-primary-actions" aria-label="Ações Principais do Convite">
+        <a href="confirmar-presenca.html" class="hero-royal-btn btn-confirmar" title="Confirmar Presença">
+          <span class="btn-emoji-icon">💬</span>
+          <span class="btn-label-desktop">Confirmar Presença</span>
+          <span class="btn-label-mobile">Confirmar</span>
+        </a>
+
+        <a href="localizacao.html" class="hero-royal-btn btn-localizacao" title="Localização da Festa">
+          <span class="btn-emoji-icon">📍</span>
+          <span class="btn-label-desktop">Localização</span>
+          <span class="btn-label-mobile">Localização</span>
+        </a>
+
+        <a href="sugestao-presentes.html" class="hero-royal-btn btn-presentes" title="Sugestão de Presentes">
+          <span class="btn-emoji-icon">🎁</span>
+          <span class="btn-label-desktop">Presentes</span>
+          <span class="btn-label-mobile">Presentes</span>
+        </a>
+      </nav>
+
+    </div>
+
+    <!-- Base do Hero: Palco Encantado com Isadora e Amigos da Floresta -->
+    <div class="hero-stage-wrapper">
+      <picture>
+        <source srcset="assets/isadora/princesa_encantada_e_amigos_da_floresta.webp" type="image/webp">
+        <img src="assets/isadora/princesa_encantada_e_amigos_da_floresta.png" alt="Princesinha Isadora e Amigos da Floresta Encantada" class="hero-stage-img interactive-character" data-character="isadora-and-friends" draggable="false">
+      </picture>
+    </div>
+
   </header>
 
   <!-- =====================================================================
-       4. CONVITE INTERATIVO PRINCIPAL (DESIGN CONFORME O PRINT)
+       4. SEÇÃO 2: A HISTÓRIA DA PRINCESINHA ISADORA ("Era uma vez...")
        ===================================================================== -->
-  <main class="invitation-main-container">
+  <section class="section-fairytale-story" id="secao-historia">
+    <div class="story-container">
+      
+      <!-- Medalhão Real com Retrato da Isadora -->
+      <div class="story-portrait-side">
+        <div class="royal-medallion-frame">
+          <div class="royal-portrait-inner">
+            <picture>
+              <source srcset="assets/isadora/retrato_de_bebe_com_vestido_floral.webp" type="image/webp">
+              <img src="assets/isadora/retrato_de_bebe_com_vestido_floral.png" alt="Retrato da Princesinha Isadora" class="interactive-character" data-character="isadora-portrait" loading="lazy">
+            </picture>
+          </div>
+        </div>
 
-    <div style="text-align: center; margin-bottom: 14px;">
-      <p style="font-size: 13px; color: #ffd700; font-weight: 500; letter-spacing: 0.5px;">
-        ✨ Toque nos botões ou nos animais e personagens para interagir! ✨
+        <!-- Isadora Acenando com Alegria -->
+        <picture>
+          <source srcset="assets/isadora/princesinha_a_acenar_com_coroa_floral.webp" type="image/webp">
+          <img src="assets/isadora/princesinha_a_acenar_com_coroa_floral.png" alt="Princesinha Isadora Acenando com Coroa Floral" class="story-waving-figure interactive-character" data-character="isadora-wave" loading="lazy">
+        </picture>
+      </div>
+
+      <!-- Card com Texto Encantador da História -->
+      <div class="story-text-card">
+        <span class="story-badge">Primeiro Capítulo Real</span>
+        <h2 class="story-title">Era uma vez uma <span>Princesinha...</span></h2>
+
+        <!-- Isadora em Passo de Dança Floral -->
+        <picture>
+          <source srcset="assets/isadora/menina_com_vestido_floral_a_acenar.webp" type="image/webp">
+          <img src="assets/isadora/menina_com_vestido_floral_a_acenar.png" alt="Isadora Comemorando" class="story-celebrate-isadora interactive-character" data-character="isadora-dance" loading="lazy">
+        </picture>
+
+        <p class="story-paragraph">
+          Há quase um ano, nosso mundo ganhou mais cor, amor e magia. Cada sorriso iluminou nossos dias, cada gargalhada trouxe o brilho de um verdadeiro conto de fadas para nossas vidas.
+        </p>
+
+        <div class="story-highlight-box">
+          “Agora chegou a hora de celebrar o primeiro capítulo da história da nossa Princesinha Isadora!”
+        </div>
+
+        <p class="story-paragraph">
+          Venha compartilhar conosco esse dia tão sonhado e especial. Preparamos uma floresta de encantos, doces e surpresas para celebrar a vida da nossa maior bênção!
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       5. SEÇÃO 3: O BOSQUE ENCANTADO & DETALHES DA FESTA
+       ===================================================================== -->
+  <section class="section-fairytale-details" id="secao-detalhes">
+    
+    <!-- Ornamento Floral de Canto da Macieira -->
+    <picture>
+      <source srcset="assets/isadora/canto_magico_da_macieira_encantada.webp" type="image/webp">
+      <img src="assets/isadora/canto_magico_da_macieira_encantada.png" alt="" class="details-corner-ornament" loading="lazy">
+    </picture>
+
+    <div class="details-section-header">
+      <h2 class="details-section-title">O Bosque Encantado</h2>
+      <p class="details-section-desc">
+        Tudo o que você precisa saber para comemorar conosco o 1º aninho da Isadora!
       </p>
     </div>
 
-    <!-- O Cartão do Convite com Moldura Real -->
-    <div class="invitation-card-wrapper">
-      <img src="assets/convite-original.png" alt="Convite de Aniversário Isadora 1 Ano - Branca de Neve" class="invitation-base-img">
+    <!-- Grid de 3 Cards de Informação -->
+    <div class="details-cards-grid">
+      
+      <!-- Card 1: Data & Horário -->
+      <div class="details-card">
+        <div class="card-magic-icon">📅</div>
+        <h3 class="card-title">Dia e Horário Real</h3>
+        <p class="card-content">
+          <strong>Domingo, 05 de Janeiro de 2027</strong><br>
+          Início pontualmente às <strong>19:00 horas</strong>.<br>
+          Chegue cedo para não perder nenhuma surpresa mágica!
+        </p>
+        <button id="btnAddToCalendar" class="card-btn">
+          <span>📅</span> Salvar na Minha Agenda
+        </button>
+      </div>
 
-      <!-- Camada dos 3 Botões Principais Conforme o Print -->
-      <div class="card-buttons-overlay">
-        <!-- Botão 1: Confirmar Presença -->
-        <a href="confirmar-presenca.html" class="btn-hotspot btn-hotspot-whatsapp" title="Confirmar Presença no WhatsApp">
-          <span class="btn-hotspot-tooltip">Confirmar Presença 💬</span>
-        </a>
-
-        <!-- Botão 2: Localização da Festa -->
-        <a href="localizacao.html" class="btn-hotspot btn-hotspot-location" title="Ver Localização da Festa no Mapa">
-          <span class="btn-hotspot-tooltip">Localização da Festa 📍</span>
-        </a>
-
-        <!-- Botão 3: Sugestão de Presentes -->
-        <a href="sugestao-presentes.html" class="btn-hotspot btn-hotspot-gifts" title="Ver Sugestões de Presentes & Pix">
-          <span class="btn-hotspot-tooltip">Sugestão de Presentes 🎁</span>
+      <!-- Card 2: Localização -->
+      <div class="details-card">
+        <div class="card-magic-icon">🏰</div>
+        <h3 class="card-title">Castelo da Festa</h3>
+        <p class="card-content">
+          <strong>Espaço Real Encantado Buffet</strong><br>
+          Av. das Flores Mágicas, 777 - Jardim dos Contos<br>
+          Ambiente climatizado, com valet e fácil acesso.
+        </p>
+        <a href="localizacao.html" class="card-btn">
+          <span>📍</span> Ver Mapa & Rotas
         </a>
       </div>
-    </div>
 
-    <!-- Cards de Acesso Rápido para Facilitar em Qualquer Aparelho -->
-    <div class="quick-nav-cards">
-      <a href="confirmar-presenca.html" class="quick-card-btn">
-        <span class="quick-card-icon">💬</span>
-        <span class="quick-card-title">Confirmar<br>Presença</span>
-      </a>
-
-      <a href="localizacao.html" class="quick-card-btn">
-        <span class="quick-card-icon">📍</span>
-        <span class="quick-card-title">Localização<br>da Festa</span>
-      </a>
-
-      <a href="sugestao-presentes.html" class="quick-card-btn">
-        <span class="quick-card-icon">🎁</span>
-        <span class="quick-card-title">Sugestão<br>de Presentes</span>
-      </a>
-    </div>
-
-    <!-- ===================================================================
-         5. CONTAGEM REGRESSIVA INTERATIVA
-         =================================================================== -->
-    <section class="countdown-section">
-      <h3 class="countdown-title">
-        <span>🍎</span> Contagem Regressiva para a Magia <span>🍎</span>
-      </h3>
-      <div class="countdown-grid">
-        <div class="countdown-unit">
-          <div id="countdownDays" class="countdown-num">00</div>
-          <div class="countdown-label">Dias</div>
-        </div>
-        <div class="countdown-unit">
-          <div id="countdownHours" class="countdown-num">00</div>
-          <div class="countdown-label">Horas</div>
-        </div>
-        <div class="countdown-unit">
-          <div id="countdownMinutes" class="countdown-num">00</div>
-          <div class="countdown-label">Minutos</div>
-        </div>
-        <div class="countdown-unit">
-          <div id="countdownSeconds" class="countdown-num">00</div>
-          <div class="countdown-label">Segundos</div>
-        </div>
+      <!-- Card 3: Presença & Traje -->
+      <div class="details-card">
+        <div class="card-magic-icon">💌</div>
+        <h3 class="card-title">Sua Presença é Real</h3>
+        <p class="card-content">
+          Traje: <strong>Passeio Confortável</strong>.<br>
+          Traga toda a sua energia, alegria e amor para comemorarmos o primeiro aninho da Isadora!
+        </p>
+        <a href="confirmar-presenca.html" class="card-btn">
+          <span>💬</span> Confirmar Presença
+        </a>
       </div>
-    </section>
 
-    <!-- ===================================================================
-         6. BARRA DE FERRAMENTAS MÁGICAS E INTERATIVAS
-         =================================================================== -->
-    <div class="magic-actions-bar">
-      <button id="btnLaunchBalloons" class="btn-magic-tool">
-        <span>🎈</span> Lançar Balões
-      </button>
-
-      <button id="btnThrowConfetti" class="btn-magic-tool">
-        <span>🎉</span> Chuva de Confetes
-      </button>
-
-      <button id="btnAddToCalendar" class="btn-magic-tool">
-        <span>📅</span> Salvar na Agenda
-      </button>
     </div>
 
-  </main>
+    <!-- Companheiros da Floresta: Cervinho & Coelho + Close Princesa com Tiara -->
+    <div class="details-companion-strip">
+      <picture>
+        <source srcset="assets/isadora/dupla_encantada_na_floresta.webp" type="image/webp">
+        <img src="assets/isadora/dupla_encantada_na_floresta.png" alt="Cervinho e Coelhinho Encantados com Maçãs" class="companion-fawn-bunny interactive-character" data-character="deer-bunny" loading="lazy">
+      </picture>
 
-  <!-- Rodapé Real -->
+      <picture>
+        <source srcset="assets/isadora/princesa_bebe_com_tiara_floral.webp" type="image/webp">
+        <img src="assets/isadora/princesa_bebe_com_tiara_floral.png" alt="Princesinha Isadora com Tiara Floral" class="companion-isadora-tiara interactive-character" data-character="isadora-tiara" loading="lazy">
+      </picture>
+    </div>
+
+  </section>
+
+  <!-- =====================================================================
+       6. SEÇÃO 4: CANÇÃO & MAGIA NO JARDIM REAL
+       ===================================================================== -->
+  <section class="section-fairytale-music" id="secao-musica">
+    <div class="music-section-grid">
+      
+      <!-- Isadora Sentada no Jardim Interagindo com o Passarinho -->
+      <div class="music-side-scene">
+        <picture>
+          <source srcset="assets/isadora/menina_e_passarinho_no_jardim.webp" type="image/webp">
+          <img src="assets/isadora/menina_e_passarinho_no_jardim.png" alt="Isadora com Passarinho no Jardim" class="music-isadora-sitting interactive-character" data-character="isadora-garden-bird" loading="lazy">
+        </picture>
+      </div>
+
+      <!-- Player de Música & Efeitos Interativos -->
+      <div class="music-player-card">
+        
+        <!-- Trio de Passarinhos no Galho com Flores -->
+        <picture>
+          <source srcset="assets/isadora/tres_passarinhos_encantados_entre_flores.webp" type="image/webp">
+          <img src="assets/isadora/tres_passarinhos_encantados_entre_flores.png" alt="Três Passarinhos Encantados Entre Flores" class="music-birds-branch interactive-character" data-character="birds-branch" loading="lazy">
+        </picture>
+
+        <h3 class="music-card-title">A Canção da Floresta</h3>
+        <p class="music-card-subtitle">
+          Ouça a doce melodia orquestral que embala os sonhos e a festa da Princesinha Isadora!
+        </p>
+
+        <div class="music-controls-box">
+          <button id="musicToggleBtnSection" class="music-main-play-btn" onclick="if(window.fairytaleAudio){ window.fairytaleAudio.toggleMusic(); }">
+            <span class="music-icon">🎵</span>
+            <span>Tocar Trilha Sonora Real</span>
+          </button>
+
+          <div class="music-interactive-row">
+            <button id="btnLaunchBalloons" class="magic-action-pill">
+              <span>🎈</span> Soltar Balões 3D
+            </button>
+            <button id="btnThrowConfetti" class="magic-action-pill">
+              <span>🎉</span> Chuva de Confetes
+            </button>
+          </div>
+        </div>
+
+        <!-- Isadora com Vestido Floral de Princesa -->
+        <picture>
+          <source srcset="assets/isadora/menina_em_vestido_floral_de_princesa.webp" type="image/webp">
+          <img src="assets/isadora/menina_em_vestido_floral_de_princesa.png" alt="Princesa Isadora em Vestido Floral" class="music-isadora-princess-stand interactive-character" data-character="isadora-dress-pose" loading="lazy">
+        </picture>
+
+      </div>
+
+      <!-- Isadora com Pássaros Encantados Voando -->
+      <div class="music-side-scene">
+        <picture>
+          <source srcset="assets/isadora/bebe_princesa_com_passaros_encantados.webp" type="image/webp">
+          <img src="assets/isadora/bebe_princesa_com_passaros_encantados.png" alt="Bebê Princesa com Pássaros Encantados" class="music-isadora-birds interactive-character" data-character="isadora-sparkle-birds" loading="lazy">
+        </picture>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       7. SEÇÃO 5: CONFIRMAÇÃO REAL & SUGESTÃO DE PRESENTES
+       ===================================================================== -->
+  <section class="section-fairytale-rsvp" id="secao-cta-final">
+    <div class="rsvp-final-card">
+      
+      <!-- Isadora de Corpo Inteiro -->
+      <picture>
+        <source srcset="assets/isadora/princesa_bebe_com_vestido_floral.webp" type="image/webp">
+        <img src="assets/isadora/princesa_bebe_com_vestido_floral.png" alt="Princesinha Isadora de Corpo Inteiro" class="rsvp-isadora-fullbody interactive-character" data-character="isadora-fullbody" loading="lazy">
+      </picture>
+
+      <h2 class="rsvp-final-title">Esperamos Você no Reino!</h2>
+      <p class="rsvp-final-desc">
+        Para prepararmos cada detalhe com todo o amor e conforto para você e sua família, por favor confirme sua presença até o dia <strong>28 de Dezembro</strong>.
+      </p>
+
+      <div class="rsvp-buttons-group">
+        <a href="confirmar-presenca.html" class="rsvp-main-cta">
+          <span>💬</span> Confirmar no WhatsApp
+        </a>
+
+        <a href="sugestao-presentes.html" class="rsvp-secondary-cta">
+          <span>🎁</span> Sugestão de Presentes & Pix
+        </a>
+
+        <a href="localizacao.html" class="rsvp-secondary-cta">
+          <span>📍</span> Como Chegar à Festa
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       8. RODAPÉ REAL
+       ===================================================================== -->
   <footer class="royal-footer">
-    <p>Com todo o amor do mundo, família da <strong>Isadora Louise</strong> 🍎</p>
-    <p style="margin-top: 6px; font-size: 11px; opacity: 0.75;">
-      Tema: Branca de Neve e os Sete Anões • 1º Aninho Encantado
+    <p>Com todo o carinho e amor do mundo, família da <strong>Princesinha Isadora Louise</strong> 👑</p>
+    <p style="margin-top: 6px; font-size: 12px; opacity: 0.85;">
+      1º Aninho Encantado • Conto de Fadas da Princesinha Isadora
     </p>
-    <p style="margin-top: 10px;">
-      <a href="admin.html" style="font-size: 11px; opacity: 0.45; color: var(--disney-yellow); text-decoration: none;">
-        👑 Painel da Família (RSVP & Presentes)
+    <p style="margin-top: 14px;">
+      <a href="admin.html" style="font-size: 11.5px; opacity: 0.55; color: var(--gold); text-decoration: none;">
+        🔒 Painel da Família (Administração de RSVP & Presentes)
       </a>
     </p>
   </footer>

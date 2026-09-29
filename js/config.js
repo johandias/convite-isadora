@@ -213,10 +213,10 @@ const CONVITE_CONFIG = {
 
   // Vídeo de Abertura
   video: {
-    arquivo: "convite-video.mp4",
+    arquivo: "video_final_isadora.mp4",
     poster: "assets/video-poster.jpg",
     titulo: "O Convite Real da Princesa Isadora",
-    duracaoSegundos: 8
+    duracaoSegundos: 58
   },
 
   // Trilha Sonora

@@ -376,9 +376,9 @@ body {
 
 .brand-crest-text {
   font-family: 'Waltograph', cursive;
-  font-size: clamp(19px, 5vw, 25px);
+  font-size: clamp(17px, 4.5vw, 24px);
   color: var(--disney-yellow);
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   white-space: nowrap;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 209, 96, 0.5);
 }
@@ -386,22 +386,23 @@ body {
 .nav-actions-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .floating-action-btn {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.15);
   border: 1.5px solid var(--disney-yellow);
   color: #ffffff;
-  padding: 6px 13px;
-  min-height: 36px;
+  padding: 5px 10px;
+  min-height: 33px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: clamp(10.5px, 2.7vw, 12px);
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   transition: all 0.2s ease;
   text-decoration: none;
   touch-action: manipulation;
@@ -431,20 +432,33 @@ body {
 .invitation-main-container {
   max-width: 580px;
   width: 100%;
-  margin: 14px auto 35px auto;
-  padding: 0 12px;
+  margin: 10px auto 35px auto;
+  padding: 0 10px;
   position: relative;
   z-index: 10;
 }
 
+.invitation-interactive-hint,
 .invitation-hint-text {
   text-align: center;
-  margin-bottom: 12px;
-  font-size: clamp(12px, 3.4vw, 14px);
-  color: var(--disney-yellow);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  margin-bottom: 10px;
+}
+
+.invitation-interactive-hint p,
+.invitation-hint-text p {
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(10.5px, 2.8vw, 12.5px);
+  color: #78350f;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  background: rgba(254, 240, 138, 0.85);
+  border: 1.5px solid var(--disney-yellow-bright);
+  padding: 4px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  max-width: 95%;
+  line-height: 1.35;
 }
 
 .invitation-card-wrapper {
@@ -573,67 +587,133 @@ body {
  * 4. CARDS DE NAVEGAÇÃO RÁPIDA (Cores Oficiais Disney)
  * ========================================================================= */
 .quick-nav-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
   gap: 10px;
-  margin-top: 18px;
+  width: 100%;
+  max-width: 480px;
+  margin: 18px auto 0 auto;
+  box-sizing: border-box;
 }
 
 .quick-card-btn {
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 14px 6px;
-  min-height: 88px;
-  border-radius: 18px;
+  min-height: 90px;
+  border-radius: 20px;
   text-decoration: none;
   color: #ffffff;
   text-align: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-  transition: all 0.2s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: all 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   touch-action: manipulation;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 }
 
+.quick-card-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+  border-radius: 18px 18px 0 0;
+  pointer-events: none;
+}
+
+.quick-card-btn.quick-btn-rsvp,
 .quick-card-btn:nth-child(1) {
   background: var(--gradient-apple-red);
-  border: 2px solid var(--disney-yellow);
+  border: 2.5px solid var(--disney-yellow-bright);
 }
 
+.quick-card-btn.quick-btn-local,
 .quick-card-btn:nth-child(2) {
   background: var(--gradient-disney-blue);
-  border: 2px solid var(--disney-yellow);
+  border: 2.5px solid var(--disney-yellow-bright);
 }
 
+.quick-card-btn.quick-btn-gifts,
 .quick-card-btn:nth-child(3) {
-  background: linear-gradient(135deg, #ba7947 0%, #744e33 60%, #57331d 100%);
-  border: 2px solid var(--disney-yellow);
+  background: var(--gradient-golden-sun);
+  border: 2.5px solid #ffffff;
+  color: #281203;
 }
 
 .quick-card-btn:hover {
-  transform: translateY(-3px);
+  transform: translateY(-3px) scale(1.02);
   border-color: #ffffff;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 18px rgba(255, 209, 96, 0.4);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25), 0 0 16px rgba(255, 209, 96, 0.45);
 }
 
 .quick-card-btn:active {
   transform: scale(0.95);
-  filter: brightness(1.15);
+  filter: brightness(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .quick-card-icon {
-  font-size: clamp(24px, 6.2vw, 30px);
-  margin-bottom: 4px;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+  font-size: clamp(22px, 5.8vw, 28px);
+  margin-bottom: 5px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
 }
 
 .quick-card-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(10px, 2.8vw, 12px);
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(10.5px, 2.7vw, 12px);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   line-height: 1.25;
+}
+
+.quick-btn-gifts .quick-card-title,
+.quick-card-btn:nth-child(3) .quick-card-title {
+  color: #281203;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.quick-btn-rsvp .quick-card-title,
+.quick-btn-local .quick-card-title,
+.quick-card-btn:nth-child(1) .quick-card-title,
+.quick-card-btn:nth-child(2) .quick-card-title {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 480px) {
+  .quick-nav-cards {
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .quick-card-btn {
+    padding: 10px 3px;
+    min-height: 82px;
+    border-radius: 16px;
+  }
+
+  .quick-card-icon {
+    font-size: 22px;
+    margin-bottom: 3px;
+  }
+
+  .quick-card-title {
+    font-size: 9.5px;
+    letter-spacing: 0.1px;
+    line-height: 1.2;
+  }
 }
 
 /* =========================================================================
@@ -793,11 +873,78 @@ body {
 
 @media (max-width: 600px) {
   .mobile-bottom-bar {
-    display: flex;
+    display: none !important;
   }
-  body {
-    padding-bottom: calc(var(--safe-bottom) + 75px);
-  }
+}
+
+/* =========================================================================
+ * 7.1 FRASE DE RESPIRO POÉTICO & RODAPÉ
+ * ========================================================================= */
+.fairytale-breathing-quote {
+  text-align: center;
+  margin: 28px auto 14px auto;
+  max-width: 440px;
+  padding: 18px 14px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2.5px solid var(--disney-yellow-bright);
+  border-radius: var(--radius-royal);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.breathing-quote-icons {
+  font-size: 24px;
+  margin-bottom: 4px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.breathing-quote-phrase {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(22px, 5.8vw, 28px);
+  color: var(--disney-red);
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+  text-shadow: 0 1px 2px rgba(255, 230, 100, 0.4);
+}
+
+.breathing-quote-subtitle {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #78350f;
+  font-weight: 700;
+}
+
+.royal-footer {
+  padding: 24px 14px calc(var(--safe-bottom) + 16px) 14px;
+  text-align: center;
+  font-size: 12px;
+  color: #78350f;
+  margin-top: 14px;
+}
+
+.royal-footer-sub {
+  margin-top: 5px;
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.royal-footer-admin {
+  margin-top: 10px;
+}
+
+.royal-footer-admin a {
+  font-size: 11px;
+  color: var(--disney-blue);
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.royal-footer-admin a:hover {
+  opacity: 1;
 }
 
 /* =========================================================================
@@ -1877,4 +2024,351 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* =========================================================================
+ * 8. CENAS DE STORYTELLING ANIMADAS AO ROLAR ("CONTO DA PRINCESA")
+ * ========================================================================= */
+.scroll-down-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 24px auto 14px auto;
+  cursor: pointer;
+  color: #78350f;
+  text-align: center;
+  text-decoration: none;
+}
+
+.scroll-down-hint span {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  background: rgba(254, 240, 138, 0.95);
+  border: 1.5px solid var(--disney-yellow-bright);
+  padding: 5px 14px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.scroll-bounce-arrow {
+  font-size: 16px;
+  animation: scrollBounceArrow 1.6s ease-in-out infinite;
+  color: var(--disney-red);
+}
+
+.story-section-wrapper {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.story-scene-section {
+  margin: 36px 0;
+  position: relative;
+  width: 100%;
+}
+
+.story-scene-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 2px solid var(--disney-yellow-bright);
+  color: var(--disney-red);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.18);
+  margin-bottom: 14px;
+}
+
+.story-scene-layout {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.story-scene-layout.story-layout-right {
+  flex-direction: row-reverse;
+}
+
+.story-character-box {
+  flex: 0 0 42%;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.story-isadora-img {
+  max-width: 100%;
+  width: 195px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.15));
+  animation: isadoraFloat 4.8s ease-in-out infinite alternate;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.story-character-box:hover .story-isadora-img {
+  transform: scale(1.05);
+}
+
+.story-character-box:active .story-isadora-img {
+  animation: isadoraBounceTap 0.6s ease;
+}
+
+.character-speech-bubble {
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  background: #ffffff;
+  border: 2px solid var(--disney-yellow-bright);
+  padding: 6px 10px;
+  border-radius: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #78350f;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: speechBubblePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 5;
+}
+
+.character-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 18px;
+  border-width: 6px 6px 0 6px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+.story-message-card {
+  flex: 1 1 0;
+  min-width: 0;
+  background: #ffffff;
+  border: 3px solid var(--disney-yellow-bright);
+  border-radius: var(--radius-royal);
+  padding: 20px 18px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.story-message-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(14px, 3.8vw, 17px);
+  color: var(--disney-red);
+  font-weight: 800;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.story-message-text {
+  font-size: 12.5px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.story-message-quote {
+  font-family: 'Great Vibes', cursive;
+  font-size: 21px;
+  color: #b91c1c;
+  line-height: 1.3;
+  margin-top: 8px;
+  text-shadow: 0 1px 1px rgba(255, 230, 100, 0.4);
+}
+
+.story-details-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.detail-pill-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fffdf2;
+  border: 1.5px solid var(--disney-yellow-bright);
+  padding: 8px 12px;
+  border-radius: 14px;
+  font-size: 11.5px;
+  color: var(--text-primary);
+}
+
+.detail-pill-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.detail-pill-item strong {
+  display: block;
+  color: var(--disney-blue-dark);
+  font-size: 12px;
+}
+
+.detail-pill-item span {
+  color: #78350f;
+  font-size: 11px;
+}
+
+.story-friends-panoramic {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 18px 0;
+  text-align: center;
+  position: relative;
+}
+
+.panoramic-friends-img {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.12));
+  animation: isadoraFloat 6s ease-in-out infinite alternate;
+}
+
+.story-final-card {
+  background: #ffffff;
+  border: 3.5px solid var(--disney-yellow-bright);
+  border-radius: var(--radius-playful);
+  padding: 24px 18px;
+  text-align: center;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.1);
+  margin-top: 14px;
+  position: relative;
+}
+
+.story-singing-birds {
+  margin-top: -6px;
+  margin-bottom: 8px;
+}
+
+.singing-birds-img {
+  max-width: 160px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  animation: birdsChirp 3.5s ease-in-out infinite;
+}
+
+.story-final-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(16px, 4.4vw, 20px);
+  color: var(--disney-red);
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.story-final-desc {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  max-width: 440px;
+  margin: 0 auto 18px auto;
+}
+
+.story-final-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.story-cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 18px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transition: all 0.22s ease;
+  touch-action: manipulation;
+}
+
+.story-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+.story-cta-btn:active {
+  transform: scale(0.96);
+}
+
+.story-cta-rsvp {
+  background: var(--gradient-apple-red);
+  color: #ffffff;
+  border: 2px solid var(--disney-yellow-bright);
+}
+
+.story-cta-gifts {
+  background: var(--gradient-golden-sun);
+  color: #281203;
+  border: 2px solid #ffffff;
+}
+
+.story-cta-location {
+  background: var(--gradient-disney-blue);
+  color: #ffffff;
+  border: 2px solid var(--disney-yellow-bright);
+}
+
+/* Ajustes Responsivos para Telas Menores (Celulares) */
+@media (max-width: 600px) {
+  .story-scene-layout,
+  .story-scene-layout.story-layout-right {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  .story-character-box {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .story-isadora-img {
+    width: 175px;
+  }
+  .character-speech-bubble {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -15px;
+  }
+  .character-speech-bubble::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .story-message-card {
+    width: 100%;
+    padding: 16px 14px;
+  }
+  .detail-pill-item {
+    text-align: left;
+  }
 }

@@ -30,15 +30,6 @@ class FairytaleBalloons {
     this.container.style.overflow = "hidden";
     this.container.style.zIndex = "15";
     document.body.appendChild(this.container);
-
-    // Lança alguns balões no início e esporadicamente
-    setTimeout(() => this.spawnBatch(3), 2000);
-    setInterval(() => {
-      // Cria balões apenas se a aba estiver visível e menos de 8 na tela
-      if (!document.hidden && this.container.children.length < 7) {
-        this.createBalloon();
-      }
-    }, 4500);
   }
 
   spawnBatch(count = 5) {

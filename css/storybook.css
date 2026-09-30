@@ -1,0 +1,863 @@
+/* ==========================================================================
+   O LIVRO DA PRINCESINHA ISADORA • 3D INTERACTIVE STORYBOOK
+   Mobile-First • Scroll-Driven • Realistic 3D Turn • Fairytale Design
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TRANSIÇÃO DE ENTRADA: O PORTAL PARA A HISTÓRIA
+   -------------------------------------------------------------------------- */
+.book-intro-curtain {
+  position: relative;
+  width: 100%;
+  padding: 60px 20px 40px;
+  background: radial-gradient(circle at 50% 30%, #4a0d18 0%, #2b060d 60%, #150206 100%);
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: inset 0 20px 40px rgba(0,0,0,0.6), 0 20px 50px rgba(0,0,0,0.5);
+  border-top: 3px solid #d4af37;
+  border-bottom: 2px solid #8e1828;
+}
+
+.book-intro-curtain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(244, 216, 120, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.book-intro-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(2px 2px at 20% 30%, #ffd700, transparent),
+    radial-gradient(2px 2px at 80% 20%, #fff4d7, transparent),
+    radial-gradient(3px 3px at 45% 70%, #d4af37, transparent),
+    radial-gradient(2px 2px at 65% 80%, #ffd700, transparent);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: introSparkleGlow 6s ease-in-out infinite alternate;
+  opacity: 0.7;
+}
+
+@keyframes introSparkleGlow {
+  0% { opacity: 0.4; transform: translateY(0); }
+  100% { opacity: 0.85; transform: translateY(-10px); }
+}
+
+.book-intro-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.book-intro-badge {
+  display: inline-block;
+  padding: 6px 18px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(122, 16, 28, 0.4));
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  border-radius: 30px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #f4d878;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.book-intro-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 5.5vw, 36px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fffaf0;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+}
+
+.book-intro-title span {
+  font-family: 'Cinzel Decorative', cursive, serif;
+  color: #f4d878;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffe89e, #d4af37, #fef1cd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.book-intro-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  color: #e8d7b8;
+  margin-bottom: 24px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.book-intro-scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #f4d878;
+}
+
+.scroll-mouse-icon {
+  width: 24px;
+  height: 38px;
+  border: 2px solid #d4af37;
+  border-radius: 14px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+.scroll-wheel {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 8px;
+  background: #f4d878;
+  border-radius: 2px;
+  animation: mouseWheelSlide 1.8s ease-in-out infinite;
+}
+
+@keyframes mouseWheelSlide {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  60% { transform: translate(-50%, 12px); opacity: 0; }
+  100% { transform: translate(-50%, 0); opacity: 0; }
+}
+
+.scroll-arrow-icon {
+  font-size: 14px;
+  animation: scrollArrowBounce 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 6px rgba(212, 175, 55, 0.5));
+}
+
+@keyframes scrollArrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+
+/* --------------------------------------------------------------------------
+   2. CONTAINER PRINCIPAL DO LIVRO (SCROLL TRACK)
+   -------------------------------------------------------------------------- */
+.book-story-section {
+  position: relative;
+  /* Altura proporcional aos 12 passos para rolagem suave */
+  height: 1200vh;
+  background: #1a050a;
+  box-sizing: border-box;
+}
+
+.book-sticky-stage {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 10px 12px 14px;
+}
+
+/* Cenário de Floresta Encantada Desfocada ao Fundo */
+.book-stage-backdrop {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 45%, rgba(212, 175, 55, 0.16) 0%, rgba(122, 16, 28, 0.3) 40%, rgba(21, 2, 6, 0.95) 90%),
+    linear-gradient(180deg, #24050d 0%, #150207 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.book-stage-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(1.5px 1.5px at 15% 25%, #f4d878, transparent),
+    radial-gradient(2px 2px at 75% 35%, #ffd700, transparent),
+    radial-gradient(1px 1px at 35% 65%, #fff4d7, transparent),
+    radial-gradient(2px 2px at 85% 75%, #f4d878, transparent),
+    radial-gradient(2.5px 2.5px at 50% 85%, #ffd700, transparent);
+  background-size: 260px 260px;
+  animation: floatingGlitters 8s ease-in-out infinite alternate;
+  opacity: 0.65;
+}
+
+@keyframes floatingGlitters {
+  0% { transform: translateY(0) scale(1); opacity: 0.4; }
+  100% { transform: translateY(-15px) scale(1.05); opacity: 0.8; }
+}
+
+/* Sombra / Mesa / Pedestal Real Abaixo do Livro */
+.book-pedestal-shadow {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(88vw, 480px);
+  height: 40px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, transparent 80%);
+  filter: blur(12px);
+  z-index: 2;
+  pointer-events: none;
+  transition: transform 0.4s ease;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. HUD SUPERIOR DO LIVRO: CONTROLE E CAPÍTULO ATUAL
+   -------------------------------------------------------------------------- */
+.book-hud-header {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 8px;
+  pointer-events: auto;
+}
+
+.book-chapter-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(43, 6, 13, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 20px;
+  padding: 4px 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.book-chapter-badge {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #f4d878;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.book-chapter-separator {
+  color: rgba(212, 175, 55, 0.4);
+  font-size: 10px;
+}
+
+.book-chapter-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fffaf0;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Indicador de Bolinhas/Diamantes Dourados */
+.book-stepper-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.book-step-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  transition: all 0.3s ease;
+}
+
+.book-step-dot.active {
+  background: #f4d878;
+  transform: scale(1.35);
+  box-shadow: 0 0 8px #f4d878;
+  border-color: #fff;
+}
+
+
+/* --------------------------------------------------------------------------
+   4. ESTRUTURA FÍSICA DO LIVRO 3D
+   -------------------------------------------------------------------------- */
+.book-stage-viewport {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1600px;
+  -webkit-perspective: 1600px;
+  width: 100%;
+  max-width: 520px;
+  height: 100%;
+  max-height: calc(100vh - 100px);
+  max-height: calc(100dvh - 100px);
+}
+
+.book-assembly {
+  position: relative;
+  /* Proporção 3:4 perfeita para as ilustrações oficiais com adaptação à altura e largura */
+  width: min(94vw, calc((100dvh - 100px) * 0.73), 430px);
+  aspect-ratio: 3 / 4.1;
+  max-height: calc(100vh - 100px);
+  max-height: calc(100dvh - 100px);
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.75),
+    0 40px 80px rgba(0, 0, 0, 0.6);
+  border-radius: 8px 14px 14px 8px;
+}
+
+/* Base de couro e empilhamento físico de páginas */
+.book-cover-casing {
+  position: absolute;
+  inset: -6px -8px -6px -12px;
+  background: 
+    radial-gradient(ellipse at 25% 20%, #a82333 0%, #700f1c 55%, #42060e 100%);
+  border-radius: 12px 18px 18px 12px;
+  border: 2px solid #b38b36;
+  box-shadow: 
+    inset 0 0 30px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(244, 216, 120, 0.3),
+    0 15px 35px rgba(0,0,0,0.8);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Lombada Real com Costuras e Nervuras de Ouro */
+.book-spine {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: -12px;
+  width: 22px;
+  background: linear-gradient(to right, #38040a 0%, #7a101c 40%, #a82333 70%, #4a0911 100%);
+  border-radius: 10px 0 0 10px;
+  box-shadow: 
+    inset -3px 0 8px rgba(0,0,0,0.8),
+    inset 2px 0 4px rgba(244, 216, 120, 0.35);
+  border-right: 1px solid rgba(212, 175, 55, 0.4);
+  z-index: 25;
+  pointer-events: none;
+}
+
+.book-spine-rib {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to bottom, #d4af37, #fef1cd 40%, #8c6d1f);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.book-spine-rib:nth-child(1) { top: 15%; }
+.book-spine-rib:nth-child(2) { top: 38%; }
+.book-spine-rib:nth-child(3) { top: 62%; }
+.book-spine-rib:nth-child(4) { top: 85%; }
+
+/* Pilha de Páginas Reais (Bordas de Papel Dourado/Marfim à Direita e Embaixo) */
+.book-pages-stack-right {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  right: -5px;
+  width: 10px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #fff4d7 0px,
+    #ebd9b2 1px,
+    #d1bf96 2px
+  );
+  border-radius: 0 4px 4px 0;
+  box-shadow: 
+    inset -2px 0 4px rgba(0,0,0,0.4),
+    2px 0 6px rgba(0,0,0,0.3);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.book-pages-stack-bottom {
+  position: absolute;
+  bottom: -5px;
+  left: 8px;
+  right: 4px;
+  height: 8px;
+  background: repeating-linear-gradient(
+    to right,
+    #fff4d7 0px,
+    #ebd9b2 1px,
+    #d1bf96 2px
+  );
+  border-radius: 0 0 4px 4px;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.4);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Pilha Esquerda (Páginas Já Viradas Empilhadas na Lombada) */
+.book-pages-stack-left {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: 0px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #fff4d7 0px,
+    #ebd9b2 1px,
+    #d1bf96 2px
+  );
+  border-radius: 4px 0 0 4px;
+  box-shadow: inset 2px 0 4px rgba(0,0,0,0.4);
+  z-index: 2;
+  pointer-events: none;
+  transition: width 0.3s ease;
+}
+
+
+/* --------------------------------------------------------------------------
+   5. AS FOLHAS DO LIVRO (SHEETS & FACES)
+   -------------------------------------------------------------------------- */
+.book-sheets-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.book-sheet {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+  border-radius: 4px 10px 10px 4px;
+  transition: box-shadow 0.2s ease;
+}
+
+.sheet-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 4px 10px 10px 4px;
+  overflow: hidden;
+  background-color: #fff9ea;
+  box-sizing: border-box;
+}
+
+/* Frente da Folha */
+.sheet-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+/* Verso da Folha (Gira 180deg) */
+.sheet-back {
+  z-index: 1;
+  transform: rotateY(180deg);
+  background: 
+    radial-gradient(circle at 50% 50%, #fff7e4 0%, #f4e8cc 70%, #ebd8b0 100%);
+  border-left: 2px solid rgba(122, 16, 28, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Textura e Selo Real no Verso da Folha */
+.sheet-back-texture {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(212, 175, 55, 0.15) 1px, transparent 1px);
+  background-size: 16px 16px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.sheet-back-seal {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.45;
+  transform: scale(0.9);
+}
+
+.sheet-back-seal-crown {
+  font-size: 38px;
+  margin-bottom: 4px;
+}
+
+.sheet-back-seal-text {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #7a101c;
+}
+
+/* Verso Especial da Capa Frontal: Forro Nobre de Veludo Vermelho */
+.sheet-back.cover-inner {
+  background: 
+    radial-gradient(circle at 50% 50%, #6e0e1a 0%, #4a0710 80%, #290308 100%);
+}
+
+.sheet-back.cover-inner .sheet-back-seal {
+  opacity: 0.8;
+}
+
+.sheet-back.cover-inner .sheet-back-seal-text {
+  color: #f4d878;
+}
+
+/* Imagens das Páginas: Encaixe Perfeito sem Cortes */
+.book-page-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff4d7;
+  overflow: hidden;
+}
+
+.book-page-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+
+/* Sombra na Dobra Próxima à Lombada */
+.sheet-spine-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 28px;
+  background: linear-gradient(to right, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 40%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Sombra Dinâmica durante o Turn (Curvatura de Papel) */
+.sheet-flip-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0.2) 50%, rgba(0,0,0,0.6) 100%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 12;
+  transition: opacity 0.1s linear;
+}
+
+
+/* --------------------------------------------------------------------------
+   6. PÁGINA 10: BOTÕES REAIS DE AÇÃO SOBREPOSTOS NO CONVITE
+   -------------------------------------------------------------------------- */
+.sheet-action-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 8px;
+  right: 8px;
+  z-index: 25;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.book-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex: 1;
+  min-height: 38px;
+  padding: 6px 8px;
+  border-radius: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 8px rgba(244, 216, 120, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.book-btn-full {
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .book-btn-full {
+    display: inline;
+  }
+}
+
+.book-action-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6), 0 0 14px rgba(244, 216, 120, 0.5);
+}
+
+.book-action-btn:active {
+  transform: scale(0.96);
+}
+
+.book-btn-confirm {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #fff;
+  border: 1.5px solid #a3e9b9;
+}
+
+.book-btn-location {
+  background: linear-gradient(135deg, #b8860b, #d4af37 50%, #f4d878);
+  color: #3b060d;
+  border: 1.5px solid #fff;
+}
+
+.book-btn-gifts {
+  background: linear-gradient(135deg, #a82333, #7a101c);
+  color: #fff;
+  border: 1.5px solid #f4d878;
+}
+
+.book-btn-icon {
+  font-size: 14px;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. CONTROLES LATERAIS DISCRETOS (ASSISTÊNCIA DE NAVEGAÇÃO)
+   -------------------------------------------------------------------------- */
+.book-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(43, 6, 13, 0.85);
+  border: 1.5px solid #d4af37;
+  color: #f4d878;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 30;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: all 0.25s ease;
+}
+
+.book-nav-arrow:hover {
+  background: #7a101c;
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 15px #d4af37;
+}
+
+.book-nav-arrow.nav-prev {
+  left: 8px;
+}
+
+.book-nav-arrow.nav-next {
+  right: 8px;
+}
+
+.book-nav-arrow[disabled],
+.book-nav-arrow.disabled {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   8. TRANSIÇÃO DE SAÍDA: O LIVRO SE FECHA E CONTINUA O SITE
+   -------------------------------------------------------------------------- */
+.book-outro-curtain {
+  position: relative;
+  width: 100%;
+  padding: 50px 20px 40px;
+  background: radial-gradient(circle at 50% 70%, #4a0d18 0%, #2b060d 60%, #150206 100%);
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: inset 0 20px 40px rgba(0,0,0,0.6);
+  border-top: 2px solid #8e1828;
+  border-bottom: 3px solid #d4af37;
+}
+
+.book-outro-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 4vw, 24px);
+  font-style: italic;
+  color: #f4d878;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.book-outro-sub {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #e8d7b8;
+  margin-bottom: 20px;
+}
+
+.book-outro-arrow {
+  color: #d4af37;
+  font-size: 18px;
+  animation: scrollArrowBounce 1.5s ease-in-out infinite;
+}
+
+
+/* --------------------------------------------------------------------------
+   9. RESPONSIVIDADE PRECISA (MOBILE FIRST)
+   -------------------------------------------------------------------------- */
+
+/* Telas Muito Pequenas (320px - 360px) */
+@media (max-width: 360px) {
+  .book-assembly {
+    width: 95vw;
+    aspect-ratio: 3 / 4.15;
+    max-height: 75vh;
+    max-height: 75dvh;
+  }
+
+  .sheet-action-overlay {
+    bottom: 8px;
+    left: 6px;
+    right: 6px;
+    gap: 5px;
+  }
+
+  .book-action-btn {
+    min-height: 38px;
+    padding: 6px 10px;
+    font-size: 11.5px;
+  }
+
+  .book-nav-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .book-chapter-title {
+    max-width: 170px;
+    font-size: 11.5px;
+  }
+}
+
+/* Telas Médias de Celular (375px - 430px) */
+@media (min-width: 361px) and (max-width: 480px) {
+  .book-assembly {
+    width: 93vw;
+    aspect-ratio: 3 / 4.1;
+    max-height: 79vh;
+    max-height: 79dvh;
+  }
+}
+
+/* Tablets (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .book-assembly {
+    width: 440px;
+    aspect-ratio: 3 / 4.1;
+    max-height: 80vh;
+  }
+  
+  .sheet-action-overlay {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    gap: 9px;
+  }
+
+  .book-action-btn {
+    min-height: 44px;
+    font-size: 14px;
+  }
+}
+
+/* Desktops e Telas Grandes (>= 769px) */
+@media (min-width: 769px) {
+  .book-assembly {
+    width: 480px;
+    aspect-ratio: 3 / 4.1;
+    max-height: 82vh;
+  }
+
+  .book-nav-arrow.nav-prev {
+    left: 30px;
+  }
+
+  .book-nav-arrow.nav-next {
+    right: 30px;
+  }
+
+  .sheet-action-overlay {
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    gap: 10px;
+  }
+
+  .book-action-btn {
+    min-height: 46px;
+    font-size: 14.5px;
+  }
+}
+
+/* Modo Redução de Movimento (Acessibilidade) */
+@media (prefers-reduced-motion: reduce) {
+  .book-sheet {
+    transition: opacity 0.4s ease !important;
+    transform: none !important;
+  }
+  .book-sheet.turned {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}

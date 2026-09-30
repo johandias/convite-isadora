@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="css/animations.css?v=2.5">
   <link rel="stylesheet" href="css/style.css?v=2.5">
   <link rel="stylesheet" href="css/fairytale.css?v=2.5">
+  <link rel="stylesheet" href="css/storybook.css?v=2.6">
 </head>
 <body>
 
@@ -220,6 +221,385 @@
     </div>
 
   </header>
+
+  <!-- =====================================================================
+       TRANSIÇÃO DE ENTRADA: O LIVRO DA PRINCESINHA ISADORA
+       ===================================================================== -->
+  <div class="book-intro-curtain" id="bookIntroCurtain">
+    <div class="book-intro-sparkles" aria-hidden="true"></div>
+    <div class="book-intro-content">
+      <span class="book-intro-badge">✨ Um momento especial ✨</span>
+      <h2 class="book-intro-title">Mas antes da festa...<br><span>há uma história para contar.</span></h2>
+      <p class="book-intro-subtitle">Role para abrir o livro encantado</p>
+      <div class="book-intro-scroll-indicator" aria-hidden="true">
+        <span class="scroll-mouse-icon">
+          <span class="scroll-wheel"></span>
+        </span>
+        <span class="scroll-arrow-icon">▼</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       O LIVRO DA PRINCESINHA ISADORA (LIVRO 3D INTERATIVO ROLÁVEL)
+       ===================================================================== -->
+  <section class="book-story-section" id="secao-livro" aria-label="O Livro da Princesinha Isadora">
+    <div class="book-sticky-stage">
+      
+      <!-- Fundo de Floresta Encantada Desfocada com Partículas -->
+      <div class="book-stage-backdrop" aria-hidden="true"></div>
+
+      <!-- Sombra e Pedestal Físico -->
+      <div class="book-pedestal-shadow" aria-hidden="true"></div>
+
+      <!-- HUD Superior: Capítulos e Marcadores Dourados -->
+      <div class="book-hud-header">
+        <div class="book-chapter-tag">
+          <span class="book-chapter-badge" id="bookChapterBadge">Capa</span>
+          <span class="book-chapter-separator">•</span>
+          <span class="book-chapter-title" id="bookChapterTitle">Capa Oficial Encantada</span>
+        </div>
+
+        <div class="book-stepper-dots" aria-hidden="true">
+          <div class="book-step-dot active" title="Capa"></div>
+          <div class="book-step-dot" title="Abertura"></div>
+          <div class="book-step-dot" title="Capítulo 1"></div>
+          <div class="book-step-dot" title="Capítulo 2"></div>
+          <div class="book-step-dot" title="Capítulo 3"></div>
+          <div class="book-step-dot" title="Capítulo 4"></div>
+          <div class="book-step-dot" title="Capítulo 5"></div>
+          <div class="book-step-dot" title="Capítulo 6"></div>
+          <div class="book-step-dot" title="Capítulo 7"></div>
+          <div class="book-step-dot" title="Capítulo 8"></div>
+          <div class="book-step-dot" title="Convite"></div>
+          <div class="book-step-dot" title="Epílogo"></div>
+        </div>
+      </div>
+
+      <!-- Controles Laterais Discretos de Apoio -->
+      <button class="book-nav-arrow nav-prev disabled" id="bookNavPrev" aria-label="Página Anterior" title="Voltar página">‹</button>
+      <button class="book-nav-arrow nav-next" id="bookNavNext" aria-label="Próxima Página" title="Avançar página">›</button>
+
+      <!-- Viewport de Perspectiva 3D -->
+      <div class="book-stage-viewport">
+        <div class="book-assembly" id="bookAssembly">
+          
+          <!-- Capa de Couro e Lombada com Nervuras de Ouro -->
+          <div class="book-cover-casing" aria-hidden="true"></div>
+          <div class="book-spine" aria-hidden="true">
+            <div class="book-spine-rib"></div>
+            <div class="book-spine-rib"></div>
+            <div class="book-spine-rib"></div>
+            <div class="book-spine-rib"></div>
+          </div>
+
+          <!-- Pilhas de Papel Físicas (Esquerda, Direita e Base) -->
+          <div class="book-pages-stack-right" aria-hidden="true"></div>
+          <div class="book-pages-stack-bottom" aria-hidden="true"></div>
+          <div class="book-pages-stack-left" id="bookStackLeft" aria-hidden="true"></div>
+
+          <!-- Pilha de Folhas Móveis 3D -->
+          <div class="book-sheets-stack">
+
+            <!-- FOLHA 0: CAPA EXTERNA DE COURO VERMELHO -->
+            <div class="book-sheet sheet-0" style="z-index: 12;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/00_capa_livro_isadora.webp" type="image/webp">
+                    <img src="assets/isadora/book/00_capa_livro_isadora.png" alt="Capa do Livro de Contos da Princesinha Isadora Louise" class="book-page-img" fetchpriority="high">
+                  </picture>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back cover-inner">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">👑</span>
+                  <span class="sheet-back-seal-text">Princesinha Isadora Louise</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA 1: FOLHA DE ROSTO REAL -->
+            <div class="book-sheet sheet-1" style="z-index: 11;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/01_folha_rosto_isadora.webp" type="image/webp">
+                    <img src="assets/isadora/book/01_folha_rosto_isadora.png" alt="Folha de Rosto: Era uma vez Isadora Louise" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">🌸</span>
+                  <span class="sheet-back-seal-text">Conto Encantado</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA 2: ERA UMA VEZ... -->
+            <div class="book-sheet sheet-2" style="z-index: 10;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/02_era_uma_vez_no_bosque.webp" type="image/webp">
+                    <img src="assets/isadora/book/02_era_uma_vez_no_bosque.png" alt="Página 1: Era uma vez no bosque encantado" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">🍎</span>
+                  <span class="sheet-back-seal-text">Primeiro Capítulo</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA 3: ENTÃO CHEGOU ISADORA LOUISE -->
+            <div class="book-sheet sheet-3" style="z-index: 9;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/03_entao_chegou_isadora.webp" type="image/webp">
+                    <img src="assets/isadora/book/03_entao_chegou_isadora.png" alt="Página 2: Então chegou Isadora Louise" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">💖</span>
+                  <span class="sheet-back-seal-text">Amor Infinito</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA 4: TUDO GANHOU NOVAS CORES -->
+            <div class="book-sheet sheet-4" style="z-index: 8;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/04_tudo_ganhou_novas_cores.webp" type="image/webp">
+                    <img src="assets/isadora/book/04_tudo_ganhou_novas_cores.png" alt="Página 3: Tudo ganhou novas cores" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">🦋</span>
+                  <span class="sheet-back-seal-text">Toque de Magia</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA 5: UM MUNDO INTEIRO PARA DESCOBRIR -->
+            <div class="book-sheet sheet-5" style="z-index: 7;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/05_um_mundo_para_descobrir.webp" type="image/webp">
+                    <img src="assets/isadora/book/05_um_mundo_para_descobrir.png" alt="Página 4: Um mundo inteiro para descobrir" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">✨</span>
+                  <span class="sheet-back-seal-text">Descobertas</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA 6: UMA PRINCESINHA CERCADA DE AMOR (FAMÍLIA) -->
+            <div class="book-sheet sheet-6" style="z-index: 6;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/06_princesinha_cercada_de_amor.webp" type="image/webp">
+                    <img src="assets/isadora/book/06_princesinha_cercada_de_amor.png" alt="Página 5: Uma princesinha cercada de amor" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">🕊️</span>
+                  <span class="sheet-back-seal-text">Família Real</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA 7: ELA FOI CRESCENDO... -->
+            <div class="book-sheet sheet-7" style="z-index: 5;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/07_ela_foi_crescendo.webp" type="image/webp">
+                    <img src="assets/isadora/book/07_ela_foi_crescendo.png" alt="Página 6: Ela foi crescendo no jardim encantado" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">🌷</span>
+                  <span class="sheet-back-seal-text">Crescendo Doce</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA 8: A FLORESTA DESCOBRIU SUA PRINCESA -->
+            <div class="book-sheet sheet-8" style="z-index: 4;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/08_a_floresta_descobriu_sua_princesa.webp" type="image/webp">
+                    <img src="assets/isadora/book/08_a_floresta_descobriu_sua_princesa.png" alt="Página 7: A floresta descobriu sua princesa" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">🦌</span>
+                  <span class="sheet-back-seal-text">Amigos Encantados</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA 9: E ENTÃO... 1 ANINHO! -->
+            <div class="book-sheet sheet-9" style="z-index: 3;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/09_e_entao_1_aninho.webp" type="image/webp">
+                    <img src="assets/isadora/book/09_e_entao_1_aninho.png" alt="Página 8: E então... 1 aninho!" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">🎂</span>
+                  <span class="sheet-back-seal-text">Celebração Real</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA 10: CONVITE MÁGICO COM BOTÕES REAIS DE AÇÃO -->
+            <div class="book-sheet sheet-10" style="z-index: 2;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/10_convite_magico_com_botoes.webp" type="image/webp">
+                    <img src="assets/isadora/book/10_convite_magico_com_botoes.png" alt="Página 9: O próximo capítulo será escrito com você" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+
+                <!-- Botões Reais Clicáveis Sobrepostos no Livro -->
+                <div class="sheet-action-overlay">
+                  <a href="confirmar-presenca.html" class="book-action-btn book-btn-confirm" title="Confirmar Presença na Festa">
+                    <span class="book-btn-icon">💬</span>
+                    <span class="book-btn-label">Confirmar</span>
+                    <span class="book-btn-full"> Presença</span>
+                  </a>
+                  <a href="localizacao.html" class="book-action-btn book-btn-location" title="Ver Localização da Festa">
+                    <span class="book-btn-icon">📍</span>
+                    <span class="book-btn-label">Localização</span>
+                  </a>
+                  <a href="sugestao-presentes.html" class="book-action-btn book-btn-gifts" title="Ver Sugestões de Presentes">
+                    <span class="book-btn-icon">🎁</span>
+                    <span class="book-btn-label">Presentes</span>
+                  </a>
+                </div>
+              </div>
+              <div class="sheet-face sheet-back">
+                <div class="sheet-spine-shadow"></div>
+                <div class="sheet-flip-overlay"></div>
+                <div class="sheet-back-texture"></div>
+                <div class="sheet-back-seal">
+                  <span class="sheet-back-seal-crown">💌</span>
+                  <span class="sheet-back-seal-text">Esperamos Você</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLHA BASE / PÁGINA 11 (FIM MÁGICO / EPÍLOGO) -->
+            <div class="book-sheet sheet-11 sheet-base" style="z-index: 0;">
+              <div class="sheet-face sheet-front">
+                <div class="sheet-spine-shadow"></div>
+                <div class="book-page-image-wrapper">
+                  <picture>
+                    <source srcset="assets/isadora/book/11_fim_magico_isadora.webp" type="image/webp">
+                    <img src="assets/isadora/book/11_fim_magico_isadora.png" alt="Página Final: Fim... Esta história está apenas começando" class="book-page-img" loading="lazy">
+                  </picture>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /book-sheets-stack -->
+
+        </div><!-- /book-assembly -->
+      </div><!-- /book-stage-viewport -->
+
+    </div><!-- /book-sticky-stage -->
+  </section>
+
+  <!-- =====================================================================
+       TRANSIÇÃO DE SAÍDA: CONTINUAÇÃO DO CONVITE
+       ===================================================================== -->
+  <div class="book-outro-curtain">
+    <p class="book-outro-quote">✨ "Fim? Na verdade, essa história está apenas começando..." ✨</p>
+    <p class="book-outro-sub">Continue rolando para descobrir mais detalhes encantados da celebração</p>
+    <div class="book-outro-arrow" aria-hidden="true">▼</div>
+  </div>
 
   <!-- =====================================================================
        4. SEÇÃO 2: A HISTÓRIA DA PRINCESINHA ISADORA ("Era uma vez...")
@@ -467,6 +847,7 @@
   <script src="js/animals.js"></script>
   <script src="js/main.js?v=2.5"></script>
   <script src="js/magic-scroll.js?v=2.5"></script>
+  <script src="js/storybook.js?v=2.6"></script>
 </body>
 </html>
 

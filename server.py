@@ -1,12 +1,22 @@
 import http.server
 import socketserver
 import os
+from urllib.parse import urlparse
+
+http.server.SimpleHTTPRequestHandler.extensions_map.update({
+    '.avif': 'image/avif',
+    '.webp': 'image/webp',
+})
 
 class NoCacheHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
-        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
-        self.send_header('Pragma', 'no-cache')
-        self.send_header('Expires', '0')
+        request_path = urlparse(self.path).path.replace('\\', '/')
+        if request_path.startswith('/assets/isadora/book/'):
+            self.send_header('Cache-Control', 'public, max-age=31536000, immutable')
+        else:
+            self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Expires', '0')
         super().end_headers()
 
 class ThreadedHTTPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):

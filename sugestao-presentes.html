@@ -896,11 +896,12 @@
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                giftId: currentGiftId,
+                giftId: giftId,
                 nome: name,
                 telefone: phone,
                 valor: amount,
-                mensagem: "Contribuição Pix no convite"
+                mensagem: "Contribuição Pix no convite",
+                comprovante: receiptBase64 || null
               })
             }).catch(err => console.log("Nota: Salvo localmente. Sincronização em nuvem pendente.", err));
           }

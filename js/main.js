@@ -35,6 +35,9 @@ function initIntroExperience() {
     if (hasSeenIntro === "true" || skipViaParam) {
       introGate.classList.add("hidden");
       introGate.style.display = "none";
+      if (window.fairytaleAudio) {
+        window.fairytaleAudio.playMusic();
+      }
     }
   }
 
@@ -43,6 +46,7 @@ function initIntroExperience() {
 
   function startIntroExperience() {
     if (window.fairytaleAudio) {
+      window.fairytaleAudio.unlock();
       window.fairytaleAudio.playSparkle();
     }
 
@@ -119,11 +123,9 @@ function initIntroExperience() {
     }
     if (window.fairytaleAudio) {
       window.fairytaleAudio.playRoyalFanfare();
-      // Inicia trilha sonora suave de fundo
+      // Inicia trilha sonora oficial de cara com som ativo
       if (window.CONVITE_CONFIG && window.CONVITE_CONFIG.audio.autoPlayAposIntro) {
-        setTimeout(() => {
-          window.fairytaleAudio.playMusic();
-        }, 1200);
+        window.fairytaleAudio.playMusic();
       }
     }
     if (window.fairytaleBalloons) {

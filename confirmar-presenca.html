@@ -448,7 +448,7 @@
         e.target.value = v;
       });
 
-      // 4. Salvar Confirmação no LocalStorage (Exclusivo pelo Site)
+      // 4. Salvar Confirmação no LocalStorage e no Supabase PostgreSQL
       function saveConfirmation(data) {
         const STORAGE_KEY = "isadora_rsvp_list";
         let list = [];
@@ -457,6 +457,13 @@
         } catch(e) { list = []; }
         list.push(data);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+
+        // Sincroniza em tempo real com o banco de dados Supabase via API
+        fetch("/api/rsvp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        }).catch(err => console.log("Nota: Registro salvo localmente. Sincronização em nuvem pendente.", err));
       }
 
       // 5. Envio do Formulário Exclusivo pelo Site com Reações da Isadora

@@ -13,9 +13,13 @@ fairytale_style_step709.css
 *.mp3
 !assets/*.mp3
 
-# Arquivos de sistema
+# Arquivos de sistema e ambiente
 .DS_Store
 Thumbs.db
 desktop.ini
 *.tmp
 assets/Imagem ChatGPT 28_09_*.png
+node_modules/
+.env
+.env.local
+

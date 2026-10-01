@@ -1,0 +1,28 @@
+{
+  "name": "isadora",
+  "version": "1.0.0",
+  "description": "> 🌐 **Acesse o Convite Online**: [https://johandias.github.io/convite-isadora/](https://johandias.github.io/convite-isadora/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.22.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johandias/convite-isadora.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johandias/convite-isadora/issues"
+  },
+  "homepage": "https://github.com/johandias/convite-isadora#readme"
+}

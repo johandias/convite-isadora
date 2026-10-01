@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Rsvp {
+  id         String   @id @default(uuid()) @db.Uuid
+  guestName  String   @map("guest_name")
+  guestPhone String   @map("guest_phone")
+  attendance String   @default("sim")
+  adults     Int      @default(1)
+  kids       Int      @default(0)
+  message    String?
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("rsvps")
+}
+
+model GiftContribution {
+  id         String   @id @default(uuid()) @db.Uuid
+  giftId     String   @map("gift_id")
+  guestName  String   @map("guest_name")
+  guestPhone String?  @map("guest_phone")
+  amount     Decimal  @db.Decimal(10, 2)
+  message    String?
+  status     String   @default("pendente")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("gift_contributions")
+}
+
+model GiftReservation {
+  id         String   @id @default(uuid()) @db.Uuid
+  giftId     String   @map("gift_id")
+  guestName  String   @map("guest_name")
+  guestPhone String?  @map("guest_phone")
+  status     String   @default("reservado")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("gift_reservations")
+}

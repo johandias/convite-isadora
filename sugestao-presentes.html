@@ -863,6 +863,19 @@
               comprovante: receiptBase64 || "Comprovante enviado"
             });
             saveGifts(gifts);
+
+            // Sincroniza contribuição com o Supabase PostgreSQL
+            fetch("/api/gifts/contribute", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                giftId: currentGiftId,
+                nome: name,
+                telefone: phone,
+                valor: amount,
+                mensagem: "Contribuição Pix no convite"
+              })
+            }).catch(err => console.log("Nota: Salvo localmente. Sincronização em nuvem pendente.", err));
           }
 
           scannerOverlay.classList.remove("active");
@@ -942,6 +955,17 @@
             data: new Date().toLocaleDateString("pt-BR")
           };
           saveGifts(gifts);
+
+          // Sincroniza reserva com o Supabase PostgreSQL
+          fetch("/api/gifts/reserve", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              giftId: giftId,
+              nome: name,
+              telefone: phone
+            })
+          }).catch(err => console.log("Nota: Salvo localmente. Sincronização em nuvem pendente.", err));
         }
 
         modalClaim.classList.remove("active");

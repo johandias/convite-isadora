@@ -10,19 +10,63 @@ class FairytaleAudio {
     this.audioContext = null;
     this.bgMusic = null;
     this.isPlaying = false;
-    this.isMuted = localStorage.getItem("isadora_audio_muted") === "true";
-    this.volume = 0.4;
+    this.isMuted = false; // Som ativo por padrão para tocar de cara
+    this.volume = 0.52; // Volume agradável e equilibrado
+    this.globalTriggersBound = false;
     this.initAudioElement();
+    this.bindGlobalTriggers();
   }
 
   // Inicializa o elemento de áudio de fundo
   initAudioElement() {
     this.bgMusic = new Audio();
-    this.bgMusic.src = (window.CONVITE_CONFIG && window.CONVITE_CONFIG.audio) 
+    const configTrack = (window.CONVITE_CONFIG && window.CONVITE_CONFIG.audio && window.CONVITE_CONFIG.audio.trilhaAmbiente) 
       ? window.CONVITE_CONFIG.audio.trilhaAmbiente 
-      : "assets/ambient-fairytale.mp3";
+      : "assets/o-conto-de-isadora-louise.mp3";
+    this.bgMusic.src = configTrack;
     this.bgMusic.loop = true;
+    this.bgMusic.preload = "auto";
     this.bgMusic.volume = this.isMuted ? 0 : this.volume;
+
+    this.bgMusic.addEventListener("play", () => {
+      this.isPlaying = true;
+      this.updateUiState(true);
+    });
+
+    this.bgMusic.addEventListener("pause", () => {
+      this.isPlaying = false;
+      this.updateUiState(false);
+    });
+  }
+
+  // Desbloqueia e pré-carrega o áudio no primeiro gesto do usuário (ex: abrir convite)
+  unlock() {
+    this.getAudioContext();
+    if (this.bgMusic) {
+      if (this.bgMusic.readyState === 0) {
+        this.bgMusic.load();
+      }
+    }
+  }
+
+  // Registra gatilhos globais de interação para contornar bloqueio de autoplay nos navegadores móveis
+  bindGlobalTriggers() {
+    if (this.globalTriggersBound) return;
+    this.globalTriggersBound = true;
+
+    const startOnInteraction = () => {
+      if (!this.isPlaying && !this.isMuted) {
+        this.playMusic();
+      }
+      if (this.isPlaying) {
+        events.forEach(evt => window.removeEventListener(evt, startOnInteraction, { capture: true }));
+      }
+    };
+
+    const events = ["pointerdown", "touchstart", "click", "keydown", "scroll", "wheel"];
+    events.forEach(evt => {
+      window.addEventListener(evt, startOnInteraction, { capture: true, passive: true });
+    });
   }
 
   // Obtém ou inicializa o contexto Web Audio API com permissão do usuário
@@ -41,31 +85,38 @@ class FairytaleAudio {
 
   // Alterna música de fundo (tocar / pausar)
   toggleMusic() {
-    if (this.isPlaying) {
+    if (this.isPlaying && !this.isMuted) {
       this.pauseMusic();
     } else {
+      this.isMuted = false;
+      if (this.bgMusic) {
+        this.bgMusic.volume = this.volume;
+      }
       this.playMusic();
     }
     return this.isPlaying;
   }
 
   playMusic() {
-    if (!this.bgMusic) return;
+    if (!this.bgMusic) return Promise.resolve(false);
     this.getAudioContext();
     this.bgMusic.volume = this.isMuted ? 0 : this.volume;
     const playPromise = this.bgMusic.play();
     if (playPromise !== undefined) {
-      playPromise
+      return playPromise
         .then(() => {
           this.isPlaying = true;
           this.updateUiState(true);
+          return true;
         })
         .catch((err) => {
-          console.log("Autoplay bloqueado pelo navegador, aguardando clique:", err);
+          console.log("Autoplay aguardando interação do usuário:", err);
           this.isPlaying = false;
           this.updateUiState(false);
+          return false;
         });
     }
+    return Promise.resolve(false);
   }
 
   pauseMusic() {
@@ -77,28 +128,36 @@ class FairytaleAudio {
 
   toggleMute() {
     this.isMuted = !this.isMuted;
-    localStorage.setItem("isadora_audio_muted", this.isMuted);
     if (this.bgMusic) {
       this.bgMusic.volume = this.isMuted ? 0 : this.volume;
+    }
+    if (!this.isMuted && !this.isPlaying) {
+      this.playMusic();
     }
     this.updateUiState(this.isPlaying && !this.isMuted);
     return this.isMuted;
   }
 
   updateUiState(active) {
-    const btn = document.getElementById("musicToggleBtn");
-    if (!btn) return;
-    if (this.isMuted || !this.isPlaying) {
-      btn.classList.remove("playing");
-      btn.setAttribute("title", "Ligar música de conto de fadas 🎵");
-      const icon = btn.querySelector(".music-icon");
-      if (icon) icon.textContent = "🔇";
-    } else {
-      btn.classList.add("playing");
-      btn.setAttribute("title", "Desligar música 🎵");
-      const icon = btn.querySelector(".music-icon");
-      if (icon) icon.textContent = "🎵";
-    }
+    const buttons = document.querySelectorAll("#musicToggleBtn, .music-toggle-btn");
+    const isSoundOn = this.isPlaying && !this.isMuted;
+    buttons.forEach((btn) => {
+      if (isSoundOn) {
+        btn.classList.add("playing");
+        btn.setAttribute("title", "Desligar música 🎵");
+        const icon = btn.querySelector(".music-icon");
+        if (icon) icon.textContent = "🎵";
+        const label = btn.querySelector("span:not(.music-icon)");
+        if (label && label.textContent.trim().toLowerCase().includes("som")) {
+          label.textContent = "Som";
+        }
+      } else {
+        btn.classList.remove("playing");
+        btn.setAttribute("title", "Ligar música de conto de fadas 🎵");
+        const icon = btn.querySelector(".music-icon");
+        if (icon) icon.textContent = "🔇";
+      }
+    });
   }
 
   /* =========================================================================
@@ -253,3 +312,29 @@ class FairytaleAudio {
 
 // Instância global
 window.fairytaleAudio = new FairytaleAudio();
+
+// Inicialização automática e vinculação aos botões de todas as páginas
+document.addEventListener("DOMContentLoaded", () => {
+  // Conecta todos os botões de alternância de música em qualquer página
+  document.querySelectorAll("#musicToggleBtn, .music-toggle-btn").forEach((btn) => {
+    if (!btn.dataset.audioBound) {
+      btn.dataset.audioBound = "true";
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.fairytaleAudio.toggleMusic();
+      });
+    }
+  });
+
+  window.fairytaleAudio.updateUiState(window.fairytaleAudio.isPlaying);
+
+  // Se estiver em subpágina (localizacao, rsvp, presentes) ou se o convite já foi aberto (hasSeenIntro)
+  const isSubpage = !document.getElementById("introGate");
+  const hasSeenIntro = sessionStorage.getItem("isadora_intro_seen") === "true";
+  const urlParams = new URLSearchParams(window.location.search);
+  const skipViaParam = urlParams.get("convite") === "1";
+
+  if (isSubpage || hasSeenIntro || skipViaParam) {
+    window.fairytaleAudio.playMusic();
+  }
+});

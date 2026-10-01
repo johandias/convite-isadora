@@ -56,6 +56,7 @@
       this.titleEl = document.getElementById('bookChapterTitle');
       this.badgeEl = document.getElementById('bookChapterBadge');
       this.stackLeft = document.getElementById('bookStackLeft');
+      this.stackRight = document.getElementById('bookStackRight');
       this.prevBtn = document.getElementById('bookNavPrev');
       this.nextBtn = document.getElementById('bookNavNext');
       this.introCurtain = document.getElementById('bookIntroCurtain');
@@ -76,6 +77,8 @@
 
       this.audioCtx = null;
       this.lastCrossedPage = -1;
+      this.lastSoundState = null;
+      this.lastRenderProgress = 0;
 
       this.init();
     }
@@ -83,6 +86,7 @@
     init() {
       this.refreshMetrics();
       this.bindEvents();
+      this.setupDirectDrag();
       this.update(true);
       this.preloadWindow(0, 4, true);
       this.observePreloadStart();
@@ -100,37 +104,68 @@
       }
     }
 
-    playPageTurnSound() {
+    playPageTurnSound(direction = 1) {
       if (!this.audioCtx) return;
       try {
         if (this.audioCtx.state === 'suspended') {
           this.audioCtx.resume();
         }
         const now = this.audioCtx.currentTime;
-        const bufferSize = this.audioCtx.sampleRate * 0.12;
-        const buffer = this.audioCtx.createBuffer(1, bufferSize, this.audioCtx.sampleRate);
+        const duration = 0.22;
+        const sampleRate = this.audioCtx.sampleRate;
+        const bufferSize = Math.floor(sampleRate * duration);
+        const buffer = this.audioCtx.createBuffer(1, bufferSize, sampleRate);
         const data = buffer.getChannelData(0);
 
+        // Síntese de ruído rosa suave simulando o atrito real entre folhas de papel
+        let b0 = 0, b1 = 0, b2 = 0;
         for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
+          const white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          const pink = (b0 + b1 + b2 + white * 0.5362) * 0.18;
+          const t = i / bufferSize;
+          const envelope = Math.sin(t * Math.PI) * Math.exp(-t * 1.5);
+          data[i] = pink * envelope;
         }
 
         const noise = this.audioCtx.createBufferSource();
         noise.buffer = buffer;
 
+        // Filtro passa-faixa com varredura aerodinâmica (o sopro característico da folha se movendo)
         const filter = this.audioCtx.createBiquadFilter();
         filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(900, now);
-        filter.Q.setValueAtTime(1.5, now);
+        const startFreq = direction >= 0 ? 1450 : 1250;
+        const endFreq = direction >= 0 ? 520 : 620;
+        filter.frequency.setValueAtTime(startFreq, now);
+        filter.frequency.exponentialRampToValueAtTime(endFreq, now + duration * 0.85);
+        filter.Q.setValueAtTime(1.8, now);
 
         const gain = this.audioCtx.createGain();
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.09, now + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
         noise.connect(filter);
         filter.connect(gain);
         gain.connect(this.audioCtx.destination);
         noise.start(now);
+
+        // Fase 2: Amortecimento sutil ao pousar no bloco de páginas (low-frequency cushion thud)
+        const osc = this.audioCtx.createOscillator();
+        const oscGain = this.audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(140, now + duration * 0.65);
+        osc.frequency.exponentialRampToValueAtTime(55, now + duration);
+        oscGain.gain.setValueAtTime(0.0001, now);
+        oscGain.gain.setValueAtTime(0.035, now + duration * 0.65);
+        oscGain.gain.exponentialRampToValueAtTime(0.0001, now + duration + 0.06);
+
+        osc.connect(oscGain);
+        oscGain.connect(this.audioCtx.destination);
+        osc.start(now + duration * 0.65);
+        osc.stop(now + duration + 0.07);
       } catch (e) {}
     }
 
@@ -189,6 +224,116 @@
       document.addEventListener('pointerdown', () => this.initAudio(), { once: true });
     }
 
+    setupDirectDrag() {
+      if (!this.assembly) return;
+
+      let isPointerDown = false;
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+      let startTime = 0;
+      let startProgress = 0;
+      let lastX = 0;
+      let velocityX = 0;
+      let lastMoveTime = 0;
+
+      const onPointerDown = (e) => {
+        // Não interceptar cliques em botões de ação ou links interativos
+        if (e.target.closest('a, button, input, .book-action-btn, .book-nav-arrow')) {
+          return;
+        }
+
+        this.initAudio();
+        isPointerDown = true;
+        isDragging = false;
+        startX = e.clientX;
+        startY = e.clientY;
+        lastX = e.clientX;
+        startTime = performance.now();
+        lastMoveTime = startTime;
+        velocityX = 0;
+        startProgress = this.currentProgress;
+      };
+
+      const onPointerMove = (e) => {
+        if (!isPointerDown) return;
+
+        const currentX = e.clientX;
+        const currentY = e.clientY;
+        const deltaX = currentX - startX;
+        const deltaY = currentY - startY;
+        const now = performance.now();
+
+        const dt = now - lastMoveTime;
+        if (dt > 0) {
+          velocityX = (currentX - lastX) / dt;
+          lastX = currentX;
+          lastMoveTime = now;
+        }
+
+        if (!isDragging) {
+          if (Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+            isDragging = true;
+            this.assembly.classList.add('is-dragging');
+            if (e.cancelable) e.preventDefault();
+          } else if (Math.abs(deltaY) > 10) {
+            isPointerDown = false;
+            return;
+          }
+        }
+
+        if (isDragging) {
+          if (e.cancelable) e.preventDefault();
+          const bookWidth = Math.max(280, this.assembly.offsetWidth);
+          // Arrasto para a esquerda avança a página; arrasto para a direita retrocede
+          const pageTurnDelta = (-deltaX / (bookWidth * 0.75)) * (1 / this.totalSheets);
+          this.targetProgress = Math.max(0, Math.min(1, startProgress + pageTurnDelta));
+          this.preloadAroundProgress(this.targetProgress);
+          this.startUpdateLoop();
+        }
+      };
+
+      const onPointerUp = (e) => {
+        if (!isPointerDown) return;
+        isPointerDown = false;
+
+        const elapsed = performance.now() - startTime;
+        const currentX = e.clientX;
+        const deltaX = currentX - startX;
+        const deltaY = currentY - startY;
+
+        if (isDragging) {
+          isDragging = false;
+          this.assembly.classList.remove('is-dragging');
+
+          const currentStep = this.targetProgress * this.totalSheets;
+          let targetStep = Math.round(currentStep);
+
+          if (Math.abs(velocityX) > 0.45 && elapsed < 350) {
+            targetStep = velocityX < 0 ? Math.ceil(currentStep) : Math.floor(currentStep);
+          }
+
+          const targetChapter = Math.max(0, Math.min(this.totalChapters - 1, targetStep));
+          this.goToChapter(targetChapter);
+        } else if (elapsed < 300 && Math.hypot(deltaX, deltaY) < 12) {
+          // Toque suave nas laterais do livro para folhear rapidamente
+          const rect = this.assembly.getBoundingClientRect();
+          const tapRelativeX = (currentX - rect.left) / rect.width;
+
+          if (tapRelativeX > 0.65) {
+            this.goToChapter(this.currentChapterIndex + 1);
+          } else if (tapRelativeX < 0.35) {
+            this.goToChapter(this.currentChapterIndex - 1);
+          }
+        }
+      };
+
+      this.assembly.addEventListener('pointerdown', onPointerDown, { passive: false });
+      window.addEventListener('pointermove', onPointerMove, { passive: false });
+      window.addEventListener('pointerup', onPointerUp, { passive: true });
+      window.addEventListener('pointercancel', onPointerUp, { passive: true });
+    }
+
     handleScroll() {
       const currentScroll = window.scrollY - this.sectionTop;
       const rawProgress = currentScroll / this.totalScrollable;
@@ -204,10 +349,10 @@
 
     updateLoop() {
       this.rafId = null;
-      const smoothing = this.isReducedMotion ? 0.35 : 0.14;
+      const smoothing = this.isReducedMotion ? 0.35 : 0.16;
       const diff = this.targetProgress - this.currentProgress;
 
-      if (Math.abs(diff) > 0.0005) {
+      if (Math.abs(diff) > 0.0003) {
         this.currentProgress += diff * smoothing;
         this.render();
         this.startUpdateLoop();
@@ -242,11 +387,12 @@
       const totalSheets = this.sheets.length;
       const stepSize = 1 / totalSheets;
       let turnedCount = 0;
+      const isForward = p >= this.lastRenderProgress;
 
       this.sheets.forEach((sheet, i) => {
         const stepStart = i * stepSize;
         const stepEnd = (i + 1) * stepSize;
-        const readingThreshold = stepStart + (stepSize * 0.42);
+        const readingThreshold = stepStart + (stepSize * 0.10);
         const flipOverlay = sheet.querySelector('.sheet-flip-overlay');
         const actionOverlay = sheet.querySelector('.sheet-action-overlay');
 
@@ -281,18 +427,18 @@
           const eased = this.paperEase(clamped);
           const lift = Math.sin(eased * Math.PI);
           const rise = Math.sin(clamped * Math.PI);
-          const earlyCurl = Math.sin(Math.min(1, clamped * 1.35) * Math.PI);
+          const earlyCurl = Math.sin(Math.min(1, clamped * 1.25) * Math.PI);
           const angle = -180 * eased;
-          const curlZ = 7 + (lift * 54);
-          const curlScale = 1 - (lift * 0.065);
-          const skewY = (earlyCurl * 1.55) * (eased < 0.5 ? 1 : -1);
-          const rotateX = rise * (eased < 0.5 ? 2.6 : -1.4);
-          const rotateZ = (rise * 0.82) * (eased < 0.5 ? -1 : 1);
-          const translateX = Math.sin(eased * Math.PI) * -8;
-          const translateY = rise * -7;
+          const curlZ = 4 + (lift * 68);
+          const curlScale = 1 - (lift * 0.082);
+          const skewY = (earlyCurl * 1.8) * (eased < 0.5 ? 1 : -0.75);
+          const rotateX = rise * (eased < 0.5 ? 3.2 : -1.8);
+          const rotateZ = (rise * 1.1) * (eased < 0.5 ? -1 : 0.8);
+          const translateX = Math.sin(eased * Math.PI) * -10;
+          const translateY = rise * -6;
 
-          sheet.style.transform = `translateX(${translateX.toFixed(2)}px) translateY(${translateY.toFixed(2)}px) rotateX(${rotateX.toFixed(2)}deg) rotateZ(${rotateZ.toFixed(2)}deg) rotateY(${angle.toFixed(2)}deg) scaleX(${curlScale.toFixed(3)}) skewY(${skewY.toFixed(2)}deg) translateZ(${curlZ.toFixed(1)}px)`;
-          sheet.style.zIndex = totalSheets + 5;
+          sheet.style.transform = `translateX(${translateX.toFixed(2)}px) translateY(${translateY.toFixed(2)}px) translateZ(${curlZ.toFixed(1)}px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${angle.toFixed(2)}deg) rotateZ(${rotateZ.toFixed(2)}deg) skewY(${skewY.toFixed(2)}deg) scaleX(${curlScale.toFixed(3)})`;
+          sheet.style.zIndex = totalSheets + 10;
           this.applySheetFX(sheet, flipOverlay, eased, lift);
 
           if (actionOverlay) {
@@ -307,20 +453,28 @@
             sheet.classList.remove('turned');
           }
 
-          if (this.lastCrossedPage !== i && clamped > 0.4 && clamped < 0.6) {
-            this.playPageTurnSound();
-            this.lastCrossedPage = i;
+          if (Math.abs(clamped - 0.5) < 0.15) {
+            const pageState = isForward ? `fwd_${i}` : `bwd_${i}`;
+            if (this.lastSoundState !== pageState) {
+              this.playPageTurnSound(isForward ? 1 : -1);
+              this.lastSoundState = pageState;
+            }
           }
         }
       });
 
       if (this.stackLeft) {
-        this.stackLeft.style.transform = `scaleX(${Math.min(1, turnedCount / 11).toFixed(3)})`;
+        const leftRatio = Math.min(1, Math.max(0, turnedCount / (totalSheets - 1)));
+        this.stackLeft.style.transform = `scaleX(${(leftRatio * 0.95).toFixed(3)})`;
+      }
+      if (this.stackRight) {
+        const rightRatio = Math.min(1, Math.max(0, (totalSheets - 1 - turnedCount) / (totalSheets - 1)));
+        this.stackRight.style.transform = `scaleX(${(0.12 + rightRatio * 0.88).toFixed(3)})`;
       }
 
       const activeChapter = Math.min(
         this.totalChapters - 1,
-        Math.floor(p * (this.totalChapters - 0.2))
+        Math.round(p * (this.totalChapters - 1))
       );
 
       if (activeChapter !== this.currentChapterIndex) {
@@ -345,6 +499,8 @@
         this.nextBtn.disabled = this.currentChapterIndex === this.totalChapters - 1;
         this.nextBtn.classList.toggle('disabled', this.currentChapterIndex === this.totalChapters - 1);
       }
+
+      this.lastRenderProgress = p;
     }
 
     renderReducedMotionSheet(sheet, flipOverlay, actionOverlay, p, stepEnd, totalSheets, index) {
@@ -362,17 +518,19 @@
 
     applySheetFX(sheet, flipOverlay, progress, lift) {
       if (flipOverlay) {
-        flipOverlay.style.opacity = (lift * 0.68).toFixed(3);
+        flipOverlay.style.opacity = (lift * 0.75).toFixed(3);
         flipOverlay.style.setProperty('--flip-progress', progress.toFixed(3));
-        flipOverlay.style.setProperty('--flip-shadow', (lift * 0.34).toFixed(3));
-        flipOverlay.style.setProperty('--flip-shadow-soft', (lift * 0.22).toFixed(3));
-        flipOverlay.style.setProperty('--flip-highlight', (lift * 0.28).toFixed(3));
+        flipOverlay.style.setProperty('--flip-shadow', (lift * 0.38).toFixed(3));
+        flipOverlay.style.setProperty('--flip-shadow-soft', (lift * 0.24).toFixed(3));
+        flipOverlay.style.setProperty('--flip-highlight', (lift * 0.35).toFixed(3));
       }
       sheet.style.setProperty('--paper-curl', lift.toFixed(3));
       sheet.style.setProperty('--paper-fold', `${(progress * 100).toFixed(1)}%`);
-      sheet.style.setProperty('--paper-edge-opacity', (0.18 + (lift * 0.32)).toFixed(3));
-      sheet.style.setProperty('--paper-shadow-opacity', (lift * 0.5).toFixed(3));
-      sheet.style.setProperty('--paper-shadow-x', `${(-12 + (progress * 28)).toFixed(1)}px`);
+      sheet.style.setProperty('--paper-edge-opacity', (0.15 + (lift * 0.4)).toFixed(3));
+      sheet.style.setProperty('--paper-shadow-opacity', (lift * 0.58).toFixed(3));
+      sheet.style.setProperty('--paper-shadow-blur', `${(6 + lift * 22).toFixed(1)}px`);
+      sheet.style.setProperty('--paper-shadow-x', `${(-18 + (progress * 36)).toFixed(1)}px`);
+      sheet.style.setProperty('--paper-shadow-scale', (0.75 + lift * 0.25).toFixed(3));
     }
 
     getGuardedProgress(progress) {
@@ -382,7 +540,7 @@
       for (let i = 0; i < this.totalSheets; i++) {
         const stepStart = i * stepSize;
         const stepEnd = (i + 1) * stepSize;
-        const readingThreshold = stepStart + (stepSize * 0.42);
+        const readingThreshold = stepStart + (stepSize * 0.10);
         const nextPageIndex = Math.min(BOOK_PAGES.length - 1, i + 1);
 
         if (progress > readingThreshold && progress < stepEnd && !this.readyPages.has(nextPageIndex)) {

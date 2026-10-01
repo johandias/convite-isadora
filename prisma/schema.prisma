@@ -8,6 +8,7 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+// 1. Confirmações de Presença (RSVP)
 model Rsvp {
   id         String   @id @default(uuid()) @db.Uuid
   guestName  String   @map("guest_name")
@@ -21,6 +22,30 @@ model Rsvp {
   @@map("rsvps")
 }
 
+// 2. Catálogo de Presentes (Gerenciável por Admin)
+model Gift {
+  id                String             @id
+  titulo            String
+  descricao         String?
+  categoria         String             @default("Geral")
+  tipo              String             @default("pessoal") // 'rachar' ou 'pessoal'
+  imagem            String?
+  linkLoja          String?            @map("link_loja")
+  valorTotal        Decimal?           @default(0) @map("valor_total") @db.Decimal(10, 2)
+  valorCota         Decimal?           @default(50) @map("valor_cota") @db.Decimal(10, 2)
+  arrecadado        Decimal?           @default(0) @db.Decimal(10, 2)
+  status            String             @default("disponivel") // 'disponivel' ou 'reservado'
+  reservadoNome     String?            @map("reservado_nome")
+  reservadoTelefone String?            @map("reservado_telefone")
+  reservadoData     String?            @map("reservado_data")
+  createdAt         DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime           @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  contribuicoes     GiftContribution[]
+
+  @@map("gifts")
+}
+
+// 3. Contribuições Pix para Presentes Divididos (Cotas)
 model GiftContribution {
   id         String   @id @default(uuid()) @db.Uuid
   giftId     String   @map("gift_id")
@@ -28,12 +53,15 @@ model GiftContribution {
   guestPhone String?  @map("guest_phone")
   amount     Decimal  @db.Decimal(10, 2)
   message    String?
+  receiptUrl String?  @map("receipt_url")
   status     String   @default("pendente")
   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  gift       Gift     @relation(fields: [giftId], references: [id], onDelete: Cascade)
 
   @@map("gift_contributions")
 }
 
+// 4. Reservas de Presentes Unitários
 model GiftReservation {
   id         String   @id @default(uuid()) @db.Uuid
   giftId     String   @map("gift_id")
@@ -43,4 +71,60 @@ model GiftReservation {
   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
   @@map("gift_reservations")
+}
+
+// 5. Localização da Festa (Gerenciável por Admin)
+model EventLocation {
+  id            String   @id @default("main")
+  venueName     String   @map("venue_name")
+  address       String
+  neighborhood  String
+  city          String
+  state         String
+  zipCode       String?  @map("zip_code")
+  reference     String?
+  googleMapsUrl String?  @map("google_maps_url")
+  wazeUrl       String?  @map("waze_url")
+  uberUrl       String?  @map("uber_url")
+  mapEmbedUrl   String?  @map("map_embed_url")
+  updatedAt     DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("event_location")
+}
+
+// 6. Informações Gerais do Evento & Pix (Gerenciável por Admin)
+model EventInfo {
+  id                String   @id @default("main")
+  childName         String   @default("Isadora") @map("child_name")
+  childFullName     String   @default("Isadora Louise") @map("child_full_name")
+  ageTitle          String   @default("1 ano") @map("age_title")
+  theme             String   @default("Branca de Neve e os Sete Anões")
+  eventDate         String   @default("05/01") @map("event_date")
+  eventWeekday      String   @default("domingo") @map("event_weekday")
+  eventTime         String   @default("19:00") @map("event_time")
+  eventFullDateText String   @default("Domingo, 05 de Janeiro de 2027 às 19:00h") @map("event_full_date_text")
+  targetDate        DateTime @default("2027-01-05T19:00:00Z") @map("target_date") @db.Timestamptz(6)
+  rsvpDeadline      String   @default("28/12") @map("rsvp_deadline")
+  whatsappContact   String   @default("5511999999999") @map("whatsapp_contact")
+  pixKey            String   @default("isadora.1ano@exemplo.com") @map("pix_key")
+  pixKeyType        String   @default("E-mail") @map("pix_key_type")
+  pixBeneficiary    String   @default("Isadora Louise / Mamãe & Papai") @map("pix_beneficiary")
+  pixBank           String   @default("Banco Digital / Poupança Real") @map("pix_bank")
+  adminPassword     String   @default("isadora1ano") @map("admin_password")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("event_info")
+}
+
+// 7. Livro de Recados e Mensagens dos Convidados
+model GuestMessage {
+  id         String   @id @default(uuid()) @db.Uuid
+  authorName String   @map("author_name")
+  authorRole String?  @map("author_role")
+  message    String
+  likes      Int      @default(0)
+  approved   Boolean  @default(true)
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("guest_messages")
 }

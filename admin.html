@@ -207,6 +207,12 @@
         <button type="button" class="admin-tab-btn" id="tabBtnRsvp">
           <span>📋</span> Confirmações no Site (RSVP)
         </button>
+        <button type="button" class="admin-tab-btn" id="tabBtnLocation">
+          <span>📍</span> Local da Festa
+        </button>
+        <button type="button" class="admin-tab-btn" id="tabBtnSettings">
+          <span>⚙️</span> Dados & Pix
+        </button>
       </nav>
 
       <!-- ================================================================
@@ -340,6 +346,213 @@
           <button id="btnClearData" class="btn-submit-action" style="background: #fee2e2; color: #991b1b; border: 1.5px solid #fca5a5; font-size: 11px; min-height: 34px; padding: 4px 10px;">
             <span>🗑️</span> Limpar Lista de Presenças
           </button>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           ABA 3: LOCALIZAÇÃO DA FESTA
+           ================================================================ -->
+      <section id="viewLocation" style="display: none;">
+        <div style="background: #ffffff; border-radius: 18px; border: 2px solid #e2e8f0; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px;">
+          <div style="text-align: center; margin-bottom: 16px;">
+            <div style="font-size: 28px;">📍 🏰 🗺️</div>
+            <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--disney-red); margin: 4px 0 2px 0;">
+              Editar Local da Festa
+            </h3>
+            <p style="font-size: 12px; color: var(--text-secondary);">
+              Atualize as informações do buffet, endereço e links diretos de GPS (Google Maps, Waze, Uber).
+            </p>
+          </div>
+
+          <form id="formAdminLocation">
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label class="form-label" for="locVenueName">Nome do Local / Buffet *</label>
+              <input type="text" id="locVenueName" class="form-input" placeholder="Ex: Espaço Real Encantado Buffet Infantil" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 12px;">
+              <div>
+                <label class="form-label" for="locAddress">Endereço e Número *</label>
+                <input type="text" id="locAddress" class="form-input" placeholder="Ex: Av. das Flores Mágicas, 777" required>
+              </div>
+              <div>
+                <label class="form-label" for="locNeighborhood">Bairro</label>
+                <input type="text" id="locNeighborhood" class="form-input" placeholder="Ex: Jardim Encantado">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+              <div>
+                <label class="form-label" for="locCity">Cidade *</label>
+                <input type="text" id="locCity" class="form-input" placeholder="Ex: São Paulo" required>
+              </div>
+              <div>
+                <label class="form-label" for="locState">Estado (UF) *</label>
+                <input type="text" id="locState" class="form-input" placeholder="SP" maxlength="2" required>
+              </div>
+              <div>
+                <label class="form-label" for="locZip">CEP</label>
+                <input type="text" id="locZip" class="form-input" placeholder="01234-567">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label class="form-label" for="locReference">Ponto de Referência</label>
+              <input type="text" id="locReference" class="form-input" placeholder="Ex: Próximo à Praça das Macieiras Encantadas">
+            </div>
+
+            <hr style="border: 0; border-top: 1px dashed #cbd5e1; margin: 18px 0;">
+
+            <div style="text-align: left; margin-bottom: 12px;">
+              <h4 style="font-size: 13px; color: var(--disney-blue-dark); font-weight: 700; margin-bottom: 4px;">
+                🚀 Links Diretos de Aplicativos & GPS
+              </h4>
+              <p style="font-size: 11px; color: var(--text-muted);">
+                Os convidados poderão abrir esses links com 1 clique direto no celular.
+              </p>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label class="form-label" for="locGoogleMapsUrl">Link Google Maps (Abrir no GPS)</label>
+              <input type="url" id="locGoogleMapsUrl" class="form-input" placeholder="https://maps.google.com/?q=...">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label class="form-label" for="locWazeUrl">Link Waze</label>
+              <input type="url" id="locWazeUrl" class="form-input" placeholder="https://waze.com/ul?q=...">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label class="form-label" for="locUberUrl">Link Uber (Pedir Corrida)</label>
+              <input type="url" id="locUberUrl" class="form-input" placeholder="https://m.uber.com/ul/?action=setPickup&dropoff=...">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label class="form-label" for="locMapEmbedUrl">URL do Iframe Incorporado do Google Maps</label>
+              <input type="url" id="locMapEmbedUrl" class="form-input" placeholder="https://www.google.com/maps/embed?pb=...">
+              <small style="font-size: 10px; color: var(--text-muted); display: block; margin-top: 3px;">
+                Dica: No Google Maps, clique em "Compartilhar" → "Incorporar um mapa" e copie o link dentro de src="..."
+              </small>
+            </div>
+
+            <button type="submit" id="btnSaveLocation" class="btn-submit-action" style="background: var(--gradient-apple-red); font-size: 14px; min-height: 44px;">
+              <span>💾</span> Salvar Localização no Banco & Site
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           ABA 4: DADOS DO EVENTO & CONFIGURAÇÃO DO PIX
+           ================================================================ -->
+      <section id="viewSettings" style="display: none;">
+        <div style="background: #ffffff; border-radius: 18px; border: 2px solid #e2e8f0; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px;">
+          <div style="text-align: center; margin-bottom: 16px;">
+            <div style="font-size: 28px;">⚙️ 🎂 🪙</div>
+            <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--disney-red); margin: 4px 0 2px 0;">
+              Dados da Festa & Chave Pix
+            </h3>
+            <p style="font-size: 12px; color: var(--text-secondary);">
+              Gerencie os dados da aniversariante, data, contatos e dados para recebimento de Pix dos presentes.
+            </p>
+          </div>
+
+          <form id="formAdminInfo">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+              <div>
+                <label class="form-label" for="infoChildName">Primeiro Nome *</label>
+                <input type="text" id="infoChildName" class="form-input" placeholder="Isadora" required>
+              </div>
+              <div>
+                <label class="form-label" for="infoChildFullName">Nome Completo</label>
+                <input type="text" id="infoChildFullName" class="form-input" placeholder="Isadora Louise">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+              <div>
+                <label class="form-label" for="infoAgeTitle">Título da Idade</label>
+                <input type="text" id="infoAgeTitle" class="form-input" placeholder="1º Aninho Real">
+              </div>
+              <div>
+                <label class="form-label" for="infoTheme">Tema da Festa</label>
+                <input type="text" id="infoTheme" class="form-input" placeholder="Branca de Neve Clássica">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+              <div>
+                <label class="form-label" for="infoEventDate">Data (DD/MM) *</label>
+                <input type="text" id="infoEventDate" class="form-input" placeholder="05/01" required>
+              </div>
+              <div>
+                <label class="form-label" for="infoEventWeekday">Dia da Semana</label>
+                <input type="text" id="infoEventWeekday" class="form-input" placeholder="Terça-feira">
+              </div>
+              <div>
+                <label class="form-label" for="infoEventTime">Horário *</label>
+                <input type="text" id="infoEventTime" class="form-input" placeholder="19h00" required>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label class="form-label" for="infoEventFullDateText">Texto Completo da Data</label>
+              <input type="text" id="infoEventFullDateText" class="form-input" placeholder="05 de Janeiro de 2027 às 19:00h">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+              <div>
+                <label class="form-label" for="infoRsvpDeadline">Data Limite RSVP</label>
+                <input type="text" id="infoRsvpDeadline" class="form-input" placeholder="20/12/2026">
+              </div>
+              <div>
+                <label class="form-label" for="infoWhatsapp">WhatsApp dos Pais</label>
+                <input type="tel" id="infoWhatsapp" class="form-input" placeholder="(11) 99999-9999">
+              </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px dashed #cbd5e1; margin: 18px 0;">
+
+            <div style="text-align: left; margin-bottom: 12px;">
+              <h4 style="font-size: 13px; color: var(--disney-blue-dark); font-weight: 700; margin-bottom: 4px;">
+                🪙 Dados para Recebimento de Pix
+              </h4>
+              <p style="font-size: 11px; color: var(--text-muted);">
+                Essa chave será apresentada aos convidados quando dividirem presentes ou contribuírem.
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 12px;">
+              <div>
+                <label class="form-label" for="infoPixKey">Chave Pix *</label>
+                <input type="text" id="infoPixKey" class="form-input" placeholder="isadora.1ano@exemplo.com ou CPF/celular" required>
+              </div>
+              <div>
+                <label class="form-label" for="infoPixKeyType">Tipo de Chave</label>
+                <select id="infoPixKeyType" class="form-select">
+                  <option value="email">E-mail</option>
+                  <option value="cpf">CPF</option>
+                  <option value="telefone">Telefone / Celular</option>
+                  <option value="aleatoria">Chave Aleatória (EVP)</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+              <div>
+                <label class="form-label" for="infoPixBeneficiary">Titular da Conta *</label>
+                <input type="text" id="infoPixBeneficiary" class="form-input" placeholder="Isadora Louise / Mãe ou Pai" required>
+              </div>
+              <div>
+                <label class="form-label" for="infoPixBank">Banco</label>
+                <input type="text" id="infoPixBank" class="form-input" placeholder="Nubank, Inter, Itaú, Bradesco...">
+              </div>
+            </div>
+
+            <button type="submit" id="btnSaveInfo" class="btn-submit-action" style="background: var(--gradient-disney-blue); font-size: 14px; min-height: 44px;">
+              <span>💾</span> Salvar Dados da Festa & Pix
+            </button>
+          </form>
         </div>
       </section>
 
@@ -577,30 +790,70 @@
       });
 
       // ----------------------------------------------------------------------
-      // 2. NAVEGAÇÃO ENTRE ABAS
+      // 2. NAVEGAÇÃO ENTRE AS 4 ABAS
       // ----------------------------------------------------------------------
       const tabBtnGifts = document.getElementById("tabBtnGifts");
       const tabBtnRsvp = document.getElementById("tabBtnRsvp");
+      const tabBtnLocation = document.getElementById("tabBtnLocation");
+      const tabBtnSettings = document.getElementById("tabBtnSettings");
+
       const viewGifts = document.getElementById("viewGifts");
       const viewRsvp = document.getElementById("viewRsvp");
+      const viewLocation = document.getElementById("viewLocation");
+      const viewSettings = document.getElementById("viewSettings");
+
+      const adminTabs = [
+        { btn: tabBtnGifts, view: viewGifts },
+        { btn: tabBtnRsvp, view: viewRsvp },
+        { btn: tabBtnLocation, view: viewLocation },
+        { btn: tabBtnSettings, view: viewSettings }
+      ];
+
+      function switchTab(activeBtn) {
+        adminTabs.forEach(t => {
+          if (t.btn && t.view) {
+            const isActive = (t.btn === activeBtn);
+            t.btn.classList.toggle("active", isActive);
+            t.view.style.display = isActive ? "block" : "none";
+          }
+        });
+      }
 
       tabBtnGifts.addEventListener("click", () => {
-        tabBtnGifts.classList.add("active");
-        tabBtnRsvp.classList.remove("active");
-        viewGifts.style.display = "block";
-        viewRsvp.style.display = "none";
+        switchTab(tabBtnGifts);
+        loadGiftsData();
       });
 
       tabBtnRsvp.addEventListener("click", () => {
-        tabBtnRsvp.classList.add("active");
-        tabBtnGifts.classList.remove("active");
-        viewRsvp.style.display = "block";
-        viewGifts.style.display = "none";
+        switchTab(tabBtnRsvp);
+        loadRsvpsData();
+      });
+
+      tabBtnLocation.addEventListener("click", () => {
+        switchTab(tabBtnLocation);
+        loadLocationData();
+      });
+
+      tabBtnSettings.addEventListener("click", () => {
+        switchTab(tabBtnSettings);
+        loadInfoData();
       });
 
       // ----------------------------------------------------------------------
       // 3. GESTÃO DE CONFIRMAÇÕES (RSVP)
       // ----------------------------------------------------------------------
+      function loadRsvpsData() {
+        fetch("/api/rsvps")
+          .then(res => res.json())
+          .then(data => {
+            if (data && data.success && Array.isArray(data.rsvps)) {
+              localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(data.rsvps));
+              renderRsvpTable();
+            }
+          })
+          .catch(() => {});
+      }
+
       function renderRsvpTable() {
         const rsvpList = JSON.parse(localStorage.getItem(RSVP_STORAGE_KEY) || "[]");
         let confirmed = 0, declined = 0, adults = 0, kids = 0;
@@ -618,9 +871,10 @@
               declined++;
             }
 
+            const regDate = item.dataRegistro || (item.data ? new Date(item.data).toLocaleString("pt-BR") : "-");
             const tr = document.createElement("tr");
             tr.innerHTML = `
-              <td>${item.dataRegistro || "-"}</td>
+              <td>${regDate}</td>
               <td><strong>${item.nome || "-"}</strong></td>
               <td>${item.telefone ? `<a href="https://wa.me/${item.telefone.replace(/\D/g, '')}" target="_blank" style="color: var(--disney-blue); font-weight: 700;">${item.telefone}</a>` : "-"}</td>
               <td><span class="badge-status ${isSim ? 'badge-sim' : 'badge-nao'}">${isSim ? 'Confirmou' : 'Não vai'}</span></td>
@@ -664,6 +918,18 @@
       // ----------------------------------------------------------------------
       // 4. GESTÃO DE PRESENTES
       // ----------------------------------------------------------------------
+      function loadGiftsData() {
+        fetch("/api/gifts")
+          .then(res => res.json())
+          .then(data => {
+            if (data && data.success && Array.isArray(data.gifts) && data.gifts.length > 0) {
+              localStorage.setItem(GIFTS_STORAGE_KEY, JSON.stringify(data.gifts));
+              renderGiftsTable();
+            }
+          })
+          .catch(() => {});
+      }
+
       function getGiftsData() {
         const stored = localStorage.getItem(GIFTS_STORAGE_KEY);
         if (stored) {
@@ -873,6 +1139,14 @@
         }
 
         saveGiftsData(gifts);
+
+        // Sincroniza em tempo real com o banco de dados Supabase
+        fetch("/api/gifts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newGift)
+        }).catch(err => console.log("Nota: Presente salvo localmente.", err));
+
         modalGift.classList.remove("active");
       });
 
@@ -1041,9 +1315,13 @@
 
         const btnDel = e.target.closest(".btn-del-gift");
         if (btnDel) {
+          const giftId = btnDel.dataset.id;
           if (confirm("Deseja realmente excluir este presente do catálogo?")) {
-            const gifts = getGiftsData().filter(g => g.id !== btnDel.dataset.id);
+            const gifts = getGiftsData().filter(g => g.id !== giftId);
             saveGiftsData(gifts);
+            fetch(`/api/gifts?id=${encodeURIComponent(giftId)}`, {
+              method: "DELETE"
+            }).catch(err => console.log("Nota: Excluído localmente.", err));
           }
           return;
         }
@@ -1057,6 +1335,11 @@
               g.status = "disponivel";
               g.reservadoPor = null;
               saveGiftsData(gifts);
+              fetch("/api/gifts", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(g)
+              }).catch(() => {});
             }
           }
           return;
@@ -1099,9 +1382,202 @@
         document.body.removeChild(link);
       }
 
+      // ----------------------------------------------------------------------
+      // 7. GESTÃO DE LOCALIZAÇÃO DA FESTA
+      // ----------------------------------------------------------------------
+      function populateLocationForm(loc) {
+        if (!loc) return;
+        const setVal = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.value = val || "";
+        };
+        setVal("locVenueName", loc.nome);
+        setVal("locAddress", loc.endereco);
+        setVal("locNeighborhood", loc.bairro);
+        setVal("locCity", loc.cidade);
+        setVal("locState", loc.estado || "SP");
+        setVal("locZip", loc.cep);
+        setVal("locReference", loc.referencia);
+        setVal("locGoogleMapsUrl", loc.googleMapsUrl);
+        setVal("locWazeUrl", loc.wazeUrl);
+        setVal("locUberUrl", loc.uberUrl);
+        setVal("locMapEmbedUrl", loc.mapEmbedUrl);
+      }
+
+      function loadLocationData() {
+        let loc = null;
+        const cached = localStorage.getItem("isadora_location");
+        if (cached) {
+          try { loc = JSON.parse(cached); } catch(e) {}
+        }
+        if (!loc && window.CONVITE_CONFIG && window.CONVITE_CONFIG.local) {
+          loc = window.CONVITE_CONFIG.local;
+        }
+        if (loc) populateLocationForm(loc);
+
+        fetch("/api/location")
+          .then(res => res.json())
+          .then(data => {
+            if (data && data.success && data.local) {
+              populateLocationForm(data.local);
+              localStorage.setItem("isadora_location", JSON.stringify(data.local));
+            }
+          })
+          .catch(() => {});
+      }
+
+      const formLocation = document.getElementById("formAdminLocation");
+      if (formLocation) {
+        formLocation.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const getVal = (id) => {
+            const el = document.getElementById(id);
+            return el ? el.value.trim() : "";
+          };
+          const locData = {
+            nome: getVal("locVenueName"),
+            endereco: getVal("locAddress"),
+            bairro: getVal("locNeighborhood"),
+            cidade: getVal("locCity"),
+            estado: getVal("locState"),
+            cep: getVal("locZip"),
+            referencia: getVal("locReference"),
+            googleMapsUrl: getVal("locGoogleMapsUrl"),
+            wazeUrl: getVal("locWazeUrl"),
+            uberUrl: getVal("locUberUrl"),
+            mapEmbedUrl: getVal("locMapEmbedUrl")
+          };
+
+          localStorage.setItem("isadora_location", JSON.stringify(locData));
+
+          fetch("/api/location", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(locData)
+          })
+          .then(res => res.json())
+          .then(res => {
+            alert("📍 Localização da festa salva com sucesso no banco de dados e no site!");
+          })
+          .catch(err => {
+            alert("📍 Localização salva localmente no navegador.");
+          });
+        });
+      }
+
+      // ----------------------------------------------------------------------
+      // 8. GESTÃO DE DADOS DO EVENTO & CHAVE PIX
+      // ----------------------------------------------------------------------
+      function populateInfoForm(info) {
+        if (!info) return;
+        const setVal = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.value = val || "";
+        };
+        setVal("infoChildName", info.nome);
+        setVal("infoChildFullName", info.nomeCompleto);
+        setVal("infoAgeTitle", info.idade);
+        setVal("infoTheme", info.tema);
+        setVal("infoEventDate", info.data);
+        setVal("infoEventWeekday", info.diaDaSemana);
+        setVal("infoEventTime", info.horario);
+        setVal("infoEventFullDateText", info.dataTextoCompleto);
+        setVal("infoRsvpDeadline", info.dataLimiteRsvp);
+        setVal("infoWhatsapp", info.whatsapp);
+        setVal("infoPixKey", info.chavePix);
+        setVal("infoPixKeyType", info.tipoChavePix || "email");
+        setVal("infoPixBeneficiary", info.titularPix);
+        setVal("infoPixBank", info.bancoPix);
+      }
+
+      function loadInfoData() {
+        let info = null;
+        const cached = localStorage.getItem("isadora_info");
+        if (cached) {
+          try { info = JSON.parse(cached); } catch(e) {}
+        }
+        if (!info && window.CONVITE_CONFIG) {
+          const ev = window.CONVITE_CONFIG.evento || {};
+          const px = window.CONVITE_CONFIG.presentes?.pix || {};
+          info = {
+            nome: ev.nome || "Isadora",
+            nomeCompleto: ev.nomeCompleto || "Isadora Louise",
+            idade: ev.idade || "1º Aninho Real",
+            tema: ev.tema || "Branca de Neve Clássica",
+            data: ev.data || "05/01",
+            diaDaSemana: ev.diaDaSemana || "Terça-feira",
+            horario: ev.horario || "19h00",
+            dataTextoCompleto: ev.dataTextoCompleto || "05 de Janeiro de 2027 às 19:00h",
+            dataLimiteRsvp: ev.dataLimiteRsvp || "20/12/2026",
+            whatsapp: ev.whatsapp || "",
+            chavePix: px.chave || "",
+            tipoChavePix: px.tipo || "email",
+            titularPix: px.titular || "Isadora Louise",
+            bancoPix: px.banco || "Poupança Real"
+          };
+        }
+        if (info) populateInfoForm(info);
+
+        fetch("/api/info")
+          .then(res => res.json())
+          .then(data => {
+            if (data && data.success && data.info) {
+              populateInfoForm(data.info);
+              localStorage.setItem("isadora_info", JSON.stringify(data.info));
+            }
+          })
+          .catch(() => {});
+      }
+
+      const formInfo = document.getElementById("formAdminInfo");
+      if (formInfo) {
+        formInfo.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const getVal = (id) => {
+            const el = document.getElementById(id);
+            return el ? el.value.trim() : "";
+          };
+          const infoData = {
+            nome: getVal("infoChildName"),
+            nomeCompleto: getVal("infoChildFullName"),
+            idade: getVal("infoAgeTitle"),
+            tema: getVal("infoTheme"),
+            data: getVal("infoEventDate"),
+            diaDaSemana: getVal("infoEventWeekday"),
+            horario: getVal("infoEventTime"),
+            dataTextoCompleto: getVal("infoEventFullDateText"),
+            dataLimiteRsvp: getVal("infoRsvpDeadline"),
+            whatsapp: getVal("infoWhatsapp"),
+            chavePix: getVal("infoPixKey"),
+            tipoChavePix: getVal("infoPixKeyType") || "email",
+            titularPix: getVal("infoPixBeneficiary"),
+            bancoPix: getVal("infoPixBank")
+          };
+
+          localStorage.setItem("isadora_info", JSON.stringify(infoData));
+
+          fetch("/api/info", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(infoData)
+          })
+          .then(res => res.json())
+          .then(res => {
+            alert("⚙️ Dados da festa e Pix salvos com sucesso no banco de dados e no site!");
+          })
+          .catch(err => {
+            alert("⚙️ Dados salvos localmente no navegador.");
+          });
+        });
+      }
+
       function renderAll() {
+        loadGiftsData();
         renderGiftsTable();
+        loadRsvpsData();
         renderRsvpTable();
+        loadLocationData();
+        loadInfoData();
       }
 
       checkAuth();

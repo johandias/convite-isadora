@@ -134,21 +134,45 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Popula dados dinâmicos do config
-      if (window.CONVITE_CONFIG && window.CONVITE_CONFIG.local) {
-        const loc = window.CONVITE_CONFIG.local;
-        document.getElementById("venueName").textContent = loc.nome;
-        document.getElementById("venueAddress").textContent = `${loc.endereco} - ${loc.bairro}`;
-        document.getElementById("venueCity").textContent = `${loc.cidade} - ${loc.estado}`;
-        document.getElementById("venueReference").textContent = loc.referencia;
+      function applyLocationData(loc) {
+        if (!loc) return;
+        if (loc.nome) document.getElementById("venueName").textContent = loc.nome;
+        const addrPart = loc.endereco ? (loc.bairro ? `${loc.endereco} - ${loc.bairro}` : loc.endereco) : '';
+        if (addrPart) document.getElementById("venueAddress").textContent = addrPart;
+        const cityPart = loc.cidade ? (loc.estado ? `${loc.cidade} - ${loc.estado}` : loc.cidade) : '';
+        if (cityPart) document.getElementById("venueCity").textContent = cityPart;
+        if (loc.referencia) document.getElementById("venueReference").textContent = loc.referencia;
         
-        document.getElementById("linkGoogleMaps").href = loc.googleMapsUrl;
-        document.getElementById("linkWaze").href = loc.wazeUrl;
-        document.getElementById("linkUber").href = loc.uberUrl;
+        if (loc.googleMapsUrl) document.getElementById("linkGoogleMaps").href = loc.googleMapsUrl;
+        if (loc.wazeUrl) document.getElementById("linkWaze").href = loc.wazeUrl;
+        if (loc.uberUrl) document.getElementById("linkUber").href = loc.uberUrl;
         if (loc.mapEmbedUrl) {
           document.getElementById("mapIframe").src = loc.mapEmbedUrl;
         }
       }
+
+      // 1. Carrega dados do cache local ou do config padrão
+      const cachedLoc = localStorage.getItem("isadora_location");
+      if (cachedLoc) {
+        try {
+          applyLocationData(JSON.parse(cachedLoc));
+        } catch(e) {}
+      } else if (window.CONVITE_CONFIG && window.CONVITE_CONFIG.local) {
+        applyLocationData(window.CONVITE_CONFIG.local);
+      }
+
+      // 2. Sincroniza em tempo real com o banco de dados Supabase via API
+      fetch("/api/location")
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.success && data.local) {
+            applyLocationData(data.local);
+            localStorage.setItem("isadora_location", JSON.stringify(data.local));
+          }
+        })
+        .catch(err => {
+          console.log("Nota: Usando dados locais de localização.", err);
+        });
 
       // Botão Copiar Endereço
       document.getElementById("btnCopyAddress").addEventListener("click", () => {

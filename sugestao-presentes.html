@@ -525,6 +525,33 @@
         }
       }
 
+      // Sincronização em tempo real com o banco de dados Supabase via API
+      fetch("/api/gifts")
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.success && Array.isArray(data.gifts) && data.gifts.length > 0) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data.gifts));
+            renderCatalog();
+          }
+        })
+        .catch(err => console.log("Nota: Usando catálogo local de presentes.", err));
+
+      fetch("/api/info")
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.success && data.info) {
+            const info = data.info;
+            if (info.chavePix) {
+              officialPixKey = info.chavePix;
+              const box = document.getElementById("splitPixKeyBox");
+              if (box) box.textContent = info.chavePix;
+              const ben = document.getElementById("pixBeneficiaryLabel");
+              if (ben) ben.textContent = `Titular: ${info.titularPix || 'Isadora Louise'} • ${info.bancoPix || 'Poupança Real'}`;
+            }
+          }
+        })
+        .catch(err => console.log("Nota: Usando dados padrão de Pix.", err));
+
       // 2. Armazenamento de Presentes
       function getGifts() {
         const stored = localStorage.getItem(STORAGE_KEY);

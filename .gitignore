@@ -22,4 +22,6 @@ assets/Imagem ChatGPT 28_09_*.png
 node_modules/
 .env
 .env.local
+__pycache__/
+*.pyc
 
